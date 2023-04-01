@@ -79,6 +79,7 @@
      <Compile Include="Assets\Imported\Mini First Person Controller\Scripts\Components\Crouch.cs" />
      <Compile Include="Assets\Imported\Mini First Person Controller\Scripts\Components\GroundCheck.cs" />
      <Compile Include="Assets\Imported\Mini First Person Controller\Scripts\Components\Zoom.cs" />
+     <Compile Include="Assets\Scripts\Shaders\Blit.cs" />
      <None Include="Assets\Imported\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\Imported\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\Imported\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
