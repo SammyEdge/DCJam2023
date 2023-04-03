@@ -1,4 +1,4 @@
-using System.Diagnostics;
+//using System.Diagnostics;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -105,14 +105,14 @@ public class MonsterController : MonoBehaviour, Hittable
                         Player.GetComponent<PlayerStats>().TakeDamage(1);
                         print(gameObject.name + ": attacking player");
                         knownPlayersLocation = playerPosition;
-                        UnityEngine.Debug.DrawRay(gameObject.transform.position, playerPosition - gameObject.transform.position, Color.green, 2);
+                        Debug.DrawRay(gameObject.transform.position, playerPosition - gameObject.transform.position, Color.green, 2);
                         timer = 2;
                         return;
                     }
                     else
                     {
                         isAttacking = false;
-                        UnityEngine.Debug.DrawRay(gameObject.transform.position, knownPlayersLocation - gameObject.transform.position, Color.yellow, 2);
+                        Debug.DrawRay(gameObject.transform.position, knownPlayersLocation - gameObject.transform.position, Color.yellow, 2);
                         isChecking = true;
                         timer = 2;
                         print(gameObject.name + ": he is gone!");
@@ -122,7 +122,7 @@ public class MonsterController : MonoBehaviour, Hittable
                 else
                 {
                     isAttacking = false;
-                    UnityEngine.Debug.DrawRay(gameObject.transform.position, knownPlayersLocation - gameObject.transform.position, Color.blue, 2);
+                    Debug.DrawRay(gameObject.transform.position, knownPlayersLocation - gameObject.transform.position, Color.blue, 2);
                     isChecking = true;
                     timer = 2;
                     print(gameObject.name + ": he is missed!");
@@ -171,7 +171,7 @@ public class MonsterController : MonoBehaviour, Hittable
                         isAttacking = false;
                         isMoving = false;
                     }
-                    UnityEngine.Debug.DrawRay(gameObject.transform.position, playerPosition - gameObject.transform.position, Color.red, 2);
+                    Debug.DrawRay(gameObject.transform.position, playerPosition - gameObject.transform.position, Color.red, 2);
                     //print(Player.transform.position.x.ToString() + " " + Player.transform.position.z.ToString());
                 }
             }
