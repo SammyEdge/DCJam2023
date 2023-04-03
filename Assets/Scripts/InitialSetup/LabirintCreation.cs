@@ -120,6 +120,7 @@ public class LabirintCreation : MonoBehaviour
         PlaceBreakableWall();
         PlaceChests();
         PlaceMonsters(Monster, 25); // Only 5 monsters now, you can increase, decrease or randomize this qty
+        print("torchescounter "+TorchesCounter.ToString());
     }
     /*void MoldTile(int EnterPoint, GameObject NewlyInstatniated)
     {
@@ -1039,22 +1040,35 @@ public class LabirintCreation : MonoBehaviour
 
     void PlaceTorch(GameObject NewlyInstatniated)
     {
+       
         if (TorchChecker == 0)
         {
             var i = 0;
             foreach (var WallObject in NewlyInstatniated.GetComponent<MazeTile>().WallsObjects)
             {
+                print(WallObject.transform.name);
                 if (WallObject.GetComponent<WallStuff>().Wall)
                 {
+                    print("gottorch");
+                    print(WallObject.GetComponent<WallStuff>().Torch);
+                    WallObject.GetComponent<WallStuff>().Torch = true;
+                    print(WallObject.GetComponent<WallStuff>().Torch);
                     if (UnityEngine.Random.Range(0, 2) == 0)
                     {
                         //print(i);
                         //NewlyInstatniated.GetComponent<MazeTile>().WallTorches[i].SetActive(true);
                         //NewlyInstatniated.GetComponent<MazeTile>().Torches[i] = true;
-                        NewlyInstatniated.GetComponent<MazeTile>().WallsObjects[i].GetComponent<WallStuff>().Torch = true;
-                        TorchesCounter++;
-                        break;
+                        //NewlyInstatniated.GetComponent<MazeTile>().WallsObjects[i].GetComponent<WallStuff>().Torch = true;
+                        //TorchesCounter++;
+                        //break;
                     }
+                    //NewlyInstatniated.GetComponent<MazeTile>().WallsObjects[i].GetComponent<WallStuff>().Torch = true;
+                    TorchesCounter++;
+                    break;
+                }
+                else
+                {
+                    print("fucktorch");
                 }
                 i++;
             }
