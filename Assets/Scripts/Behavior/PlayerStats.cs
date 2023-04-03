@@ -6,6 +6,7 @@ public class PlayerStats : MonoBehaviour
 {
     public int health;
     public int stamina;
+    public int energy;
     
     private void Start() 
     {
@@ -23,5 +24,11 @@ public class PlayerStats : MonoBehaviour
     {
         stamina -=fatugue;
         Debug.Log("Stamina = " + stamina.ToString());
+    }
+
+    public void ChangeEnergy(int energy)
+    {
+        this.energy += energy;
+        Debug.Log("Energy = " + this.energy.ToString());
     }
 }

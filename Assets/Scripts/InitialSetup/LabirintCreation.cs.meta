@@ -3,7 +3,14 @@ guid: 0d3f29b8b5bc09c4c86a8a48f86e53fd
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - EnterBlock: {instanceID: 0}
+  - BlockBehindEnter: {instanceID: 0}
+  - StartTile: {instanceID: 0}
+  - RawTile: {instanceID: 0}
+  - Chest: {instanceID: 0}
+  - Monster: {instanceID: 0}
+  - BreakableMaterial: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

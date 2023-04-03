@@ -551,5 +551,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65aefe70a9fa1cd4dbd2f9bd30f3711d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LootSack: {fileID: 3596702344445759079, guid: 9f75a709e2768e74187c76ae1bb38f64, type: 3}
+  LootSack: {fileID: 3596702344445759079, guid: 9f75a709e2768e74187c76ae1bb38f64,
+    type: 3}
   HittableObjectType: 1
+  playerPosition: {x: 0, y: 0, z: 0}
+  knownPlayersLocation: {x: 0, y: 0, z: 0}
+  destination: {x: 0, y: 0, z: 0}
+  isWaiting: 1
+  isChasing: 0
+  isAttacking: 0
+  isMoving: 0
+  isChecking: 0

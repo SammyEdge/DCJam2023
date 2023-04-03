@@ -43,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
     private KeyBinds keyBinds = new KeyBinds();
     public Moving moving = new Moving();
     private MovingDirection movingDirection = new MovingDirection();
+    int movingCounter;
 
     //private bool KeyForwardPressed = false;
     //private bool KeyBackwardPressed = false;
@@ -62,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
         TargetPosition = new Vector3(0, 0, 0);
         TargetRotation = Quaternion.Euler(new Vector3(0, 0, 0));
         moving.Current = false;
+        movingCounter = 0;
     }
 
     // Update is called once per frame
@@ -110,69 +112,11 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
-        //Test -= Time.deltaTime;
-        //if (Test < 0)
-        //{
-        //    print("2 seconds passed");
-        //    Test = 2;
-        //}
-
-        //print("-----");
-        //TimePassed += Time.deltaTime;
-        //print(TimePassed);
-        //print("-----");
-        //if (Input.GetKeyDown(keyBinds.turnRight))
-        //{
-        //print("----------------");
-        //print(transform.eulerAngles.y);
-        //print(TargetRotation.eulerAngles.y);
-        //print(moving.Rotation);
-        //print("----------------");
-        //}
-
-        //if (TargetPosition == transform.position && transform.eulerAngles.y == TargetRotation.eulerAngles.y)
-        //{
-        //    if (moving.Current)
-        //    {
-        //        KeyForwardPressed = false;
-        //        KeyBackwardPressed = false;
-        //        KeyStrafeLeftPressed = false;
-        //        KeyStrafeRightPressed = false;
-        //    }
-        //    if (Input.GetKeyDown(keyBinds.moveForward))
-        //    {
-        //        KeyForwardPressed = true;
-        //    }
-        //    if (Input.GetKeyDown(keyBinds.moveBackward))
-        //    {
-        //        KeyBackwardPressed = true;
-        //    }
-        //    if (Input.GetKeyDown(keyBinds.strafeLeft))
-        //    {
-        //        KeyStrafeLeftPressed = true;
-        //    }
-        //    if (Input.GetKeyDown(keyBinds.strafeRigth))
-        //    {
-        //        KeyStrafeRightPressed = true;
-        //    }
-        //}
-        //if (transform.eulerAngles.y == TargetRotation.eulerAngles.y)
-        //{
-        //    if (moving.Rotation)
-        //    {
-        //        KeyTurnRightPressed = false;
-        //        KeyTurnLeftPressed = false;
-        //    }
-        //    if (Input.GetKeyDown(keyBinds.turnRight))
-        //    {
-        //        print(transform.rotation);
-        //        KeyTurnRightPressed = true;
-        //    }
-        //    if (Input.GetKeyDown(keyBinds.turnLeft))
-        //    {
-        //        KeyTurnLeftPressed = true;
-        //    }
-        //}
+        if (movingCounter >= 10)
+        {
+            Camera.transform.parent.GetComponent<PlayerStats>().ChangeEnergy(1);
+            movingCounter = 0;
+        }
 
         if (TargetPosition == transform.position && transform.eulerAngles.y == TargetRotation.eulerAngles.y)
         {
@@ -187,15 +131,11 @@ public class PlayerMovement : MonoBehaviour
                 PositionBeforeMovementStarts = transform.position;
                 if (SceneManager.GetActiveScene().name == "SampleScene")
                 {
-                    DynamicLIghtV2(movingDirection.Current);
+                    DynamicLIght(movingDirection.Current);
                 }
                 //DynamicLIght(moving.Current);
             }
-            // Forward move pressed
-            //if (Input.GetKey)
-            //{
 
-            //}
             if (Input.GetKey(keyBinds.moveForward))
             {
                 //KeyForwardPressed = false;
@@ -203,13 +143,14 @@ public class PlayerMovement : MonoBehaviour
                 if (!Physics.Raycast(transform.position, transform.forward, out Hit, 8f, 3))
                 {
                     moving.Current = true;
-                    //DynamicLIght(moving.Current);
+                    movingCounter++;
+                    Debug.Log("squares moved " + movingCounter.ToString());
                     PositionBeforeMovementStarts = transform.position;
                     TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.forward, 1);
                     movingDirection.Current = movingDirection.Forward;
                     if (SceneManager.GetActiveScene().name == "SampleScene")
                     {
-                        DynamicLIghtV2(movingDirection.Current);
+                        DynamicLIght(movingDirection.Current);
                     }
                     //transform.position += new Vector3(ForwardX, 0f, ForwardZ);
                 }
@@ -225,13 +166,14 @@ public class PlayerMovement : MonoBehaviour
                 if (!Physics.Raycast(transform.position, transform.forward * -1, out Hit, 8f, 3))
                 {
                     moving.Current = true;
-                    //DynamicLIght(moving.Current);
+                    movingCounter++;
+                    Debug.Log("squares moved " + movingCounter.ToString());
                     PositionBeforeMovementStarts = transform.position;
                     TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.forward, -1);
                     movingDirection.Current = movingDirection.Backward;
                     if (SceneManager.GetActiveScene().name == "SampleScene")
                     {
-                        DynamicLIghtV2(movingDirection.Current);
+                        DynamicLIght(movingDirection.Current);
                     }
                     //transform.position += new Vector3(ForwardX, 0f, ForwardZ);
                 }
@@ -244,12 +186,14 @@ public class PlayerMovement : MonoBehaviour
                 if (!Physics.Raycast(transform.position, transform.right * -1, out hit, 8, 3))
                 {
                     moving.Current = true;
+                    movingCounter++;
+                    Debug.Log("squares moved " + movingCounter.ToString());
                     PositionBeforeMovementStarts = transform.position;
                     TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.right, -1);
                     movingDirection.Current = movingDirection.StrafeLeft;
                     if (SceneManager.GetActiveScene().name == "SampleScene")
                     {
-                        DynamicLIghtV2(movingDirection.Current);
+                        DynamicLIght(movingDirection.Current);
                     }
                 }
             }
@@ -262,12 +206,14 @@ public class PlayerMovement : MonoBehaviour
                 if (!Physics.Raycast(transform.position, transform.right, out hit, 8, 3))
                 {
                     moving.Current = true;
+                    movingCounter++;
+                    Debug.Log("squares moved " + movingCounter.ToString());
                     PositionBeforeMovementStarts = transform.position;
                     TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.right, 1);
                     movingDirection.Current = movingDirection.StrafeRight;
                     if (SceneManager.GetActiveScene().name == "SampleScene")
                     {
-                        DynamicLIghtV2(movingDirection.Current);
+                        DynamicLIght(movingDirection.Current);
                     }
                 }
             }
@@ -285,7 +231,7 @@ public class PlayerMovement : MonoBehaviour
                 movingDirection.Current = movingDirection.TurnRight;
                 if (SceneManager.GetActiveScene().name == "SampleScene")
                 {
-                    DynamicLIghtV2(movingDirection.Current);
+                    DynamicLIght(movingDirection.Current);
                 }
                 CurrentRotation = Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, 0));
                 TargetRotation = Quaternion.Euler(new Vector3(0, transform.eulerAngles.y + 90, 0));
@@ -300,7 +246,7 @@ public class PlayerMovement : MonoBehaviour
                 movingDirection.Current = movingDirection.TurnLeft;
                 if (SceneManager.GetActiveScene().name == "SampleScene")
                 {
-                    DynamicLIghtV2(movingDirection.Current);
+                    DynamicLIght(movingDirection.Current);
                 }
                 CurrentRotation = Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, 0));
                 TargetRotation = Quaternion.Euler(new Vector3(0, transform.eulerAngles.y - 90, 0));
@@ -376,174 +322,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    //void DynamicLIght(bool Moving)
-    //{
-    //    //print(Moving);
-    //    if (!LightsOn) {
-    //        return;
-    //    }
-    //    if (Moving)
-    //    {
-    //        MovingCorrection = 1;
-    //    }
-    //    else
-    //    {
-    //        MovingCorrection = 0;
-    //    }
-    //    CurrentPosition = transform.position;
-    //    if (ForwardZ == 10f)
-    //    {
-    //        CurrentPositionLeft = new Vector3(CurrentPosition.x - 10, 0, CurrentPosition.z);
-    //        CurrentPositionRight = new Vector3(CurrentPosition.x + 10, 0, CurrentPosition.z);
-    //    }
-    //    if (ForwardZ == -10f)
-    //    {
-    //        CurrentPositionLeft = new Vector3(CurrentPosition.x + 10, 0, CurrentPosition.z);
-    //        CurrentPositionRight = new Vector3(CurrentPosition.x - 10, 0, CurrentPosition.z);
-    //    }
-    //    if (ForwardX == 10f)
-    //    {
-    //        CurrentPositionLeft = new Vector3(CurrentPosition.x, 0, CurrentPosition.z + 10);
-    //        CurrentPositionRight = new Vector3(CurrentPosition.x, 0, CurrentPosition.z - 10);
-    //    }
-    //    if (ForwardX == -10f)
-    //    {
-    //        CurrentPositionLeft = new Vector3(CurrentPosition.x, 0, CurrentPosition.z - 10);
-    //        CurrentPositionRight = new Vector3(CurrentPosition.x, 0, CurrentPosition.z + 10);
-    //    }
-    //    //print(new Vector3(ForwardX, 0f, ForwardZ));
-    //    //print(CurrentPosition);
-    //    //print(CurrentPositionLeft);
-    //    //print(CurrentPositionRight);
-    //    CurrentPositionForward.Clear();
-    //    CurrentPositionLeftForward.Clear();
-    //    CurrentPositionRightForward.Clear();
-    //    CurrentPositionForward.Add(CurrentPosition);
-    //    for (int i = 1; i < lightDistance+MovingCorrection; i++)
-    //    //for (int i = 1; i < 6; i++)
-    //    {
-    //        //print(CurrentPosition);
-    //        CurrentPosition += new Vector3(ForwardX, 0f, ForwardZ);
-    //        CurrentPositionForward.Add(CurrentPosition);
-    //    }
-
-    //    CurrentPositionLeftForward.Add(CurrentPositionLeft);
-    //    for (int i = 1; i < lightDistance+MovingCorrection; i++)
-    //    {
-    //        CurrentPositionLeft += new Vector3(ForwardX, 0f, ForwardZ);
-    //        CurrentPositionLeftForward.Add(CurrentPositionLeft);
-    //    }
-
-    //    CurrentPositionRightForward.Add(CurrentPositionRight);
-    //    for (int i = 1; i < lightDistance + MovingCorrection; i++)
-    //    {
-    //        CurrentPositionRight += new Vector3(ForwardX, 0f, ForwardZ);
-    //        CurrentPositionRightForward.Add(CurrentPositionRight);
-    //    }
-
-    //    ActiveTiles = GameObject.FindGameObjectsWithTag("MazeTile");
-    //    foreach (var tile in ActiveTiles)
-    //    {
-    //        int IndexOfTile = CurrentPositionForward.IndexOf(tile.transform.position);
-    //        int IndexOfTileLeft = CurrentPositionLeftForward.IndexOf(tile.transform.position);
-    //        int IndexOfTileRight = CurrentPositionRightForward.IndexOf(tile.transform.position);
-    //        //print(IndexOfTile);
-    //        //print(IndexOfTileLeft);
-    //        //print(IndexOfTileRight);
-    //        if (IndexOfTile == -1 && IndexOfTileLeft == -1 && IndexOfTileRight == -1)
-    //        {
-    //            foreach (var item in tile.GetComponent<MazeTile>().WallTorches)
-    //            {
-    //                if (!Moving && item.activeSelf)
-    //                {
-    //                    item.SetActive(false);
-    //                }
-    //                //item.SetActive(false);
-    //            }
-    //        }
-    //    }
-
-    //    foreach (var Position in CurrentPositionForward)
-    //    {
-    //        int IndexOfTile = MazeController.GetComponent<MazeControllerV2>().TilesCoordinates.IndexOf(Position);
-    //        if (IndexOfTile > 0)
-    //        {
-    //            var VarTile = MazeController.GetComponent<MazeControllerV2>().Tiles[IndexOfTile];
-    //            //var TorchBoolId = 0;
-    //            foreach (var item in VarTile.GetComponent<MazeTile>().WallsObjects)
-    //            {
-    //                if (item.GetComponent<WallStuff>().Torch && !item.GetComponent<WallStuff>().TorchObject.activeSelf)
-    //                {
-    //                    item.GetComponent<WallStuff>().TorchObject.SetActive(true);
-
-    //                }
-    //            }
-    //            //foreach (var TorchBool in VarTile.GetComponent<MazeTile>().Torches)
-    //            //{
-    //            //    if (TorchBool)
-    //            //    {
-    //            //        //VarTile.GetComponent<MazeTile>().WallTorches[TorchBoolId].SetActive(true);
-    //            //        VarTile.GetComponent<MazeTile>().WallsObjects[TorchBoolId].GetComponent<WallStuff>().TorchObject.SetActive(true);
-    //            //    }
-    //            //    TorchBoolId++;
-    //            //}
-    //            //print(IndexOfTile);
-    //        }
-    //        }
-    //    foreach (var Position in CurrentPositionLeftForward)
-    //    {
-    //        int IndexOfTile = MazeController.GetComponent<MazeControllerV2>().TilesCoordinates.IndexOf(Position);
-    //        if (IndexOfTile > 0)
-    //        {
-    //            var VarTile = MazeController.GetComponent<MazeControllerV2>().Tiles[IndexOfTile];
-    //            //var TorchBoolId = 0;
-    //            //foreach (var TorchBool in VarTile.GetComponent<MazeTile>().Torches)
-    //            //{
-    //            //    if (TorchBool)
-    //            //    {
-    //            //        VarTile.GetComponent<MazeTile>().WallTorches[TorchBoolId].SetActive(true);
-    //            //    }
-    //            //    TorchBoolId++;
-    //            //}
-    //            //print(IndexOfTile);
-    //            foreach (var item in VarTile.GetComponent<MazeTile>().WallsObjects)
-    //            {
-    //                if (item.GetComponent<WallStuff>().Torch)
-    //                {
-    //                    item.GetComponent<WallStuff>().TorchObject.SetActive(true);
-
-    //                }
-    //            }
-    //        }
-    //    }
-    //    foreach (var Position in CurrentPositionRightForward)
-    //    {
-    //        int IndexOfTile = MazeController.GetComponent<MazeControllerV2>().TilesCoordinates.IndexOf(Position);
-    //        if (IndexOfTile > 0)
-    //        {
-    //            var VarTile = MazeController.GetComponent<MazeControllerV2>().Tiles[IndexOfTile];
-    //            //var TorchBoolId = 0;
-    //            //foreach (var TorchBool in VarTile.GetComponent<MazeTile>().Torches)
-    //            //{
-    //            //    if (TorchBool)
-    //            //    {
-    //            //        VarTile.GetComponent<MazeTile>().WallTorches[TorchBoolId].SetActive(true);
-    //            //    }
-    //            //    TorchBoolId++;
-    //            //}
-    //            foreach (var item in VarTile.GetComponent<MazeTile>().WallsObjects)
-    //            {
-    //                if (item.GetComponent<WallStuff>().Torch)
-    //                {
-    //                    item.GetComponent<WallStuff>().TorchObject.SetActive(true);
-
-    //                }
-    //            }
-    //            //print(IndexOfTile);
-    //        }
-    //    }
-    //}
-    void DynamicLIghtV2(int DirectionOfMovement)
+    void DynamicLIght(int DirectionOfMovement)
     {
         Vector3 FuturePositionLeft = new Vector3(0, 0, 0);
         Vector3 FuturePositionRight = new Vector3(0, 0, 0);

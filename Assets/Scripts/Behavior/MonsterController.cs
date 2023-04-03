@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -104,14 +105,14 @@ public class MonsterController : MonoBehaviour, Hittable
                         Player.GetComponent<PlayerStats>().TakeDamage(1);
                         print(gameObject.name + ": attacking player");
                         knownPlayersLocation = playerPosition;
-                        Debug.DrawRay(gameObject.transform.position, playerPosition - gameObject.transform.position, Color.green, 2);
+                        UnityEngine.Debug.DrawRay(gameObject.transform.position, playerPosition - gameObject.transform.position, Color.green, 2);
                         timer = 2;
                         return;
                     }
                     else
                     {
                         isAttacking = false;
-                        Debug.DrawRay(gameObject.transform.position, knownPlayersLocation - gameObject.transform.position, Color.yellow, 2);
+                        UnityEngine.Debug.DrawRay(gameObject.transform.position, knownPlayersLocation - gameObject.transform.position, Color.yellow, 2);
                         isChecking = true;
                         timer = 2;
                         print(gameObject.name + ": he is gone!");
@@ -121,7 +122,7 @@ public class MonsterController : MonoBehaviour, Hittable
                 else
                 {
                     isAttacking = false;
-                    Debug.DrawRay(gameObject.transform.position, knownPlayersLocation - gameObject.transform.position, Color.blue, 2);
+                    UnityEngine.Debug.DrawRay(gameObject.transform.position, knownPlayersLocation - gameObject.transform.position, Color.blue, 2);
                     isChecking = true;
                     timer = 2;
                     print(gameObject.name + ": he is missed!");
@@ -170,7 +171,7 @@ public class MonsterController : MonoBehaviour, Hittable
                         isAttacking = false;
                         isMoving = false;
                     }
-                    Debug.DrawRay(gameObject.transform.position, playerPosition - gameObject.transform.position, Color.red, 2);
+                    UnityEngine.Debug.DrawRay(gameObject.transform.position, playerPosition - gameObject.transform.position, Color.red, 2);
                     //print(Player.transform.position.x.ToString() + " " + Player.transform.position.z.ToString());
                 }
             }
@@ -204,8 +205,119 @@ public class MonsterController : MonoBehaviour, Hittable
                 {
                     isAttacking = false;
                     // Find closest positions to attack around player: forward, backward, left and right and go there
-                    List<Vector3> neighbours = GetNeighbours(playerPosition, squareSize);
+                    //List<Vector3> neighbours = GetNeighbours(playerPosition, squareSize);
 
+                    // New algorythm
+                    // Shoot vector to player, find smallest angle between vector and axis, move to that axis on 1 square if accessible, else other side, then repeat
+
+                    Vector3 target;
+
+                    //Vector3 movingVector = playerPosition - gameObject.transform.position;
+                    Vector3 zMovingVector = new Vector3(gameObject.transform.position.x, 0, playerPosition.z);// - gameObject.transform.position;
+                    Vector3 xMovingVector = new Vector3(playerPosition.x, 0, gameObject.transform.position.z);// - gameObject.transform.position;
+
+                    // Check nearest squares
+                    //Vector3 xNearestSquare = new Vector3(xMovingVector.x, 0, xMovingVector.z - xMovingVector.z / Math.Abs(xMovingVector.z) * squareSize);
+                    float deltaX = 0, deltaZ = 0;
+
+                    // zero division check
+                    if (xMovingVector.x - gameObject.transform.position.x != 0)
+                    {
+                        deltaX = gameObject.transform.position.x + (xMovingVector.x - gameObject.transform.position.x) / Math.Abs(xMovingVector.x - gameObject.transform.position.x) * squareSize;
+                    }
+                    else
+                    {
+                        deltaX = gameObject.transform.position.x;
+                    }
+
+                    if (zMovingVector.z - gameObject.transform.position.z != 0)
+                    {
+                        deltaZ = gameObject.transform.position.z + (zMovingVector.z - gameObject.transform.position.z) / Math.Abs(zMovingVector.z - gameObject.transform.position.z) * squareSize;
+                    }
+                    else
+                    {
+                        deltaZ = gameObject.transform.position.z;
+                    }
+
+                    Vector3 xNearestSquare = new Vector3(deltaX, 0, xMovingVector.z);
+                    print(gameObject.name + ": my nearest x square: " + xNearestSquare.x + " " + xNearestSquare.z);
+                    
+                    Vector3 zNearestSquare = new Vector3(zMovingVector.x, 0, deltaZ);
+                    print(gameObject.name + ": my nearest z square: " + zNearestSquare.x + " " + zNearestSquare.z);
+
+                    bool xOk = false, zOk = false;
+
+                    if (!Physics.Raycast(gameObject.transform.position, xNearestSquare - gameObject.transform.position, squareSize, ignoreLayer))
+                    {
+                        xOk = true;
+                    }
+
+                    if (!Physics.Raycast(gameObject.transform.position, zNearestSquare - gameObject.transform.position, squareSize, ignoreLayer))
+                    {
+                        zOk = true;
+                    }
+
+                    if (xOk && !zOk)
+                    {
+                        // x square available and z square unavailable
+                        target = xNearestSquare;
+                        print(gameObject.name + ": moving x: " + target.x + " " + target.z);
+                    }
+                    else if (!xOk && zOk)
+                    {
+                        // x square unavailable and z square available 
+                        target = zNearestSquare;
+                        print(gameObject.name + ": moving z" + target.x + " " + target.z);
+                    }
+                    else if (!xOk && !zOk)
+                    {
+                        // both not available
+                        isWaiting = true;
+                        isChasing = false;
+                        timer = 2;
+                        print(gameObject.name + ": no nearest squares to move");
+                        return;
+                    }
+                    else
+                    {
+                        // both available
+                        float xMovingVectorLength = (xMovingVector - gameObject.transform.position).sqrMagnitude;
+                        float zMovingVectorLength = (zMovingVector - gameObject.transform.position).sqrMagnitude;
+
+                        // moving towards xvector
+                        if (xMovingVectorLength > zMovingVectorLength)
+                        {
+                            target = xNearestSquare;
+                            print(gameObject.name + ": moving X" + target.x + " " + target.z);
+                        }
+                        else if (xMovingVectorLength < zMovingVectorLength)
+                        {
+                            target = zNearestSquare;
+                            print(gameObject.name + ": moving Z" + target.x + " " + target.z);
+                        }
+                        else
+                        {
+                            int rand = new System.Random().Next(0, 1);
+                            if (rand == 0)
+                            {
+                                target = xNearestSquare;
+                                print(gameObject.name + ": decide to move x" + target.x + " " + target.z);
+                            }
+                            else
+                            {
+                                target = zNearestSquare;
+                                print(gameObject.name + ": decide to move z" + target.x + " " + target.z);
+                            }
+                        }
+                    }
+
+                    destination = target;
+                    isMoving = true;
+                    isChasing = false;
+                    timer = 0;
+                    return;
+
+                    /*
                     // find closest square to move
                     float lessMagnitude;
                     Vector3 target;
@@ -256,9 +368,8 @@ public class MonsterController : MonoBehaviour, Hittable
                     {
                         isWaiting = true;
                     }
-
+                    */
                 }
-
             }
 
             timer = 2;
@@ -361,8 +472,8 @@ public class MonsterController : MonoBehaviour, Hittable
         }
     }
 
-    
-    
+
+
     // Find neighbour squares
     private static List<Vector3> GetNeighbours(Vector3 square, int squareSize)
     {
@@ -400,9 +511,10 @@ public class MonsterController : MonoBehaviour, Hittable
     {
         gameObject.GetComponent<MonsterInfo>().hp -= 1;
         Player.GetComponent<PlayerStats>().ChangeStamina(1);
+        Player.GetComponent<PlayerStats>().ChangeEnergy(1);
         if (gameObject.GetComponent<MonsterInfo>().hp <= 0)
         {
-            // tut tipa lut i exp
+            // death, need to play death animation
             DropLoot();
         }
     }
