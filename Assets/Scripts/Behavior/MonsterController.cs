@@ -4,13 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterController : MonoBehaviour, Hittable
+public class MonsterController : MonoBehaviour, Hittable, Shiftable
 {
     private GameObject Utils;
     private GameObject Player;
     public GameObject LootSack;
     private float timer = 5;
 
+    public AudioSource sound;
     private List<Vector3> path;
 
     private static int squareSize = 10;
@@ -35,7 +36,8 @@ public class MonsterController : MonoBehaviour, Hittable
     public bool isWaiting = true, isChasing = false, isAttacking = false, isMoving = false, isChecking = false;
 
 
-    ObjectTypes Hittable.HittableObjectType { get => throw new System.NotImplementedException(); }
+    ObjectTypes Hittable.HittableObjectType { get => this.HittableObjectType; }
+    public TimeState timeState { get => this.timeState; set => this.timeState = value; }
 
     //public ObjectTypes HittableObjectType = ObjectTypes.Wall;
     // Start is called before the first frame update
@@ -44,7 +46,14 @@ public class MonsterController : MonoBehaviour, Hittable
         //print(HittableObjectType);
         Utils = GameObject.FindGameObjectWithTag("Utils");
         Player = GameObject.FindGameObjectWithTag("Player");
+
+        timeState = TimeState.Original;
+        
         playerPosition = Player.GetComponent<PlayerMovement>().TargetPosition;
+
+        sound = gameObject.transform.GetComponent<AudioSource>();
+
+
 
         // чтобы инстанцировалось
         knownPlayersLocation = gameObject.transform.position;
@@ -60,6 +69,10 @@ public class MonsterController : MonoBehaviour, Hittable
         if (isMoving)
         {
             float step = Speed * Time.deltaTime;
+            //AudioClip ac = gameObject.GetComponent<MonsterSoundController>().walk;
+            //print("audio " + ac.name);
+            //sound.clip = ac;
+            //sound.Play();
 
             //print(gameObject.name + ": moving at " + step.ToString() + " speed");
 
@@ -72,6 +85,7 @@ public class MonsterController : MonoBehaviour, Hittable
                 isAttacking = false;
                 isChasing = false;
                 isChecking = false;
+                sound.Stop();
             }
         }
 
@@ -83,6 +97,11 @@ public class MonsterController : MonoBehaviour, Hittable
             {
                 destination = knownPlayersLocation;
                 isMoving = true;
+
+                AudioClip ac = gameObject.GetComponent<MonsterSoundController>().walk;
+                sound.clip = ac;
+                sound.Play();
+
                 isChasing = false;
                 isAttacking = false;
                 isChecking = false;
@@ -241,7 +260,7 @@ public class MonsterController : MonoBehaviour, Hittable
 
                     Vector3 xNearestSquare = new Vector3(deltaX, 0, xMovingVector.z);
                     print(gameObject.name + ": my nearest x square: " + xNearestSquare.x + " " + xNearestSquare.z);
-                    
+
                     Vector3 zNearestSquare = new Vector3(zMovingVector.x, 0, deltaZ);
                     print(gameObject.name + ": my nearest z square: " + zNearestSquare.x + " " + zNearestSquare.z);
 
@@ -313,6 +332,9 @@ public class MonsterController : MonoBehaviour, Hittable
 
                     destination = target;
                     isMoving = true;
+                    AudioClip ac = gameObject.GetComponent<MonsterSoundController>().walk;
+                    sound.clip = ac;
+                    sound.Play();
                     isChasing = false;
                     timer = 0;
                     return;
@@ -578,6 +600,20 @@ public class MonsterController : MonoBehaviour, Hittable
         if (!Player.GetComponent<PlayerMovement>().moving.Current)
         {
             Utils.GetComponent<Utils>().UpdateCursor(gameObject, CursorAction.Attack);
+        }
+    }
+
+    void Shiftable.Shift()
+    {
+        if (this.timeState == TimeState.Original)
+        {
+            this.timeState = TimeState.Shifted;
+            // Some actions
+        }
+        else
+        {
+            this.timeState = TimeState.Original;
+            // Some actions
         }
     }
 }

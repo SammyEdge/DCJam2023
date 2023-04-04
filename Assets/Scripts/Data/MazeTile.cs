@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MazeTile : MonoBehaviour//, Wallable
+public class MazeTile : MonoBehaviour, Shiftable
 {
     // Start is called before the first frame update
 
@@ -29,6 +29,21 @@ public class MazeTile : MonoBehaviour//, Wallable
     public string objName;
 
     public bool occupied;
+
+    public TimeState timeState { get => this.timeState; set => this.timeState = value; }
+
+    public void Shift()
+    {
+        if (this.timeState == TimeState.Original)
+        {
+            this.timeState = TimeState.Shifted;
+        }
+        else
+        {
+            this.timeState = TimeState.Original;
+        }
+    }
+
     void Awake()
     {
         /*Debug.print("Awake");*/

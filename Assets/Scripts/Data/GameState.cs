@@ -1,18 +1,35 @@
+//using System.ComponentModel.DataAnnotations;
+using System;
+//using System.ComponentModel.DataAnnotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameState : MonoBehaviour
 {
     [SerializeField] private GameObject Player;
     [SerializeField] private GameObject Utils;
+
+    public TextMeshProUGUI timeStateText;
+    public TextMeshProUGUI healthText;
+    public TextMeshProUGUI energyText;
+
+    public TMP_FontAsset originalFont, shiftedFont;
+
+
+    public TimeState gameState;
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(this);
         DontDestroyOnLoad(Player);
         DontDestroyOnLoad(Utils);
+        gameState = TimeState.Original;
+        Player.GetComponent<PlayerStats>().timeState = TimeState.Original;
+        timeStateText.text = Enum.GetName(typeof(TimeState), TimeState.Original);
+        ChangeUI(gameState);
     }
 
     // Update is called once per frame
@@ -20,7 +37,59 @@ public class GameState : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            SceneManager.LoadScene("City", LoadSceneMode.Single);
+            if (gameState == TimeState.Original)
+            {
+                gameState = TimeState.Shifted;
+                ShiftTimeState(TimeState.Shifted);
+                //ChangeUI(TimeState.Shifted);
+            }
+            else
+            {
+                gameState = TimeState.Original;
+                ShiftTimeState(TimeState.Original);
+                //ChangeUI(TimeState.Original);
+            }
+            //SceneManager.LoadScene("City", LoadSceneMode.Single);
+
         }
     }
+
+    private void ChangeUI(TimeState state)
+    {
+        if (state == TimeState.Original)
+        {
+            timeStateText.font = originalFont;
+            healthText.font = originalFont;
+            energyText.font = originalFont;
+        }
+        else
+        {
+            timeStateText.font = shiftedFont;
+            healthText.font = shiftedFont;
+            energyText.font = shiftedFont;
+        }
+    }
+
+    private void ShiftTimeState(TimeState state)
+    {
+        Player.GetComponent<PlayerStats>().timeState = state;
+        timeStateText.text = Enum.GetName(typeof(TimeState), state);
+        ChangeUI(state);
+
+        // Monsters
+        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+        
+        foreach (GameObject monster in monsters)        
+        {
+            monster.GetComponent<Shiftable>().Shift();
+        }
+
+        GameObject[] tiles = GameObject.FindGameObjectsWithTag("MazeTile");
+        foreach (GameObject tile in tiles)
+        {
+            tile.GetComponent<Shiftable>().Shift();
+        }
+        // Objects
+    }
+
 }

@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using static PlayerMovement;
 
-public class WallController : MonoBehaviour, Hittable
+public class WallController : MonoBehaviour, Hittable, Shiftable
 {
     private GameObject Utils;
     private GameObject Player;
     public ObjectTypes HittableObjectType = ObjectTypes.Wall;
     private float timer;
-    ObjectTypes Hittable.HittableObjectType { get => throw new System.NotImplementedException(); }
+    ObjectTypes Hittable.HittableObjectType { get => this.HittableObjectType; }
+    public TimeState timeState { get => this.timeState; set => this.timeState = value; }
+
     // Start is called before the first frame update
     void Start()
     {
         //timer = 2;
         Utils = GameObject.FindGameObjectWithTag("Utils");
         Player = GameObject.FindGameObjectWithTag("Player");
+        timeState = TimeState.Original;
     }
 
     // Update is called once per frame
@@ -88,21 +91,15 @@ public class WallController : MonoBehaviour, Hittable
         }
     }
 
-    /*if (hit.transform.parent.TryGetComponent<WallStuff>(out WallStuff wallStuff))
+    public void Shift()
+    {
+        if (this.timeState == TimeState.Original)
         {
-            if (wallStuff.Wall)
-            {
-                if (wallStuff.breakable)
-                {
-                    wallStuff.hp -= 1;
-                    if (wallStuff.hp <= 0)
-                    {
-                        wallStuff.Wall = false;
-                        wallStuff.WallObject.SetActive(false);
-                        wallStuff.TorchObject.SetActive(false);
-                        wallStuff.Torch = false;
-                    }
-                }
-            }
-        }*/
+            this.timeState = TimeState.Shifted;
+        }
+        else
+        {
+            this.timeState = TimeState.Original;
+        }
+    }
 }

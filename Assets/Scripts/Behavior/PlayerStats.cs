@@ -7,11 +7,13 @@ public class PlayerStats : MonoBehaviour
     public int health;
     public int stamina;
     public int energy;
+
+    public TimeState timeState;
     
     private void Start() 
     {
-        Debug.Log("Health = " + health.ToString());
-        Debug.Log("Stamina = " + stamina.ToString());
+        //Debug.Log("Health = " + health.ToString());
+        //Debug.Log("Stamina = " + stamina.ToString());
     }
 
     public void TakeDamage(int damage)

@@ -21,7 +21,7 @@ public class Utils : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public Vector3 GetFixedDirectionVector(Vector3 DirectionVector, int direction)
@@ -57,7 +57,7 @@ public class Utils : MonoBehaviour
 
     public void UpdateCursor(GameObject Target, CursorAction Action = CursorAction.Default)
     {
-        if(Action == CursorAction.Default)
+        if (Action == CursorAction.Default)
         {
             Cursor.SetCursor(CursorDefault, Vector2.zero, CursorMode.Auto);
         }
@@ -169,6 +169,12 @@ public enum CursorAction
     Use = 4
 }
 
+public enum TimeState
+{
+    Original = 0,
+    Shifted = 1
+}
+
 public interface Hittable
 {
     public ObjectTypes HittableObjectType { get; }
@@ -178,15 +184,9 @@ public interface Hittable
     public void OnMouseOver();
 }
 
-//public class CustomCursor
-//{
-//    public Texture2D Default;
-//    public Texture2D Attack;
-//    public Texture2D Break;
-//    public CustomCursor()
-//    {
-//        Default = Utils.GetComponent<Utils>().CursorDefault;
-//        Attack = Utils.GetComponent<Utils>().CursorAttack;
-//        Break = Utils.GetComponent<Utils>().CursorBreak;
-//    }
-//}
+public interface Shiftable
+{
+    public TimeState timeState {get; set;}
+
+    public void Shift();
+}
