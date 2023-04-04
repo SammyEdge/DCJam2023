@@ -30614,9 +30614,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 787b5eccf9bde934f9e63112f162a925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CursorDefault: {fileID: 2800000, guid: a63e2ea0e18cd6341be0c367f18e585a, type: 3}
-  CursorAttack: {fileID: 2800000, guid: 37eb846a848dcfd45b7dbb81d244dab3, type: 3}
-  CursorBreak: {fileID: 2800000, guid: abe5391d81f5c9d40ba5b1e798c579ea, type: 3}
+  CursorDefault: {fileID: 2800000, guid: edc5268d1cdab52408da54f2abb15c9d, type: 3}
+  CursorAttack: {fileID: 2800000, guid: edc5268d1cdab52408da54f2abb15c9d, type: 3}
+  CursorBreak: {fileID: 2800000, guid: edc5268d1cdab52408da54f2abb15c9d, type: 3}
   Player: {fileID: 252681206}
   PlayerMoving: 0
 --- !u!1 &1223362049
