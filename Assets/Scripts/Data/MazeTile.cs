@@ -27,6 +27,8 @@ public class MazeTile : MonoBehaviour//, Wallable
     public GameObject[] WallTorches;
 
     public string objName;
+
+    public bool occupied;
     void Awake()
     {
         /*Debug.print("Awake");*/
