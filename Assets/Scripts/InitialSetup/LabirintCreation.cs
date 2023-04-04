@@ -1087,7 +1087,7 @@ public class LabirintCreation : MonoBehaviour
         foreach (GameObject tile in ActiveTiles)
         {
             //print(tile.GetComponent<MazeTile>().WallsObjects[0].GetComponent<WallStuff>().Wall);
-            if (tile.GetComponent<MazeTile>().WallsObjects[wallSides.North].GetComponent<WallStuff>().Wall && tile.GetComponent<MazeTile>().WallsObjects[wallSides.South].GetComponent<WallStuff>().Wall)
+            if (tile.GetComponent<MazeTile>().WallsObjects[wallSides.North].GetComponent<WallStuff>().Wall && tile.GetComponent<MazeTile>().WallsObjects[wallSides.South].GetComponent<WallStuff>().Wall && tile.transform.name != "EnterBlock")
             {
                 if (UnityEngine.Random.Range(0, 2) == 0)
                 {
@@ -1104,7 +1104,7 @@ public class LabirintCreation : MonoBehaviour
                     }
                 }
             }
-            if (tile.GetComponent<MazeTile>().WallsObjects[wallSides.West].GetComponent<WallStuff>().Wall && tile.GetComponent<MazeTile>().WallsObjects[wallSides.East].GetComponent<WallStuff>().Wall)
+            if (tile.GetComponent<MazeTile>().WallsObjects[wallSides.West].GetComponent<WallStuff>().Wall && tile.GetComponent<MazeTile>().WallsObjects[wallSides.East].GetComponent<WallStuff>().Wall && tile.transform.name != "EnterBlock")
             {
                 if (UnityEngine.Random.Range(0, 2) == 0)
                 {
