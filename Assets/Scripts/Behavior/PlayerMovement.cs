@@ -129,8 +129,9 @@ public class PlayerMovement : MonoBehaviour
                 //moving.Rotation = false;
                 movingDirection.Current = movingDirection.Forward;
                 PositionBeforeMovementStarts = transform.position;
-                if (SceneManager.GetActiveScene().name == "SampleScene")
+                if (SceneManager.GetActiveScene().name == "SampleScene 1")
                 {
+                    print("ebaniyrotetogojama");
                     DynamicLIght(movingDirection.Current);
                 }
                 //DynamicLIght(moving.Current);
@@ -148,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
                     PositionBeforeMovementStarts = transform.position;
                     TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.forward, 1);
                     movingDirection.Current = movingDirection.Forward;
-                    if (SceneManager.GetActiveScene().name == "SampleScene")
+                    if (SceneManager.GetActiveScene().name == "SampleScene 1")
                     {
                         DynamicLIght(movingDirection.Current);
                     }
@@ -171,7 +172,7 @@ public class PlayerMovement : MonoBehaviour
                     PositionBeforeMovementStarts = transform.position;
                     TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.forward, -1);
                     movingDirection.Current = movingDirection.Backward;
-                    if (SceneManager.GetActiveScene().name == "SampleScene")
+                    if (SceneManager.GetActiveScene().name == "SampleScene 1")
                     {
                         DynamicLIght(movingDirection.Current);
                     }
@@ -191,7 +192,7 @@ public class PlayerMovement : MonoBehaviour
                     PositionBeforeMovementStarts = transform.position;
                     TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.right, -1);
                     movingDirection.Current = movingDirection.StrafeLeft;
-                    if (SceneManager.GetActiveScene().name == "SampleScene")
+                    if (SceneManager.GetActiveScene().name == "SampleScene 1")
                     {
                         DynamicLIght(movingDirection.Current);
                     }
@@ -211,7 +212,7 @@ public class PlayerMovement : MonoBehaviour
                     PositionBeforeMovementStarts = transform.position;
                     TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.right, 1);
                     movingDirection.Current = movingDirection.StrafeRight;
-                    if (SceneManager.GetActiveScene().name == "SampleScene")
+                    if (SceneManager.GetActiveScene().name == "SampleScene 1")
                     {
                         DynamicLIght(movingDirection.Current);
                     }
@@ -229,7 +230,7 @@ public class PlayerMovement : MonoBehaviour
                 moving.Current = true;
                 moving.Rotation = true;
                 movingDirection.Current = movingDirection.TurnRight;
-                if (SceneManager.GetActiveScene().name == "SampleScene")
+                if (SceneManager.GetActiveScene().name == "SampleScene 1")
                 {
                     DynamicLIght(movingDirection.Current);
                 }
@@ -244,7 +245,7 @@ public class PlayerMovement : MonoBehaviour
                 moving.Current = true;
                 moving.Rotation = true;
                 movingDirection.Current = movingDirection.TurnLeft;
-                if (SceneManager.GetActiveScene().name == "SampleScene")
+                if (SceneManager.GetActiveScene().name == "SampleScene 1")
                 {
                     DynamicLIght(movingDirection.Current);
                 }
@@ -334,7 +335,8 @@ public class PlayerMovement : MonoBehaviour
         Vector3 CurrentPositionLeftPlus = new Vector3(0, 0, 0);
         Vector3 CurrentPosition = PositionBeforeMovementStarts;
         int LightDistanceFixed = lightDistance;
-        //print(DirectionOfMovement);
+        print("DireftionOfMovement");
+        print(DirectionOfMovement);
         //CurrentPosition = transform.position;
         //FuturePosition = CurrentPosition + FixedForwardVector;
         //print(Moving);
@@ -452,8 +454,8 @@ public class PlayerMovement : MonoBehaviour
             FuturePositionLeft = new Vector3(CurrentPosition.x, 0, CurrentPosition.z - 10);
             FuturePositionRight = new Vector3(CurrentPosition.x, 0, CurrentPosition.z + 10);
         }
-        //print(FuturePositionLeft);
-        //print(FuturePositionRight);
+        print(FuturePositionLeft);
+        print(FuturePositionRight);
         PositionsToTurnLight.Clear();
         //CurrentPositionForward.Clear();
         //CurrentPositionLeftForward.Clear();
@@ -575,6 +577,7 @@ public class PlayerMovement : MonoBehaviour
         //        }
         //    }
         //}
+        print(PositionsToTurnLight);
         foreach (var Position in PositionsToTurnLight)
         {
             int IndexOfTile = MazeController.GetComponent<LabirintCreation>().TilesCoordinates.IndexOf(Position);
