@@ -9,7 +9,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
     private GameObject Utils;
     private GameObject Player;
     public GameObject LootSack;
-    private float timer = 5;
+    private float timer = 2;
 
     public AudioSource sound;
     private List<Vector3> path;
@@ -48,7 +48,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
         Player = GameObject.FindGameObjectWithTag("Player");
 
         timeState = TimeState.Original;
-        
+
         playerPosition = Player.GetComponent<PlayerMovement>().TargetPosition;
 
         sound = gameObject.transform.GetComponent<AudioSource>();
@@ -174,6 +174,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                 RaycastHit monsterLookHit;
                 if (Physics.Raycast(gameObject.transform.position, playerPosition - gameObject.transform.position, out monsterLookHit, visionDistance * squareSize, ignoreLayer))
                 {
+
                     if (monsterLookHit.transform.parent.transform != Player.transform)
                     {
                         print(gameObject.name + ": I see towards a player, but see " + monsterLookHit.transform.name);
@@ -190,6 +191,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                         isAttacking = false;
                         isMoving = false;
                     }
+
                     Debug.DrawRay(gameObject.transform.position, playerPosition - gameObject.transform.position, Color.red, 2);
                     //print(Player.transform.position.x.ToString() + " " + Player.transform.position.z.ToString());
                 }
@@ -531,13 +533,18 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
 
     public void MeleeStrikeMonster()
     {
-        gameObject.GetComponent<MonsterInfo>().hp -= 1;
-        Player.GetComponent<PlayerStats>().ChangeStamina(1);
-        Player.GetComponent<PlayerStats>().ChangeEnergy(1);
-        if (gameObject.GetComponent<MonsterInfo>().hp <= 0)
+        if (!Player.GetComponent<PlayerStats>().attacked)
         {
-            // death, need to play death animation
-            DropLoot();
+            Player.GetComponent<PlayerStats>().attacked = true;
+            gameObject.GetComponent<MonsterInfo>().hp -= 1;
+            PlayHitAnimation();
+            Player.GetComponent<PlayerStats>().ChangeStamina(1);
+            Player.GetComponent<PlayerStats>().ChangeEnergy(1);
+            if (gameObject.GetComponent<MonsterInfo>().hp <= 0)
+            {
+                // death, need to play death animation
+                DropLoot();
+            }
         }
     }
 
@@ -573,7 +580,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
         //print(this.GetType().ToString());
         if (Utils.GetComponent<Utils>().FacingGameObject(gameObject))
         {
-            PlayHitAnimation();
+            //PlayHitAnimation();
             MeleeStrikeMonster();
             return true;
         }

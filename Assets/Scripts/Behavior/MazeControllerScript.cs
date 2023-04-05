@@ -146,7 +146,7 @@ public class MazeControllerScript : MonoBehaviour
         {
             if (Wall)
             {
-                print(WallIndex);
+                //print(WallIndex);
                 if (WallIndex == 0)
                 {
                     IndexOfTile = Coordinates.IndexOf(new Vector3(NewlyInstatniated.transform.position.x, 0, NewlyInstatniated.transform.position.z + 10));
