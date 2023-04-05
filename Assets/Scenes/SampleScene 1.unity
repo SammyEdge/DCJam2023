@@ -1726,6 +1726,7 @@ MonoBehaviour:
   health: 100
   stamina: 100
   energy: 0
+  timeState: 0
 --- !u!1 &278671220
 GameObject:
   m_ObjectHideFlags: 0
@@ -2732,6 +2733,7 @@ MonoBehaviour:
   - {fileID: 654879999}
   objName: 
   occupied: 0
+  timeState: 0
 --- !u!4 &455467826
 Transform:
   m_ObjectHideFlags: 0
@@ -8092,7 +8094,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 252681206}
   Utils: {fileID: 1217139862}
-  gameState: 0
+  timeStateText: {fileID: 1753854819}
+  healthText: {fileID: 1613382972}
+  energyText: {fileID: 1629760610}
+  originalFont: {fileID: 11400000, guid: 1578dec944bd48c49b8cc2b83b996166, type: 2}
+  shiftedFont: {fileID: 11400000, guid: 065007dbf7ad4f648a659d4f60111150, type: 2}
+  timeState: 0
 --- !u!4 &523178780
 Transform:
   m_ObjectHideFlags: 0
@@ -19468,6 +19475,7 @@ MonoBehaviour:
   health: 100
   stamina: 100
   energy: 0
+  timeState: 0
 --- !u!114 &932494064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30665,6 +30673,7 @@ MonoBehaviour:
   - {fileID: 2029898261}
   objName: 
   occupied: 0
+  timeState: 0
 --- !u!4 &1223362051
 Transform:
   m_ObjectHideFlags: 0
@@ -43028,6 +43037,7 @@ MonoBehaviour:
   isAttacking: 0
   isMoving: 0
   isChecking: 0
+  timeState: 0
 --- !u!114 &1700512177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50053,6 +50063,7 @@ MonoBehaviour:
   - {fileID: 8035982981307549522}
   objName: 
   occupied: 0
+  timeState: 0
 --- !u!33 &728570944014229508
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -66541,6 +66552,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HittableObjectType: 0
+  timeState: 0
 --- !u!198 &7968804973653692224
 ParticleSystem:
   m_ObjectHideFlags: 0

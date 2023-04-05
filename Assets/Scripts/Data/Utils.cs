@@ -184,9 +184,9 @@ public interface Hittable
     public void OnMouseOver();
 }
 
-public interface Shiftable
+/*public interface Shiftable
 {
     public TimeState timeState {get; set;}
 
     public void Shift();
-}
+}*/

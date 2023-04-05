@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using static PlayerMovement;
 
-public class WallController : MonoBehaviour, Hittable, Shiftable
+public class WallController : MonoBehaviour, Hittable//, Shiftable
 {
     private GameObject Utils;
     private GameObject Player;
     public ObjectTypes HittableObjectType = ObjectTypes.Wall;
     private float timer;
     ObjectTypes Hittable.HittableObjectType { get => this.HittableObjectType; }
-    public TimeState timeState { get => this.timeState; set => this.timeState = value; }
+    //public TimeState timeState { get => this.timeState; set => this.timeState = value; }
+    public TimeState timeState;
 
     // Start is called before the first frame update
     void Start()

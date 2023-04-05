@@ -19,17 +19,17 @@ public class GameState : MonoBehaviour
     public TMP_FontAsset originalFont, shiftedFont;
 
 
-    public TimeState gameState;
+    public TimeState timeState;
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(this);
         DontDestroyOnLoad(Player);
         DontDestroyOnLoad(Utils);
-        gameState = TimeState.Original;
+        timeState = TimeState.Original;
         Player.GetComponent<PlayerStats>().timeState = TimeState.Original;
         timeStateText.text = Enum.GetName(typeof(TimeState), TimeState.Original);
-        ChangeUI(gameState);
+        ChangeUI(timeState);
     }
 
     // Update is called once per frame
@@ -37,15 +37,15 @@ public class GameState : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            if (gameState == TimeState.Original)
+            if (timeState == TimeState.Original)
             {
-                gameState = TimeState.Shifted;
+                timeState = TimeState.Shifted;
                 ShiftTimeState(TimeState.Shifted);
                 //ChangeUI(TimeState.Shifted);
             }
             else
             {
-                gameState = TimeState.Original;
+                timeState = TimeState.Original;
                 ShiftTimeState(TimeState.Original);
                 //ChangeUI(TimeState.Original);
             }
@@ -81,13 +81,15 @@ public class GameState : MonoBehaviour
         
         foreach (GameObject monster in monsters)        
         {
-            monster.GetComponent<Shiftable>().Shift();
+            //monster.GetComponent<Shiftable>().Shift();
+            monster.GetComponent<MonsterController>().Shift();
         }
 
         GameObject[] tiles = GameObject.FindGameObjectsWithTag("MazeTile");
         foreach (GameObject tile in tiles)
         {
-            tile.GetComponent<Shiftable>().Shift();
+            //tile.GetComponent<Shiftable>().Shift();
+            tile.GetComponent<MazeTile>().Shift();
         }
         // Objects
     }

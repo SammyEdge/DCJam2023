@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterController : MonoBehaviour, Hittable, Shiftable
+public class MonsterController : MonoBehaviour, Hittable//, Shiftable
 {
     private GameObject Utils;
     private GameObject Player;
@@ -37,8 +37,8 @@ public class MonsterController : MonoBehaviour, Hittable, Shiftable
 
 
     ObjectTypes Hittable.HittableObjectType { get => this.HittableObjectType; }
-    public TimeState timeState { get => this.timeState; set => this.timeState = value; }
-
+    //public TimeState timeState { get => this.timeState; set => this.timeState = value; }
+    public TimeState timeState;
     //public ObjectTypes HittableObjectType = ObjectTypes.Wall;
     // Start is called before the first frame update
     void Start()
@@ -603,7 +603,7 @@ public class MonsterController : MonoBehaviour, Hittable, Shiftable
         }
     }
 
-    void Shiftable.Shift()
+    public void Shift()
     {
         if (this.timeState == TimeState.Original)
         {
