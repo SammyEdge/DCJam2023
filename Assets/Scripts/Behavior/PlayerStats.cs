@@ -13,6 +13,10 @@ public class PlayerStats : MonoBehaviour
     private float energyTimer = 1, attackTimer = 3;
     public bool attacked = false;
     
+    //keys
+    public bool redKey = false, blueKey = false;
+
+    public int killCounter = 0;
 
     void Update()
     {
@@ -57,5 +61,17 @@ public class PlayerStats : MonoBehaviour
     {
         this.energy += energy;
         Debug.Log("Energy = " + this.energy.ToString());
+    }
+
+    public void GetRedKey(bool key)
+    {
+        redKey = key;
+        return;
+    }
+
+    public void GetBlueKey(bool key)
+    {
+        blueKey = key;
+        return;
     }
 }

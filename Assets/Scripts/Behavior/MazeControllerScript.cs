@@ -134,10 +134,10 @@ public class MazeControllerScript : MonoBehaviour
             }
         }
         Debug.Log(Coordinates);
-        foreach (var Coordinate in Coordinates)
+        /*foreach (var Coordinate in Coordinates)
         {
             //print(Coordinate);
-        }
+        }*/
     }
     void WallsFix(List<GameObject> Tiles, List<Vector3> Coordinates, GameObject NewlyInstatniated)
     {

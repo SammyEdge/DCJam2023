@@ -1,9 +1,11 @@
+using System.Net.Mime;
 //using System.ComponentModel.DataAnnotations;
 using System;
 //using System.ComponentModel.DataAnnotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -16,6 +18,8 @@ public class GameState : MonoBehaviour
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI energyText;
 
+    public Image redKey, blueKey;
+
     public TMP_FontAsset originalFont, shiftedFont;
 
 
@@ -23,6 +27,8 @@ public class GameState : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        redKey.enabled = false;
+        blueKey.enabled = false;
         DontDestroyOnLoad(this);
         DontDestroyOnLoad(Player);
         DontDestroyOnLoad(Utils);

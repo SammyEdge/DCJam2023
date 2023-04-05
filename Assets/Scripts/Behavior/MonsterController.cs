@@ -8,6 +8,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
 {
     private GameObject Utils;
     private GameObject Player;
+    private GameObject GameState;
     public GameObject LootSack;
     private float timer = 2;
 
@@ -46,6 +47,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
         //print(HittableObjectType);
         Utils = GameObject.FindGameObjectWithTag("Utils");
         Player = GameObject.FindGameObjectWithTag("Player");
+        GameState = GameObject.FindGameObjectWithTag("GameState");
 
         timeState = TimeState.Original;
 
@@ -543,7 +545,33 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
             if (gameObject.GetComponent<MonsterInfo>().hp <= 0)
             {
                 // death, need to play death animation
+                Player.GetComponent<PlayerStats>().killCounter++;
+                if (!Player.GetComponent<PlayerStats>().redKey)
+                {
+                    RedKeyRandomDrop(Player.GetComponent<PlayerStats>().killCounter);
+                }
                 DropLoot();
+            }
+        }
+    }
+
+    private void RedKeyRandomDrop(int killCounter)
+    {
+        if (killCounter <= 5)
+        {
+            return;
+        }
+        else
+        {
+            int chance = (killCounter - 5) * 5;
+            int random = new System.Random().Next(0, 100);
+
+            if (random < chance)
+            {
+                print("You've found the Red Key");
+                Player.GetComponent<PlayerStats>().redKey = true;
+                GameState.GetComponent<GameState>().redKey.enabled = true;
+                return;
             }
         }
     }
