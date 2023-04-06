@@ -600,13 +600,20 @@ public class PlayerMovement : MonoBehaviour
             int IndexOfTile = PositionsToTurnLight.IndexOf(tile.transform.position);
             if (IndexOfTile == -1)
             {
-                foreach (var item in tile.GetComponent<MazeTile>().WallTorches)
+                foreach (var item in tile.GetComponent<MazeTile>().WallsObjects)
                 {
-                    if (item.activeSelf && !moving.Current)
+                    if (item.GetComponent<WallStuff>().Torch && !moving.Current)
                     {
-                        item.SetActive(false);
+                        item.GetComponent<WallStuff>().TorchObject.SetActive(false);
                     }
                 }
+                //foreach (var item in tile.GetComponent<MazeTile>().WallTorches)
+                //{
+                //    if (item.activeSelf && !moving.Current)
+                //    {
+                //        item.SetActive(false);
+                //    }
+                //}
             }
         }
     }

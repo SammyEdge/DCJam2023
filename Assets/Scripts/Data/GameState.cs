@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Unity.VisualScripting;
 
 public class GameState : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class GameState : MonoBehaviour
 
 
     public TimeState timeState;
+
+    public GameObject[] ActiveTiles;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,17 +40,74 @@ public class GameState : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
+            ActiveTiles = GameObject.FindGameObjectsWithTag("MazeTile");
+            print(ActiveTiles);
             if (timeState == TimeState.Original)
             {
                 timeState = TimeState.Shifted;
                 ShiftTimeState(TimeState.Shifted);
+                foreach (GameObject tile in ActiveTiles)
+                {
+                    foreach(GameObject TileWall in tile.GetComponent<MazeTile>().WallsObjects)
+                    {
+                        //print(TileWall.GetComponent<WallStuff>().WallConnectorObject.transform.name);
+                        //print(TileWall.transform.position);
+                        if (TileWall.GetComponent<WallStuff>().Wall)
+                        {
+                            if (TileWall.GetComponent<WallStuff>().breakable)
+                            {
+                                TileWall.GetComponent<WallStuff>().WallObject.GetComponent<Renderer>().material = TileWall.GetComponent<WallStuff>().WallMaterialBreakableOld;
+                            }
+                            else
+                            {
+                                TileWall.GetComponent<WallStuff>().WallObject.GetComponent<Renderer>().material = TileWall.GetComponent<WallStuff>().WallMaterialOld;
+                            }
+                            if (TileWall.GetComponent<WallStuff>().Torch)
+                            {
+                                TileWall.GetComponent<WallStuff>().TorchObjectPast.SetActive(true);
+                                TileWall.GetComponent<WallStuff>().TorchObjectFuture.SetActive(false);
+                                TileWall.GetComponent<WallStuff>().TorchObject = TileWall.GetComponent<WallStuff>().TorchObjectPast;
+                            }
+                        }
+                        if (TileWall.GetComponent<WallStuff>().WallConnectorObject)
+                        {
+                            TileWall.GetComponent<WallStuff>().WallConnectorObject.GetComponent<Renderer>().material = TileWall.GetComponent<WallStuff>().ConnectorMaterialOld;
+                        }
+                    }
+                }
                 //ChangeUI(TimeState.Shifted);
             }
             else
             {
                 timeState = TimeState.Original;
                 ShiftTimeState(TimeState.Original);
-                //ChangeUI(TimeState.Original);
+                foreach (GameObject tile in ActiveTiles)
+                {
+                    foreach (GameObject TileWall in tile.GetComponent<MazeTile>().WallsObjects)
+                    {
+                        if (TileWall.GetComponent<WallStuff>().Wall)
+                        {
+                            if (TileWall.GetComponent<WallStuff>().breakable)
+                            {
+                                TileWall.GetComponent<WallStuff>().WallObject.GetComponent<Renderer>().material = TileWall.GetComponent<WallStuff>().WallMaterialBreakable;
+                            }
+                            else
+                            {
+                                TileWall.GetComponent<WallStuff>().WallObject.GetComponent<Renderer>().material = TileWall.GetComponent<WallStuff>().WallMaterialDefault;
+                            }
+                            if (TileWall.GetComponent<WallStuff>().Torch)
+                            {
+                                TileWall.GetComponent<WallStuff>().TorchObjectFuture.SetActive(true);
+                                TileWall.GetComponent<WallStuff>().TorchObjectPast.SetActive(false);
+                                TileWall.GetComponent<WallStuff>().TorchObject = TileWall.GetComponent<WallStuff>().TorchObjectFuture;
+                            }
+                        }
+                        if (TileWall.GetComponent<WallStuff>().WallConnectorObject)
+                        {
+                            TileWall.GetComponent<WallStuff>().WallConnectorObject.GetComponent<Renderer>().material = TileWall.GetComponent<WallStuff>().ConnectorMaterialDefault;
+                        }
+                    }
+                }
             }
             //SceneManager.LoadScene("City", LoadSceneMode.Single);
 
