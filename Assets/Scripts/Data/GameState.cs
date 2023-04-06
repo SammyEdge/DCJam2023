@@ -161,6 +161,13 @@ public class GameState : MonoBehaviour
             //tile.GetComponent<Shiftable>().Shift();
             tile.GetComponent<MazeTile>().Shift();
         }
+
+        GameObject[] walls = GameObject.FindGameObjectsWithTag("Wall");
+        foreach (GameObject wall in walls)
+        {
+            //tile.GetComponent<Shiftable>().Shift();
+            wall.GetComponent<WallController>().Shift();
+        }
         // Objects
     }
 

@@ -12,6 +12,7 @@ TagManager:
   - GameState
   - Floor
   - Ceiling
+  - Wall
   layers:
   - Default
   - TransparentFX

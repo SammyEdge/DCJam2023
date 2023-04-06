@@ -41,15 +41,21 @@ public class WallController : MonoBehaviour, Hittable//, Shiftable
         {
             if (wallStuff.Wall && wallStuff.breakable && Utils.GetComponent<Utils>().FacingGameObject(gameObject))
             {
-                wallStuff.hp -= 1;
-                Player.GetComponent<PlayerStats>().ChangeStamina(1);
-                if (wallStuff.hp <= 0)
+                if (timeState == TimeState.Original) {
+                
+                }
+                else
                 {
-                    wallStuff.Wall = false;
-                    wallStuff.WallObject.SetActive(false);
-                    wallStuff.TorchObject.SetActive(false);
-                    wallStuff.Torch = false;
-                    Utils.GetComponent<Utils>().UpdateCursor(gameObject);
+                    wallStuff.hp -= 1;
+                    Player.GetComponent<PlayerStats>().ChangeStamina(1);
+                    if (wallStuff.hp <= 0)
+                    {
+                        wallStuff.Wall = false;
+                        wallStuff.WallObject.SetActive(false);
+                        wallStuff.TorchObject.SetActive(false);
+                        wallStuff.Torch = false;
+                        Utils.GetComponent<Utils>().UpdateCursor(gameObject);
+                    }
                 }
                 return true;
             }
