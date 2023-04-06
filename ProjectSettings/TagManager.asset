@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - MazeTile
+  - Monster
+  - StartingConnecter
+  - StartingWall
+  - Utils
+  - GameState
   layers:
   - Default
   - TransparentFX

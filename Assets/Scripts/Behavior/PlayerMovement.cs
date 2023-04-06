@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     //private float ForwardZ;
     [SerializeField] private float Speed = 12;
     [SerializeField] private float RotationSpeed = 90; //??????? ? ???????
-    
+
     private int squareSize = 10;
 
     // Visible light distance
@@ -56,9 +56,10 @@ public class PlayerMovement : MonoBehaviour
 
     private int CameraShakeUp = 0;
 
+
     void Start()
     {
-        print(SceneManager.GetActiveScene().name);
+        //(SceneManager.GetActiveScene().name);
         PositionBeforeMovementStarts = transform.position;
         TargetPosition = new Vector3(0, 0, 0);
         TargetRotation = Quaternion.Euler(new Vector3(0, 0, 0));
@@ -66,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
         movingCounter = 0;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         //Test++;
@@ -112,10 +112,14 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
-        if (movingCounter >= 10)
+        // gaining energy for movement
+        if (Camera.transform.parent.GetComponent<PlayerStats>().timeState == TimeState.Original)
         {
-            Camera.transform.parent.GetComponent<PlayerStats>().ChangeEnergy(1);
-            movingCounter = 0;
+            if (movingCounter >= 10)
+            {
+                Camera.transform.parent.GetComponent<PlayerStats>().ChangeEnergy(1);
+                movingCounter = 0;
+            }
         }
 
         if (TargetPosition == transform.position && transform.eulerAngles.y == TargetRotation.eulerAngles.y)
@@ -131,7 +135,7 @@ public class PlayerMovement : MonoBehaviour
                 PositionBeforeMovementStarts = transform.position;
                 if (SceneManager.GetActiveScene().name == "SampleScene 1")
                 {
-                    print("ebaniyrotetogojama");
+                    //print("ebaniyrotetogojama");
                     DynamicLIght(movingDirection.Current);
                 }
                 //DynamicLIght(moving.Current);
@@ -144,8 +148,13 @@ public class PlayerMovement : MonoBehaviour
                 if (!Physics.Raycast(transform.position, transform.forward, out Hit, 8f, 3))
                 {
                     moving.Current = true;
-                    movingCounter++;
-                    Debug.Log("squares moved " + movingCounter.ToString());
+                    // gaining energy for movement
+                    if (Camera.transform.parent.GetComponent<PlayerStats>().timeState == TimeState.Original)
+                    { 
+                        movingCounter++;
+                        Debug.Log("squares moved " + movingCounter.ToString());
+                    }
+                    
                     PositionBeforeMovementStarts = transform.position;
                     TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.forward, 1);
                     movingDirection.Current = movingDirection.Forward;
@@ -167,8 +176,14 @@ public class PlayerMovement : MonoBehaviour
                 if (!Physics.Raycast(transform.position, transform.forward * -1, out Hit, 8f, 3))
                 {
                     moving.Current = true;
-                    movingCounter++;
-                    Debug.Log("squares moved " + movingCounter.ToString());
+
+                    // gaining energy for movement
+                    if (Camera.transform.parent.GetComponent<PlayerStats>().timeState == TimeState.Original)
+                    { 
+                        movingCounter++;
+                        Debug.Log("squares moved " + movingCounter.ToString());
+                    }
+
                     PositionBeforeMovementStarts = transform.position;
                     TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.forward, -1);
                     movingDirection.Current = movingDirection.Backward;
@@ -187,8 +202,14 @@ public class PlayerMovement : MonoBehaviour
                 if (!Physics.Raycast(transform.position, transform.right * -1, out hit, 8, 3))
                 {
                     moving.Current = true;
-                    movingCounter++;
-                    Debug.Log("squares moved " + movingCounter.ToString());
+
+                    // gaining energy for movement
+                    if (Camera.transform.parent.GetComponent<PlayerStats>().timeState == TimeState.Original)
+                    { 
+                        movingCounter++;
+                        Debug.Log("squares moved " + movingCounter.ToString());
+                    }
+
                     PositionBeforeMovementStarts = transform.position;
                     TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.right, -1);
                     movingDirection.Current = movingDirection.StrafeLeft;
@@ -207,8 +228,14 @@ public class PlayerMovement : MonoBehaviour
                 if (!Physics.Raycast(transform.position, transform.right, out hit, 8, 3))
                 {
                     moving.Current = true;
-                    movingCounter++;
-                    Debug.Log("squares moved " + movingCounter.ToString());
+                    
+                    // gaining energy for movement
+                    if (Camera.transform.parent.GetComponent<PlayerStats>().timeState == TimeState.Original)
+                    { 
+                        movingCounter++;
+                        Debug.Log("squares moved " + movingCounter.ToString());
+                    }
+                    
                     PositionBeforeMovementStarts = transform.position;
                     TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.right, 1);
                     movingDirection.Current = movingDirection.StrafeRight;
@@ -335,8 +362,8 @@ public class PlayerMovement : MonoBehaviour
         Vector3 CurrentPositionLeftPlus = new Vector3(0, 0, 0);
         Vector3 CurrentPosition = PositionBeforeMovementStarts;
         int LightDistanceFixed = lightDistance;
-        print("DireftionOfMovement");
-        print(DirectionOfMovement);
+        //print("DireftionOfMovement");
+        //print(DirectionOfMovement);
         //CurrentPosition = transform.position;
         //FuturePosition = CurrentPosition + FixedForwardVector;
         //print(Moving);
@@ -454,8 +481,8 @@ public class PlayerMovement : MonoBehaviour
             FuturePositionLeft = new Vector3(CurrentPosition.x, 0, CurrentPosition.z - 10);
             FuturePositionRight = new Vector3(CurrentPosition.x, 0, CurrentPosition.z + 10);
         }
-        print(FuturePositionLeft);
-        print(FuturePositionRight);
+        //print(FuturePositionLeft);
+        //print(FuturePositionRight);
         PositionsToTurnLight.Clear();
         //CurrentPositionForward.Clear();
         //CurrentPositionLeftForward.Clear();
@@ -577,7 +604,7 @@ public class PlayerMovement : MonoBehaviour
         //        }
         //    }
         //}
-        print(PositionsToTurnLight);
+        //print(PositionsToTurnLight);
         foreach (var Position in PositionsToTurnLight)
         {
             int IndexOfTile = MazeController.GetComponent<LabirintCreation>().TilesCoordinates.IndexOf(Position);

@@ -120,7 +120,7 @@ public class LabirintCreation : MonoBehaviour
         PlaceBreakableWall();
         PlaceChests();
         PlaceMonsters(Monster, 25); // Only 5 monsters now, you can increase, decrease or randomize this qty
-        print("torchescounter "+TorchesCounter.ToString());
+        //print("torchescounter "+TorchesCounter.ToString());
     }
     /*void MoldTile(int EnterPoint, GameObject NewlyInstatniated)
     {
@@ -1046,13 +1046,13 @@ public class LabirintCreation : MonoBehaviour
             var i = 0;
             foreach (var WallObject in NewlyInstatniated.GetComponent<MazeTile>().WallsObjects)
             {
-                print(WallObject.transform.name);
+                //print(WallObject.transform.name);
                 if (WallObject.GetComponent<WallStuff>().Wall)
                 {
-                    print("gottorch");
-                    print(WallObject.GetComponent<WallStuff>().Torch);
+                    //print("gottorch");
+                    //print(WallObject.GetComponent<WallStuff>().Torch);
                     WallObject.GetComponent<WallStuff>().Torch = true;
-                    print(WallObject.GetComponent<WallStuff>().Torch);
+                    //print(WallObject.GetComponent<WallStuff>().Torch);
                     if (UnityEngine.Random.Range(0, 2) == 0)
                     {
                         //print(i);
@@ -1068,7 +1068,7 @@ public class LabirintCreation : MonoBehaviour
                 }
                 else
                 {
-                    print("fucktorch");
+                    //print("fucktorch");
                 }
                 i++;
             }

@@ -9,11 +9,40 @@ public class PlayerStats : MonoBehaviour
     public int energy;
 
     public TimeState timeState;
+
+    private float energyTimer = 1, attackTimer = 3;
+    public bool attacked = false;
     
-    private void Start() 
+    //keys
+    public bool redKey = false, blueKey = false;
+
+    public int killCounter = 0;
+
+    void Update()
     {
-        //Debug.Log("Health = " + health.ToString());
-        //Debug.Log("Stamina = " + stamina.ToString());
+        // Losing energy in shifted reality
+        if (timeState == TimeState.Shifted)
+        {
+            energyTimer -= Time.deltaTime;
+            if (energyTimer <= 0)
+            {
+                ChangeEnergy(-1);
+                energyTimer = 1;
+            }
+        }
+
+        // Attack cooldown
+        if (attacked)
+        {
+            attackTimer -= Time.deltaTime;
+            {
+                if (attackTimer <= 0)
+                {
+                    attacked = false;
+                    attackTimer = 3;
+                }
+            }
+        }
     }
 
     public void TakeDamage(int damage)
@@ -32,5 +61,17 @@ public class PlayerStats : MonoBehaviour
     {
         this.energy += energy;
         Debug.Log("Energy = " + this.energy.ToString());
+    }
+
+    public void GetRedKey(bool key)
+    {
+        redKey = key;
+        return;
+    }
+
+    public void GetBlueKey(bool key)
+    {
+        blueKey = key;
+        return;
     }
 }
