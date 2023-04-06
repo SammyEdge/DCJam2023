@@ -12,6 +12,7 @@ public class LabirintCreation : MonoBehaviour
     public GameObject StartTile;
     public GameObject RawTile;
     public GameObject Chest;
+    public GameObject Exit;
     public GameObject Monster;
     public GameObject[] ActiveTiles;
     public List<GameObject> Tiles;
@@ -28,9 +29,11 @@ public class LabirintCreation : MonoBehaviour
     public int TorchesCounter = 0;
     public Material BreakableMaterial;
     private WallSides wallSides = new WallSides();
+    public List<GameObject> EndTiles;
     // Start is called before the first frame update
     void Start()
     {
+        EndTiles = new List<GameObject>();
         TilesCoordinates = new List<Vector3>();
         ConnectorCoordinates = new List<Vector3>();
         ConnectorCoordinatesNoDup = new List<Vector3>();
@@ -118,7 +121,8 @@ public class LabirintCreation : MonoBehaviour
         }
         CLoseLabirint(TilesCoordinates);
         PlaceBreakableWall();
-        PlaceChests();
+        //PlaceChests();
+        PlaceExit();
         PlaceMonsters(Monster, 25); // Only 5 monsters now, you can increase, decrease or randomize this qty
         //print("torchescounter "+TorchesCounter.ToString());
     }
@@ -1169,6 +1173,67 @@ public class LabirintCreation : MonoBehaviour
             }
         }
     }
+
+    void PlaceExit()
+    {
+        bool Placed = false;
+        int Random = UnityEngine.Random.Range(0, 5);
+        // ���� �������� �������� �� ������� ������, ����� �� ���� ���������� ������ �� ������� ���������
+        ActiveTiles = GameObject.FindGameObjectsWithTag("MazeTile");
+        foreach (GameObject tile in ActiveTiles)
+        {
+            if (tile.GetComponent<MazeTile>().WallsObjects[wallSides.North].GetComponent<WallStuff>().Wall && tile.GetComponent<MazeTile>().WallsObjects[wallSides.South].GetComponent<WallStuff>().Wall && tile.GetComponent<MazeTile>().WallsObjects[wallSides.West].GetComponent<WallStuff>().Wall && tile.GetComponent<MazeTile>().WallsObjects[wallSides.East].GetComponent<WallStuff>().Wall)
+            {
+                EndTiles.Add(tile);
+            }
+        }
+        GameObject RandomSelected = EndTiles[UnityEngine.Random.Range(0, EndTiles.Count)];
+        if (RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.North].GetComponent<WallStuff>().breakable)
+        {
+            GameObject ExitDoor = Instantiate(Exit, RandomSelected.transform.position, Quaternion.Euler(0, 180, 0));
+            //ExitDoor.transform.position = ExitDoor.transform.position + (ExitDoor.transform.position - new Vector3(RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.North].transform.position.x, ExitDoor.transform.position.y, RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.North].transform.position.z));
+            ExitDoor.transform.position = ExitDoor.transform.position + new Vector3(0, 5, -3);
+            //ExitDoor.transform.localScale = new Vector3(1, 1, 1);
+            RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.North].GetComponent<WallStuff>().breakable = false;
+            RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.North].GetComponent<WallStuff>().WallObject.SetActive(false);
+        }
+        if (RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.South].GetComponent<WallStuff>().breakable)
+        {
+            GameObject ExitDoor = Instantiate(Exit, RandomSelected.transform.position, Quaternion.identity);
+            //ExitDoor.transform.position = ExitDoor.transform.position + (ExitDoor.transform.position - new Vector3(RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.South].transform.position.x, ExitDoor.transform.position.y, RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.South].transform.position.z));
+            ExitDoor.transform.position = ExitDoor.transform.position + new Vector3(0, 5, 3);
+            //ExitDoor.transform.localScale = new Vector3(1, 1, 1);
+            RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.South].GetComponent<WallStuff>().breakable = false;
+            RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.South].GetComponent<WallStuff>().WallObject.SetActive(false);
+        }
+        if (RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.West].GetComponent<WallStuff>().breakable)
+        {
+            GameObject ExitDoor = Instantiate(Exit, RandomSelected.transform.position, Quaternion.Euler(0, 90, 0));
+            //ExitDoor.transform.position = ExitDoor.transform.position + (ExitDoor.transform.position - new Vector3(RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.West].transform.position.x, ExitDoor.transform.position.y, RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.West].transform.position.z));
+            ExitDoor.transform.position = ExitDoor.transform.position + new Vector3(3, 5, 0);
+            //ExitDoor.transform.localScale = new Vector3(1, 1, 1);
+            RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.West].GetComponent<WallStuff>().breakable =false;
+            RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.West].GetComponent<WallStuff>().WallObject.SetActive(false);
+        }
+        if (RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.East].GetComponent<WallStuff>().breakable)
+        {
+            GameObject ExitDoor = Instantiate(Exit, RandomSelected.transform.position, Quaternion.Euler(0, -90, 0));
+            //ExitDoor.transform.position = ExitDoor.transform.position + (ExitDoor.transform.position - new Vector3(RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.East].transform.position.x, ExitDoor.transform.position.y, RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.East].transform.position.z));
+            ExitDoor.transform.position = ExitDoor.transform.position + new Vector3(-3, 5, 0);
+            //ExitDoor.transform.localScale = new Vector3(1, 1, 1);
+            RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.East].GetComponent<WallStuff>().breakable =false;
+            RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.East].GetComponent<WallStuff>().WallObject.SetActive(false);
+        }
+        //GameObject ExitDoor = Instantiate(Exit, EndTiles[UnityEngine.Random.Range(0, EndTiles.Count)].transform.position, Quaternion.identity);
+        
+        //print(EndTiles[UnityEngine.Random.Range(0, EndTiles.Count)]);
+        //foreach (var tile in EndTiles)
+        //{
+        //    GameObject NewChest = Instantiate(Exit, tile.transform.position, Quaternion.Euler(0, 180, 0));
+        //    NewChest.transform.localScale = new Vector3(5, 5, 5);
+        //}
+    }
+
 
     //void PlaceMonster(MonsterType monsterType, int quantity)
     void PlaceMonsters(GameObject monster, int quantity)
