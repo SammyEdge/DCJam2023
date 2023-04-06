@@ -603,6 +603,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                     RedKeyRandomDrop(Player.GetComponent<PlayerStats>().killCounter);
                 }
                 DropLoot();
+                MazeController.GetComponent<LabirintCreation>().SetOccupation(gameObject.transform.position, false);
             }
         }
     }
