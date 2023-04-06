@@ -111,11 +111,11 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                 {
                     return;
                 }
-                
+
 
                 destination = knownPlayersLocation;
                 isMoving = true;
-                
+
                 MazeController.GetComponent<LabirintCreation>().SetOccupation(destination, true);
                 startPosition = gameObject.transform.position;
 
@@ -208,7 +208,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                 RaycastHit monsterLookHit;
                 if (Physics.Raycast(gameObject.transform.position, playerPosition - gameObject.transform.position, out monsterLookHit, visionDistance * squareSize, ignoreLayer))
                 {
-                    
+
                     Transform checkedTransform = monsterLookHit.transform;
                     if (checkedTransform.parent != null)
                     {
@@ -371,13 +371,13 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                             }
                         }
                     }
-                    
+
                     // Check occupation
                     if (MazeController.GetComponent<LabirintCreation>().GetOccupation(target))
                     {
                         return;
                     }
-                    
+
 
                     startPosition = gameObject.transform.position;
                     destination = target;
@@ -592,8 +592,17 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
             Player.GetComponent<PlayerStats>().attacked = true;
             gameObject.GetComponent<MonsterInfo>().hp -= 1;
             PlayHitAnimation();
-            Player.GetComponent<PlayerStats>().ChangeStamina(1);
-            Player.GetComponent<PlayerStats>().ChangeEnergy(1);
+            //Player.GetComponent<PlayerStats>().ChangeStamina(1);
+
+            if (Player.GetComponent<PlayerStats>().timeState == TimeState.Original)
+            {
+                Player.GetComponent<PlayerStats>().ChangeEnergy(1);
+            }
+            else
+            {
+                Player.GetComponent<PlayerStats>().TakeDamage(-1);
+            }
+            //Player.GetComponent<PlayerStats>().ChangeEnergy(1);
             if (gameObject.GetComponent<MonsterInfo>().hp <= 0)
             {
                 // death, need to play death animation

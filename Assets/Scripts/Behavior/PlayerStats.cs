@@ -10,9 +10,9 @@ public class PlayerStats : MonoBehaviour
 
     public TimeState timeState;
 
-    private float energyTimer = 1, attackTimer = 3;
+    private float energyTimer = 1, attackTimer = 3, shiftTimer = 5;
     public bool attacked = false;
-    
+    public bool shiftCooldown = false;
     //keys
     public bool redKey = false, blueKey = false;
 
@@ -20,6 +20,17 @@ public class PlayerStats : MonoBehaviour
 
     void Update()
     {
+        if (shiftTimer < 5)
+        {
+            shiftTimer += Time.deltaTime;
+        }
+        else if (shiftTimer > 5)
+        {
+            shiftTimer = 5;
+            shiftCooldown = false;
+
+        }
+
         // Losing energy in shifted reality
         if (timeState == TimeState.Shifted)
         {
@@ -42,6 +53,15 @@ public class PlayerStats : MonoBehaviour
                     attackTimer = 3;
                 }
             }
+        }
+
+        //Return to original if energy == 0
+        if (timeState == TimeState.Shifted && energy <= 0)
+        {
+            // Make shift
+            GameObject.FindGameObjectWithTag("GameState").GetComponent<GameState>().ShiftTimeState(TimeState.Original);
+            ShiftCooldown();
+            
         }
     }
 
@@ -73,5 +93,11 @@ public class PlayerStats : MonoBehaviour
     {
         blueKey = key;
         return;
+    }
+
+    public void ShiftCooldown()
+    {
+        shiftTimer = 0;
+        shiftCooldown = true;
     }
 }
