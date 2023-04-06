@@ -44,7 +44,7 @@ public class WallController : MonoBehaviour, Hittable//, Shiftable
                 //Player.GetComponent<PlayerStats>().ChangeStamina(1);
                 if (Player.GetComponent<PlayerStats>().timeState == TimeState.Original)
                 {
-                    Player.GetComponent<PlayerStats>().ChangeEnergy(1);
+                    //Player.GetComponent<PlayerStats>().ChangeEnergy(1);
                 }
                 else
                 {

@@ -96,6 +96,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                 MazeController.GetComponent<LabirintCreation>().SetOccupation(startPosition, false);
 
                 startPosition = gameObject.transform.position;
+                gameObject.transform.LookAt(playerPosition);
                 sound.Stop();
             }
         }

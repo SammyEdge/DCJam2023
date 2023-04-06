@@ -1980,6 +1980,7 @@ MonoBehaviour:
   energy: 0
   timeState: 0
   attacked: 0
+  shiftCooldown: 0
   redKey: 0
   blueKey: 0
   killCounter: 0
@@ -19943,6 +19944,7 @@ MonoBehaviour:
   energy: 0
   timeState: 0
   attacked: 0
+  shiftCooldown: 0
   redKey: 0
   blueKey: 0
   killCounter: 0
@@ -31333,7 +31335,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CursorDefault: {fileID: 2800000, guid: 30d3f672c5adc4d40ab5211119a8f9f4, type: 3}
   CursorAttack: {fileID: 2800000, guid: 397934a3a51080743a76b64627bf5bea, type: 3}
-  CursorBreak: {fileID: 2800000, guid: edc5268d1cdab52408da54f2abb15c9d, type: 3}
+  CursorBreak: {fileID: 2800000, guid: 7ac0c68fad82af241b42fd01a43f9263, type: 3}
+  CursorUse: {fileID: 0}
   Player: {fileID: 252681206}
   PlayerMoving: 0
 --- !u!1 &1223362049
@@ -44153,6 +44156,7 @@ MonoBehaviour:
   playerPosition: {x: 0, y: 0, z: 0}
   knownPlayersLocation: {x: 0, y: 0, z: 0}
   destination: {x: 0, y: 0, z: 0}
+  startPosition: {x: 0, y: 0, z: 0}
   isWaiting: 1
   isChasing: 0
   isAttacking: 0
@@ -50915,7 +50919,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2067562340}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -62227,7 +62231,7 @@ PrefabInstance:
     - target: {fileID: 3575219960740194531, guid: 86511b21ad1071346b34d6ba7abe7af3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.64
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3575219960740194531, guid: 86511b21ad1071346b34d6ba7abe7af3,
         type: 3}
