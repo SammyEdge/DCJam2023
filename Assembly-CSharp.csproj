@@ -114,6 +114,7 @@
     <Compile Include="Assets\Imported\Mini First Person Controller\Scripts\Components\Crouch.cs" />
     <Compile Include="Assets\Scripts\Behavior\InitialHitHandler.cs" />
     <Compile Include="Assets\Scripts\UI\ClickTest.cs" />
+    <Compile Include="Assets\Scripts\UI\MinimapScript.cs" />
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
@@ -126,7 +127,6 @@
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\Scripts\Behavior\ClickHandler.cs" />
     <Compile Include="Assets\Imported\Mini First Person Controller\Scripts\Components\GroundCheck.cs" />
-    <Compile Include="Assets\Scripts\UI\MinimapScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Imported\TextMesh Pro\Shaders\TMPro.cginc" />
