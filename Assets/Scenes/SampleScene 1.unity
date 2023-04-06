@@ -1801,6 +1801,7 @@ MonoBehaviour:
   WallMaterialDefault: {fileID: 2100000, guid: 59cf79dbc3da2d44b82484a8c204c81f, type: 2}
   WallMaterialOld: {fileID: 2100000, guid: fcadf162d3ac18e4da6849029212a633, type: 2}
   WallMaterialBreakable: {fileID: 0}
+  WallMaterialBreakableOld: {fileID: 0}
   ConnectorMaterialDefault: {fileID: 2100000, guid: b6d7525c05682234db2effd881ee0084,
     type: 2}
   ConnectorMaterialOld: {fileID: 2100000, guid: d12c5ceefe5f1d34ba68a49a8b967bb1,
@@ -2986,6 +2987,12 @@ MonoBehaviour:
   - {fileID: 2135456297}
   - {fileID: 786649706}
   - {fileID: 654879999}
+  FloorFuture: {fileID: 2100000, guid: 5dc849276f0aba441b3da75c00c250f3, type: 2}
+  FloorPast: {fileID: 2100000, guid: d12c5ceefe5f1d34ba68a49a8b967bb1, type: 2}
+  CeilingFuture: {fileID: 2100000, guid: 5dc849276f0aba441b3da75c00c250f3, type: 2}
+  CeilingPast: {fileID: 2100000, guid: d12c5ceefe5f1d34ba68a49a8b967bb1, type: 2}
+  Ceiling: {fileID: 20199088}
+  Floor: {fileID: 464772999}
   objName: 
   occupied: 0
   timeState: 0
@@ -8215,7 +8222,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d12c5ceefe5f1d34ba68a49a8b967bb1, type: 2}
+  - {fileID: 2100000, guid: 5dc849276f0aba441b3da75c00c250f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -13467,6 +13474,7 @@ MonoBehaviour:
   WallMaterialDefault: {fileID: 0}
   WallMaterialOld: {fileID: 0}
   WallMaterialBreakable: {fileID: 0}
+  WallMaterialBreakableOld: {fileID: 0}
   ConnectorMaterialDefault: {fileID: 0}
   ConnectorMaterialOld: {fileID: 0}
 --- !u!1 &629689214
@@ -13923,6 +13931,7 @@ MonoBehaviour:
   WallMaterialDefault: {fileID: 0}
   WallMaterialOld: {fileID: 0}
   WallMaterialBreakable: {fileID: 0}
+  WallMaterialBreakableOld: {fileID: 0}
   ConnectorMaterialDefault: {fileID: 0}
   ConnectorMaterialOld: {fileID: 0}
 --- !u!1 &742237851
@@ -25282,6 +25291,7 @@ MonoBehaviour:
   WallMaterialDefault: {fileID: 2100000, guid: 59cf79dbc3da2d44b82484a8c204c81f, type: 2}
   WallMaterialOld: {fileID: 2100000, guid: fcadf162d3ac18e4da6849029212a633, type: 2}
   WallMaterialBreakable: {fileID: 0}
+  WallMaterialBreakableOld: {fileID: 0}
   ConnectorMaterialDefault: {fileID: 0}
   ConnectorMaterialOld: {fileID: 0}
 --- !u!1 &1032252357
@@ -25345,6 +25355,7 @@ MonoBehaviour:
   WallMaterialDefault: {fileID: 0}
   WallMaterialOld: {fileID: 0}
   WallMaterialBreakable: {fileID: 0}
+  WallMaterialBreakableOld: {fileID: 0}
   ConnectorMaterialDefault: {fileID: 0}
   ConnectorMaterialOld: {fileID: 0}
 --- !u!1 &1049118350
@@ -25729,6 +25740,7 @@ MonoBehaviour:
   WallMaterialDefault: {fileID: 2100000, guid: 59cf79dbc3da2d44b82484a8c204c81f, type: 2}
   WallMaterialOld: {fileID: 2100000, guid: fcadf162d3ac18e4da6849029212a633, type: 2}
   WallMaterialBreakable: {fileID: 0}
+  WallMaterialBreakableOld: {fileID: 0}
   ConnectorMaterialDefault: {fileID: 2100000, guid: b6d7525c05682234db2effd881ee0084,
     type: 2}
   ConnectorMaterialOld: {fileID: 2100000, guid: d12c5ceefe5f1d34ba68a49a8b967bb1,
@@ -31056,6 +31068,7 @@ MonoBehaviour:
   WallMaterialDefault: {fileID: 2100000, guid: 59cf79dbc3da2d44b82484a8c204c81f, type: 2}
   WallMaterialOld: {fileID: 2100000, guid: fcadf162d3ac18e4da6849029212a633, type: 2}
   WallMaterialBreakable: {fileID: 0}
+  WallMaterialBreakableOld: {fileID: 0}
   ConnectorMaterialDefault: {fileID: 2100000, guid: b6d7525c05682234db2effd881ee0084,
     type: 2}
   ConnectorMaterialOld: {fileID: 2100000, guid: d12c5ceefe5f1d34ba68a49a8b967bb1,
@@ -31364,6 +31377,12 @@ MonoBehaviour:
   - {fileID: 908882810}
   - {fileID: 1976978938}
   - {fileID: 2029898261}
+  FloorFuture: {fileID: 2100000, guid: 5dc849276f0aba441b3da75c00c250f3, type: 2}
+  FloorPast: {fileID: 2100000, guid: d12c5ceefe5f1d34ba68a49a8b967bb1, type: 2}
+  CeilingFuture: {fileID: 2100000, guid: 5dc849276f0aba441b3da75c00c250f3, type: 2}
+  CeilingPast: {fileID: 2100000, guid: d12c5ceefe5f1d34ba68a49a8b967bb1, type: 2}
+  Ceiling: {fileID: 500481571}
+  Floor: {fileID: 1510613612}
   objName: 
   occupied: 0
   timeState: 0
@@ -31474,7 +31493,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: fcadf162d3ac18e4da6849029212a633, type: 2}
+      objectReference: {fileID: 2100000, guid: 5dc849276f0aba441b3da75c00c250f3, type: 2}
     - target: {fileID: 919132149155446097, guid: 6ddbc8d7a4c526048a9bbd7c332a0581,
         type: 3}
       propertyPath: m_Name
@@ -42270,6 +42289,7 @@ MonoBehaviour:
   WallMaterialDefault: {fileID: 0}
   WallMaterialOld: {fileID: 0}
   WallMaterialBreakable: {fileID: 0}
+  WallMaterialBreakableOld: {fileID: 0}
   ConnectorMaterialDefault: {fileID: 0}
   ConnectorMaterialOld: {fileID: 0}
 --- !u!1 &1447948140
@@ -42715,7 +42735,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d12c5ceefe5f1d34ba68a49a8b967bb1, type: 2}
+  - {fileID: 2100000, guid: 5dc849276f0aba441b3da75c00c250f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -43048,6 +43068,7 @@ MonoBehaviour:
   WallMaterialDefault: {fileID: 2100000, guid: 59cf79dbc3da2d44b82484a8c204c81f, type: 2}
   WallMaterialOld: {fileID: 2100000, guid: fcadf162d3ac18e4da6849029212a633, type: 2}
   WallMaterialBreakable: {fileID: 0}
+  WallMaterialBreakableOld: {fileID: 0}
   ConnectorMaterialDefault: {fileID: 2100000, guid: b6d7525c05682234db2effd881ee0084,
     type: 2}
   ConnectorMaterialOld: {fileID: 2100000, guid: d12c5ceefe5f1d34ba68a49a8b967bb1,
@@ -55984,6 +56005,12 @@ MonoBehaviour:
   - {fileID: 7852963768635723667}
   - {fileID: 5576115276944355790}
   - {fileID: 8035982981307549522}
+  FloorFuture: {fileID: 2100000, guid: 5dc849276f0aba441b3da75c00c250f3, type: 2}
+  FloorPast: {fileID: 2100000, guid: d12c5ceefe5f1d34ba68a49a8b967bb1, type: 2}
+  CeilingFuture: {fileID: 2100000, guid: 5dc849276f0aba441b3da75c00c250f3, type: 2}
+  CeilingPast: {fileID: 2100000, guid: d12c5ceefe5f1d34ba68a49a8b967bb1, type: 2}
+  Ceiling: {fileID: 8544111669913500511}
+  Floor: {fileID: 8990748106160423604}
   objName: 
   occupied: 0
   timeState: 0
@@ -56119,6 +56146,7 @@ MonoBehaviour:
   WallMaterialDefault: {fileID: 2100000, guid: 59cf79dbc3da2d44b82484a8c204c81f, type: 2}
   WallMaterialOld: {fileID: 2100000, guid: fcadf162d3ac18e4da6849029212a633, type: 2}
   WallMaterialBreakable: {fileID: 0}
+  WallMaterialBreakableOld: {fileID: 0}
   ConnectorMaterialDefault: {fileID: 2100000, guid: b6d7525c05682234db2effd881ee0084,
     type: 2}
   ConnectorMaterialOld: {fileID: 2100000, guid: d12c5ceefe5f1d34ba68a49a8b967bb1,
@@ -61591,6 +61619,7 @@ MonoBehaviour:
   WallMaterialDefault: {fileID: 2100000, guid: 59cf79dbc3da2d44b82484a8c204c81f, type: 2}
   WallMaterialOld: {fileID: 2100000, guid: fcadf162d3ac18e4da6849029212a633, type: 2}
   WallMaterialBreakable: {fileID: 0}
+  WallMaterialBreakableOld: {fileID: 0}
   ConnectorMaterialDefault: {fileID: 2100000, guid: b6d7525c05682234db2effd881ee0084,
     type: 2}
   ConnectorMaterialOld: {fileID: 2100000, guid: d12c5ceefe5f1d34ba68a49a8b967bb1,
@@ -66889,6 +66918,7 @@ MonoBehaviour:
   WallMaterialDefault: {fileID: 2100000, guid: 59cf79dbc3da2d44b82484a8c204c81f, type: 2}
   WallMaterialOld: {fileID: 2100000, guid: fcadf162d3ac18e4da6849029212a633, type: 2}
   WallMaterialBreakable: {fileID: 0}
+  WallMaterialBreakableOld: {fileID: 0}
   ConnectorMaterialDefault: {fileID: 0}
   ConnectorMaterialOld: {fileID: 0}
 --- !u!23 &5300448248135520403
@@ -67080,6 +67110,7 @@ MonoBehaviour:
   WallMaterialDefault: {fileID: 2100000, guid: 59cf79dbc3da2d44b82484a8c204c81f, type: 2}
   WallMaterialOld: {fileID: 2100000, guid: fcadf162d3ac18e4da6849029212a633, type: 2}
   WallMaterialBreakable: {fileID: 0}
+  WallMaterialBreakableOld: {fileID: 0}
   ConnectorMaterialDefault: {fileID: 0}
   ConnectorMaterialOld: {fileID: 0}
 --- !u!1 &5948698658015424838
@@ -77565,7 +77596,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d12c5ceefe5f1d34ba68a49a8b967bb1, type: 2}
+  - {fileID: 2100000, guid: 5dc849276f0aba441b3da75c00c250f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -78063,7 +78094,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d12c5ceefe5f1d34ba68a49a8b967bb1, type: 2}
+  - {fileID: 2100000, guid: 5dc849276f0aba441b3da75c00c250f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

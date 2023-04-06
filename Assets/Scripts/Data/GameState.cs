@@ -80,6 +80,8 @@ public class GameState : MonoBehaviour
                             TileWall.GetComponent<WallStuff>().WallConnectorObject.GetComponent<Renderer>().material = TileWall.GetComponent<WallStuff>().ConnectorMaterialOld;
                         }
                     }
+                    tile.GetComponent<MazeTile>().Ceiling.GetComponent<Renderer>().material = tile.GetComponent<MazeTile>().CeilingPast;
+                    tile.GetComponent<MazeTile>().Floor.GetComponent<Renderer>().material = tile.GetComponent<MazeTile>().FloorPast;
                 }
                 //ChangeUI(TimeState.Shifted);
             }
@@ -113,6 +115,8 @@ public class GameState : MonoBehaviour
                             TileWall.GetComponent<WallStuff>().WallConnectorObject.GetComponent<Renderer>().material = TileWall.GetComponent<WallStuff>().ConnectorMaterialDefault;
                         }
                     }
+                    tile.GetComponent<MazeTile>().Ceiling.GetComponent<Renderer>().material = tile.GetComponent<MazeTile>().CeilingFuture;
+                    tile.GetComponent<MazeTile>().Floor.GetComponent<Renderer>().material = tile.GetComponent<MazeTile>().FloorFuture;
                 }
             }
             //SceneManager.LoadScene("City", LoadSceneMode.Single);
