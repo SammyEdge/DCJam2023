@@ -48,6 +48,9 @@ public class LabirintCreation : MonoBehaviour
         Tiles.Add(BlockBehindEnter);
         Tiles.Add(EnterBlock);
 
+        // initial placing of player
+        EnterBlock.GetComponent<MazeTile>().occupied = true;
+
         GameObject[] StartingWalls = GameObject.FindGameObjectsWithTag("StartingWall");
         foreach (GameObject wall in StartingWalls)
         {
@@ -1176,7 +1179,7 @@ public class LabirintCreation : MonoBehaviour
 
     void PlaceExit()
     {
-        bool Placed = false;
+        //bool Placed = false;
         int Random = UnityEngine.Random.Range(0, 5);
         // ���� �������� �������� �� ������� ������, ����� �� ���� ���������� ������ �� ������� ���������
         ActiveTiles = GameObject.FindGameObjectsWithTag("MazeTile");
@@ -1262,6 +1265,7 @@ public class LabirintCreation : MonoBehaviour
             if (tile.transform.position != new Vector3(0,0,0)) {
                 GameObject NewMonster = Instantiate(Monster, tile.transform.position, Quaternion.Euler(0, 0, 0));
                 NewMonster.name = Monster.name + i.ToString();
+                tile.GetComponent<MazeTile>().occupied = true;
             }
             else
             {
@@ -1270,7 +1274,33 @@ public class LabirintCreation : MonoBehaviour
         }
     }
 
+    public bool GetOccupation(Vector3 position)
+    {
+        int index = TilesCoordinates.IndexOf(position);
+        if (index >= 0)
+        {
+            GameObject tile = Tiles[index];
+            return tile.GetComponent<MazeTile>().occupied;
+        }
+        else
+        {
+            throw new System.Exception("Error: No such tile");
+        }
+    }
 
+    public void SetOccupation(Vector3 position, bool value)
+    {
+        int index = TilesCoordinates.IndexOf(position);
+        if (index >= 0)
+        {
+            GameObject tile = Tiles[index];
+            tile.GetComponent<MazeTile>().occupied = value;
+        }
+        else
+        {
+            throw new System.Exception("Error: No such tile");
+        }
+    }
 
     void Update()
     {
