@@ -9,6 +9,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
     private GameObject Utils;
     private GameObject Player;
     private GameObject GameState;
+    private GameObject MazeController;
     public GameObject LootSack;
     private float timer = 2;
 
@@ -32,6 +33,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
     // ref to target position
     public Vector3 playerPosition;
     public Vector3 knownPlayersLocation, destination;
+    public Vector3 startPosition;
 
     //states
     public bool isWaiting = true, isChasing = false, isAttacking = false, isMoving = false, isChecking = false;
@@ -48,6 +50,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
         Utils = GameObject.FindGameObjectWithTag("Utils");
         Player = GameObject.FindGameObjectWithTag("Player");
         GameState = GameObject.FindGameObjectWithTag("GameState");
+        MazeController = GameObject.FindGameObjectWithTag("MazeController");
 
         timeState = TimeState.Original;
 
@@ -55,7 +58,8 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
 
         sound = gameObject.transform.GetComponent<AudioSource>();
 
-
+        startPosition = gameObject.transform.position;
+        destination = gameObject.transform.position;
 
         // чтобы инстанцировалось
         knownPlayersLocation = gameObject.transform.position;
@@ -87,6 +91,11 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                 isAttacking = false;
                 isChasing = false;
                 isChecking = false;
+
+                // unoccupy square
+                MazeController.GetComponent<LabirintCreation>().SetOccupation(startPosition, false);
+
+                startPosition = gameObject.transform.position;
                 sound.Stop();
             }
         }
@@ -97,8 +106,18 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
             // knows about player's last location and not there
             if (isChecking)
             {
+                // check occupation
+                if (MazeController.GetComponent<LabirintCreation>().GetOccupation(knownPlayersLocation))
+                {
+                    return;
+                }
+                
+
                 destination = knownPlayersLocation;
                 isMoving = true;
+                
+                MazeController.GetComponent<LabirintCreation>().SetOccupation(destination, true);
+                startPosition = gameObject.transform.position;
 
                 AudioClip ac = gameObject.GetComponent<MonsterSoundController>().walk;
                 sound.clip = ac;
@@ -119,11 +138,24 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                 // хватает дистанции и видит
                 if (Physics.Raycast(gameObject.transform.position, playerPosition - gameObject.transform.position, out monsterLookHit, attackDistance * squareSize, ignoreLayer))
                 {
-                    if (monsterLookHit.transform.parent.transform == Player.transform)
+                    Transform checkedTransform = monsterLookHit.transform;
+                    if (checkedTransform.parent != null)
+                    {
+                        checkedTransform = checkedTransform.parent.transform;
+                    }
+
+                    if (checkedTransform == Player.transform)
                     {
                         // strike
                         PlayAttackAnimation();
-                        Player.GetComponent<PlayerStats>().TakeDamage(1);
+                        if (Player.GetComponent<PlayerStats>().timeState == TimeState.Original)
+                        {
+                            Player.GetComponent<PlayerStats>().TakeDamage(1);
+                        }
+                        else
+                        {
+                            Player.GetComponent<PlayerStats>().ChangeEnergy(-1);
+                        }
                         print(gameObject.name + ": attacking player");
                         knownPlayersLocation = playerPosition;
                         Debug.DrawRay(gameObject.transform.position, playerPosition - gameObject.transform.position, Color.green, 2);
@@ -176,8 +208,14 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                 RaycastHit monsterLookHit;
                 if (Physics.Raycast(gameObject.transform.position, playerPosition - gameObject.transform.position, out monsterLookHit, visionDistance * squareSize, ignoreLayer))
                 {
+                    
+                    Transform checkedTransform = monsterLookHit.transform;
+                    if (checkedTransform.parent != null)
+                    {
+                        checkedTransform = checkedTransform.parent.transform;
+                    }
 
-                    if (monsterLookHit.transform.parent.transform != Player.transform)
+                    if (checkedTransform != Player.transform)
                     {
                         print(gameObject.name + ": I see towards a player, but see " + monsterLookHit.transform.name);
                         isWaiting = true;
@@ -333,8 +371,22 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                             }
                         }
                     }
+                    
+                    // Check occupation
+                    if (MazeController.GetComponent<LabirintCreation>().GetOccupation(target))
+                    {
+                        return;
+                    }
+                    
 
+                    startPosition = gameObject.transform.position;
                     destination = target;
+
+                    // set occupation
+                    MazeController.GetComponent<LabirintCreation>().SetOccupation(destination, true);
+                    // unset occupation
+                    //MazeController.GetComponent<LabirintCreation>().SetOccupation(gameObject.transform.position, false);
+
                     isMoving = true;
                     AudioClip ac = gameObject.GetComponent<MonsterSoundController>().walk;
                     sound.clip = ac;

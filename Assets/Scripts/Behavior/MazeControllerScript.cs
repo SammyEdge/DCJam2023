@@ -238,6 +238,35 @@ public class MazeControllerScript : MonoBehaviour
             WallIndex++;
         }
     }
+
+    public bool GetOccupation(Vector3 position)
+    {
+        int index = Coordinates.IndexOf(position);
+        if (index >= 0)
+        {
+            GameObject tile = Tiles[index];
+            return tile.GetComponent<MazeTile>().occupied;
+        }
+        else
+        {
+            throw new System.Exception("Error: No such tile");
+        }
+    }
+
+    public void SetOccupation(Vector3 position, bool value)
+    {
+        int index = Coordinates.IndexOf(position);
+        if (index >= 0)
+        {
+            GameObject tile = Tiles[index];
+            tile.GetComponent<MazeTile>().occupied = value;
+        }
+        else
+        {
+            throw new System.Exception("Error: No such tile");
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {

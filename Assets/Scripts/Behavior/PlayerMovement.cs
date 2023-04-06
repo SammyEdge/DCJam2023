@@ -56,6 +56,8 @@ public class PlayerMovement : MonoBehaviour
 
     private int CameraShakeUp = 0;
 
+    bool trueMove;
+
 
     void Start()
     {
@@ -65,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
         TargetRotation = Quaternion.Euler(new Vector3(0, 0, 0));
         moving.Current = false;
         movingCounter = 0;
+        trueMove = false;
     }
 
     void FixedUpdate()
@@ -132,6 +135,14 @@ public class PlayerMovement : MonoBehaviour
                 moving.Current = false;
                 //moving.Rotation = false;
                 movingDirection.Current = movingDirection.Forward;
+
+                // unoccupy PositionBeforeMovementStarts
+                if (trueMove)
+                {
+                    MazeController.GetComponent<LabirintCreation>().SetOccupation(PositionBeforeMovementStarts, false);
+                    trueMove = false;
+                }
+
                 PositionBeforeMovementStarts = transform.position;
                 if (SceneManager.GetActiveScene().name == "SampleScene 1")
                 {
@@ -147,16 +158,29 @@ public class PlayerMovement : MonoBehaviour
                 RaycastHit Hit;
                 if (!Physics.Raycast(transform.position, transform.forward, out Hit, 8f, 3))
                 {
+                    
+                    TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.forward, 1);
+
+                    // check occupation
+                    if (MazeController.GetComponent<LabirintCreation>().GetOccupation(TargetPosition))
+                    {
+                        TargetPosition = transform.position;
+                        return;
+                    }
+                    
+                    trueMove = true;
+                    PositionBeforeMovementStarts = transform.position;
                     moving.Current = true;
                     // gaining energy for movement
                     if (Camera.transform.parent.GetComponent<PlayerStats>().timeState == TimeState.Original)
-                    { 
+                    {
                         movingCounter++;
                         Debug.Log("squares moved " + movingCounter.ToString());
                     }
-                    
-                    PositionBeforeMovementStarts = transform.position;
-                    TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.forward, 1);
+
+                    // Occupy TargetPosition
+                    MazeController.GetComponent<LabirintCreation>().SetOccupation(TargetPosition, true);
+
                     movingDirection.Current = movingDirection.Forward;
                     if (SceneManager.GetActiveScene().name == "SampleScene 1")
                     {
@@ -175,17 +199,29 @@ public class PlayerMovement : MonoBehaviour
                 //if (!Physics.Raycast(transform.position, new Vector3(transform.forward.x * -1, transform.forward.y, transform.forward.z * -1), out Hit, lightDistance))
                 if (!Physics.Raycast(transform.position, transform.forward * -1, out Hit, 8f, 3))
                 {
+                    TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.forward, -1);
+
+                    // check occupation
+                    if (MazeController.GetComponent<LabirintCreation>().GetOccupation(TargetPosition))
+                    {
+                        TargetPosition = transform.position;
+                        return;
+                    }
+
+                    trueMove = true;
+                    PositionBeforeMovementStarts = transform.position;
                     moving.Current = true;
 
                     // gaining energy for movement
                     if (Camera.transform.parent.GetComponent<PlayerStats>().timeState == TimeState.Original)
-                    { 
+                    {
                         movingCounter++;
                         Debug.Log("squares moved " + movingCounter.ToString());
                     }
 
-                    PositionBeforeMovementStarts = transform.position;
-                    TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.forward, -1);
+                    // Occupy TargetPosition
+                    MazeController.GetComponent<LabirintCreation>().SetOccupation(TargetPosition, true);
+
                     movingDirection.Current = movingDirection.Backward;
                     if (SceneManager.GetActiveScene().name == "SampleScene 1")
                     {
@@ -201,17 +237,29 @@ public class PlayerMovement : MonoBehaviour
                 RaycastHit hit;
                 if (!Physics.Raycast(transform.position, transform.right * -1, out hit, 8, 3))
                 {
+                    TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.right, -1);
+
+                    // check occupation
+                    if (MazeController.GetComponent<LabirintCreation>().GetOccupation(TargetPosition))
+                    {
+                        TargetPosition = transform.position;
+                        return;
+                    }
+
+                    trueMove = true;
+                    PositionBeforeMovementStarts = transform.position;
                     moving.Current = true;
 
                     // gaining energy for movement
                     if (Camera.transform.parent.GetComponent<PlayerStats>().timeState == TimeState.Original)
-                    { 
+                    {
                         movingCounter++;
                         Debug.Log("squares moved " + movingCounter.ToString());
                     }
 
-                    PositionBeforeMovementStarts = transform.position;
-                    TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.right, -1);
+                    // Occupy TargetPosition
+                    MazeController.GetComponent<LabirintCreation>().SetOccupation(TargetPosition, true);
+
                     movingDirection.Current = movingDirection.StrafeLeft;
                     if (SceneManager.GetActiveScene().name == "SampleScene 1")
                     {
@@ -227,17 +275,29 @@ public class PlayerMovement : MonoBehaviour
                 RaycastHit hit;
                 if (!Physics.Raycast(transform.position, transform.right, out hit, 8, 3))
                 {
-                    moving.Current = true;
+                    TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.right, 1);
                     
+                    // check occupation
+                    if (MazeController.GetComponent<LabirintCreation>().GetOccupation(TargetPosition))
+                    {
+                        TargetPosition = transform.position;
+                        return;
+                    }
+
+                    trueMove = true;
+                    PositionBeforeMovementStarts = transform.position;
+                    moving.Current = true;
+
                     // gaining energy for movement
                     if (Camera.transform.parent.GetComponent<PlayerStats>().timeState == TimeState.Original)
-                    { 
+                    {
                         movingCounter++;
                         Debug.Log("squares moved " + movingCounter.ToString());
                     }
-                    
-                    PositionBeforeMovementStarts = transform.position;
-                    TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.right, 1);
+
+                    // Occupy TargetPosition
+                    MazeController.GetComponent<LabirintCreation>().SetOccupation(TargetPosition, true);
+
                     movingDirection.Current = movingDirection.StrafeRight;
                     if (SceneManager.GetActiveScene().name == "SampleScene 1")
                     {

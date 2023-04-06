@@ -12,6 +12,7 @@ TagManager:
   - GameState
   - Floor
   - Ceiling
+  - MazeController
   layers:
   - Default
   - TransparentFX
