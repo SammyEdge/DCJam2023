@@ -7,6 +7,8 @@ using UnityEngine.EventSystems;
 
 public class ClickHandler : MonoBehaviour
 {
+    public TimeState timeState;
+    [SerializeField] private GameObject Player;
     private KeyBinds keyBinds = new KeyBinds();
     // Start is called before the first frame update
     void Start()
@@ -54,6 +56,28 @@ public class ClickHandler : MonoBehaviour
                 {
                     //print(ObjectTypes.LootSack);
                 }
+                if (hit.transform.gameObject.GetComponent<InitialHitHandler>().ObjectType == ObjectTypes.ButtonOld)
+                {
+                    if (Player.transform.GetComponent<PlayerStats>().redKey && !hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyPastInserted)
+                    {
+                        hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyPast.SetActive(true);
+                    }
+                    if (hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyPastInserted && hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyPastInserted)
+                    {
+                        print("Вы великолепны");
+                    }
+                }
+                if (hit.transform.gameObject.GetComponent<InitialHitHandler>().ObjectType == ObjectTypes.ButtonFuture)
+                {
+                    if (Player.transform.GetComponent<PlayerStats>().blueKey && !hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyPastInserted)
+                    {
+                        hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyFuture.SetActive(true);
+                    }
+                    if (hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyPastInserted && hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyPastInserted)
+                    {
+                        print("Вы великолепны");
+                    }
+                }
 
                 // Buttons test
                 /*
@@ -93,13 +117,20 @@ public class ClickHandler : MonoBehaviour
             {
                 if (wallStuff.breakable)
                 {
-                    wallStuff.hp -= 1;
-                    if (wallStuff.hp <= 0)
+                    if (hit.transform.GetComponent<WallController>().timeState == TimeState.Original)
                     {
-                        wallStuff.Wall = false;
-                        wallStuff.WallObject.SetActive(false);
-                        wallStuff.TorchObject.SetActive(false);
-                        wallStuff.Torch = false;
+
+                    }
+                    else
+                    {
+                        wallStuff.hp -= 1;
+                        if (wallStuff.hp <= 0)
+                        {
+                            wallStuff.Wall = false;
+                            wallStuff.WallObject.SetActive(false);
+                            wallStuff.TorchObject.SetActive(false);
+                            wallStuff.Torch = false;
+                        }
                     }
                 }
             }

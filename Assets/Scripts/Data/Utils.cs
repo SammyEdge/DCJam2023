@@ -10,6 +10,7 @@ public class Utils : MonoBehaviour
     public Texture2D CursorDefault;
     public Texture2D CursorAttack;
     public Texture2D CursorBreak;
+    public Texture2D CursorUse;
     public GameObject Player;
     public bool PlayerMoving;
     // Start is called before the first frame update
@@ -70,6 +71,9 @@ public class Utils : MonoBehaviour
                     break;
                 case CursorAction.Break:
                     Cursor.SetCursor(CursorBreak, Vector2.zero, CursorMode.Auto);
+                    break;
+                case CursorAction.Use:
+                    Cursor.SetCursor(CursorUse, Vector2.zero, CursorMode.Auto);
                     break;
             }
         }
@@ -157,7 +161,9 @@ public enum ObjectTypes
     Bluepill = 3,
     Thirdpill = 4,
     LootSack = 5,
-    Chest = 6
+    Chest = 6,
+    ButtonOld = 7,
+    ButtonFuture = 8
 }
 
 public enum CursorAction
