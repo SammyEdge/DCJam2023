@@ -25,6 +25,12 @@ public class MazeTile : MonoBehaviour//, Shiftable
     //public GameObject WallEast;
     public GameObject[] WallsObjects;
     public GameObject[] WallTorches;
+    public Material FloorFuture;
+    public Material FloorPast;
+    public Material CeilingFuture;
+    public Material CeilingPast;
+    public GameObject Ceiling;
+    public GameObject Floor;
 
     public string objName;
 

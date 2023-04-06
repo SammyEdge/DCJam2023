@@ -20682,7 +20682,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d12c5ceefe5f1d34ba68a49a8b967bb1, type: 2}
+  - {fileID: 2100000, guid: 5dc849276f0aba441b3da75c00c250f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -20911,6 +20911,12 @@ MonoBehaviour:
   - {fileID: 7852963769105008860}
   - {fileID: 5576115277414430337}
   - {fileID: 8035982980703059997}
+  FloorFuture: {fileID: 2100000, guid: 5dc849276f0aba441b3da75c00c250f3, type: 2}
+  FloorPast: {fileID: 2100000, guid: d12c5ceefe5f1d34ba68a49a8b967bb1, type: 2}
+  CeilingFuture: {fileID: 2100000, guid: 5dc849276f0aba441b3da75c00c250f3, type: 2}
+  CeilingPast: {fileID: 2100000, guid: d12c5ceefe5f1d34ba68a49a8b967bb1, type: 2}
+  Ceiling: {fileID: 8544111670383442960}
+  Floor: {fileID: 8990748105556788731}
   objName: 
   occupied: 0
   timeState: 0
@@ -21177,7 +21183,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d12c5ceefe5f1d34ba68a49a8b967bb1, type: 2}
+  - {fileID: 2100000, guid: 5dc849276f0aba441b3da75c00c250f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

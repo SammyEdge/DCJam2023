@@ -10,6 +10,8 @@ TagManager:
   - StartingWall
   - Utils
   - GameState
+  - Floor
+  - Ceiling
   layers:
   - Default
   - TransparentFX
