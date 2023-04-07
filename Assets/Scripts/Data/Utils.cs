@@ -11,6 +11,9 @@ public class Utils : MonoBehaviour
     public Texture2D CursorAttack;
     public Texture2D CursorBreak;
     public Texture2D CursorUse;
+    public Texture2D CursorAttackPressed;
+    public Texture2D CursorBreakPressed;
+    public Texture2D CursorUsePressed;
     public GameObject Player;
     public bool PlayerMoving;
     // Start is called before the first frame update
@@ -74,6 +77,15 @@ public class Utils : MonoBehaviour
                     break;
                 case CursorAction.Use:
                     Cursor.SetCursor(CursorUse, Vector2.zero, CursorMode.ForceSoftware);
+                    break;
+                case CursorAction.AttackPressed:
+                    Cursor.SetCursor(CursorAttackPressed, Vector2.zero, CursorMode.ForceSoftware);
+                    break;
+                case CursorAction.BreakPressed:
+                    Cursor.SetCursor(CursorBreakPressed, Vector2.zero, CursorMode.ForceSoftware);
+                    break;
+                case CursorAction.UsePressed:
+                    Cursor.SetCursor(CursorUsePressed, Vector2.zero, CursorMode.ForceSoftware);
                     break;
             }
         }
@@ -163,7 +175,8 @@ public enum ObjectTypes
     LootSack = 5,
     Chest = 6,
     ButtonOld = 7,
-    ButtonFuture = 8
+    ButtonFuture = 8,
+    Portal = 9
 }
 
 public enum CursorAction
@@ -172,7 +185,10 @@ public enum CursorAction
     Attack = 1,
     Break = 2,
     Lockpick = 3,
-    Use = 4
+    Use = 4,
+    AttackPressed = 5,
+    BreakPressed = 6,
+    UsePressed = 7
 }
 
 public enum TimeState

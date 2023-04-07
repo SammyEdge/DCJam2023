@@ -32,6 +32,8 @@ public class ClickHandler : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 8))
             {
+                print(ObjectTypes.ButtonOld);
+                print(hit.transform.name);
                 // no dobavit suda proverku, smotrim li mi licom v obekt
                 // .TryGetComponent rewrite
                 if (hit.transform.gameObject.TryGetComponent<Hittable>(out Hittable hittable))
@@ -54,6 +56,13 @@ public class ClickHandler : MonoBehaviour
                 }*/
                 if (hit.transform.gameObject.GetComponent<InitialHitHandler>().ObjectType == ObjectTypes.LootSack)
                 {
+                    if (hit.transform.GetComponent<ExitContoller>().KeyPastInserted && hit.transform.GetComponent<ExitContoller>().KeyFutureInserted)
+                    {
+                        print("Вы великолепны");
+                    }
+                }
+                if (hit.transform.gameObject.GetComponent<InitialHitHandler>().ObjectType == ObjectTypes.Portal)
+                {
                     //print(ObjectTypes.LootSack);
                 }
                 if (hit.transform.gameObject.GetComponent<InitialHitHandler>().ObjectType == ObjectTypes.ButtonOld)
@@ -61,21 +70,23 @@ public class ClickHandler : MonoBehaviour
                     if (Player.transform.GetComponent<PlayerStats>().redKey && !hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyPastInserted)
                     {
                         hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyPast.SetActive(true);
+                        hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyPastInserted = true;
                     }
-                    if (hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyPastInserted && hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyPastInserted)
+                    if (hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyPastInserted && hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyFutureInserted)
                     {
-                        print("Вы великолепны");
+                        hit.transform.parent.gameObject.GetComponent<ExitContoller>().PortalPlane.SetActive(true);
                     }
                 }
                 if (hit.transform.gameObject.GetComponent<InitialHitHandler>().ObjectType == ObjectTypes.ButtonFuture)
                 {
-                    if (Player.transform.GetComponent<PlayerStats>().blueKey && !hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyPastInserted)
+                    if (Player.transform.GetComponent<PlayerStats>().blueKey && !hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyFutureInserted)
                     {
                         hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyFuture.SetActive(true);
+                        hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyFutureInserted = true;
                     }
-                    if (hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyPastInserted && hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyPastInserted)
+                    if (hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyPastInserted && hit.transform.parent.gameObject.GetComponent<ExitContoller>().KeyFutureInserted)
                     {
-                        print("Вы великолепны");
+                        hit.transform.parent.gameObject.GetComponent<ExitContoller>().PortalPlane.SetActive(true);
                     }
                 }
 
