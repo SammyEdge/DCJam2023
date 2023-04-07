@@ -113,6 +113,7 @@
      <None Include="Assets\Imported\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\Imported\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
      <None Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
+     <None Include="Assets\Imported\Fonts\Metro_FREE FONT LICENSE.txt" />
      <None Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
      <None Include="Assets\Imported\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
      <None Include="Assets\Imported\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
@@ -131,6 +132,7 @@
      <None Include="Assets\Imported\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
      <None Include="Assets\Imported\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
      <None Include="Assets\Imported\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+     <None Include="Assets\Imported\Fonts\FREE FONT LICENSE.txt" />
      <None Include="Assets\Imported\TextMesh Pro\Shaders\TMP_Sprite.shader" />
      <None Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
     <Reference Include="UnityEngine">

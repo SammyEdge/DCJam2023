@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a338264010e290345890efd0d8f027e0
+guid: 2aeb76df0b112d84bba8314ea7cf8f90
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Ykar
+  - London
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

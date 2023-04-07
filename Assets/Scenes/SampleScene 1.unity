@@ -8364,7 +8364,7 @@ MonoBehaviour:
   energyText: {fileID: 1629760610}
   redKey: {fileID: 877371516}
   blueKey: {fileID: 176040034}
-  originalFont: {fileID: 11400000, guid: 1578dec944bd48c49b8cc2b83b996166, type: 2}
+  originalFont: {fileID: 11400000, guid: d85c2cadad9be4441b4f80393f95e7e7, type: 2}
   shiftedFont: {fileID: 11400000, guid: 065007dbf7ad4f648a659d4f60111150, type: 2}
   timeState: 0
   ActiveTiles: []

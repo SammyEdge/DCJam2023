@@ -149,14 +149,20 @@ public class GameState : MonoBehaviour
         if (state == TimeState.Original)
         {
             timeStateText.font = originalFont;
+            timeStateText.fontSize = 20;
             healthText.font = originalFont;
+            healthText.fontSize = 13;
             energyText.font = originalFont;
+            energyText.fontSize = 13;
         }
         else
         {
             timeStateText.font = shiftedFont;
+            timeStateText.fontSize = 36;
             healthText.font = shiftedFont;
+            healthText.fontSize = 20;
             energyText.font = shiftedFont;
+            energyText.fontSize = 20;
         }
     }
 
@@ -180,6 +186,11 @@ public class GameState : MonoBehaviour
 
         if (state == TimeState.Shifted)
         {
+            // Boost player speed
+            Player.GetComponent<PlayerMovement>().Speed += 3;
+            Player.GetComponent<PlayerMovement>().RotationSpeed += 30;
+
+
             foreach (GameObject tile in ActiveTiles)
             {
                 foreach (GameObject TileWall in tile.GetComponent<MazeTile>().WallsObjects)
@@ -215,6 +226,10 @@ public class GameState : MonoBehaviour
         }
         else
         {
+            // Boost player speed
+            Player.GetComponent<PlayerMovement>().Speed -= 3;
+            Player.GetComponent<PlayerMovement>().RotationSpeed -= 30;
+
             foreach (GameObject tile in ActiveTiles)
             {
                 foreach (GameObject TileWall in tile.GetComponent<MazeTile>().WallsObjects)

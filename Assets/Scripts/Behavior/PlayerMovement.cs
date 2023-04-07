@@ -27,8 +27,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector3 FixedLeftVector;
     //private float ForwardX;
     //private float ForwardZ;
-    [SerializeField] private float Speed = 12;
-    [SerializeField] private float RotationSpeed = 90; //??????? ? ???????
+    [SerializeField] public float Speed = 12;
+    [SerializeField] public float RotationSpeed = 90; //??????? ? ???????
 
     private int squareSize = 10;
 
