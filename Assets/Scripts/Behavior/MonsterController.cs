@@ -248,9 +248,11 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                         isChasing = false;
                         isMoving = false;
 
+                        /*
                         audioClip = gameObject.GetComponent<MonsterSoundController>().watch;
                         sound.clip = audioClip;
                         sound.Play();
+                        */
                     }
                     else
                     {

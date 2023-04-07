@@ -2307,7 +2307,7 @@ MonoBehaviour:
   attack1: {fileID: 8300000, guid: 9acfcc0d417bc464a86ba2fee512da05, type: 3}
   attack2: {fileID: 8300000, guid: 5003d13bae998d543bc453877aef1289, type: 3}
   attack3: {fileID: 8300000, guid: 21894c4916914b344be93366d6180ed5, type: 3}
-  hit: {fileID: 8300000, guid: 1ce0c2fbfb2042a4b9ab63626e87b60b, type: 3}
+  hit: {fileID: 8300000, guid: 319a14dcbfce2564a9986a8a2c3363ce, type: 3}
   key: {fileID: 8300000, guid: b0b77bf00190f3e47a9ea54ed4befd9a, type: 3}
   bump: {fileID: 8300000, guid: 7e6bc10feef41e64baad8a7ae0aab99c, type: 3}
   shift1: {fileID: 8300000, guid: 690179975e69b6041983f08e82064bde, type: 3}
@@ -32151,6 +32151,9 @@ MonoBehaviour:
   CursorAttack: {fileID: 2800000, guid: 397934a3a51080743a76b64627bf5bea, type: 3}
   CursorBreak: {fileID: 2800000, guid: 7ac0c68fad82af241b42fd01a43f9263, type: 3}
   CursorUse: {fileID: 2800000, guid: 722ca58e82f8ead4ea0c1d19844aa86f, type: 3}
+  CursorAttackPressed: {fileID: 0}
+  CursorBreakPressed: {fileID: 0}
+  CursorUsePressed: {fileID: 0}
   Player: {fileID: 252681206}
   PlayerMoving: 0
 --- !u!1 &1223362049
