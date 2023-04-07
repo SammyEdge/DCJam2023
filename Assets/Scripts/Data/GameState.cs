@@ -14,6 +14,7 @@ public class GameState : MonoBehaviour
 {
     [SerializeField] private GameObject Player;
     [SerializeField] private GameObject Utils;
+    [SerializeField] private GameObject MazeCtrlr;
 
     public TextMeshProUGUI timeStateText;
     public TextMeshProUGUI healthText;
@@ -45,7 +46,7 @@ public class GameState : MonoBehaviour
     void Update()
     {
         if (Player.GetComponent<PlayerStats>().shiftCooldown)
-        {   
+        {
             energyText.faceColor = Color.red;
         }
         else
@@ -55,10 +56,16 @@ public class GameState : MonoBehaviour
                 energyText.faceColor = Color.white;
             }
         }
-        
 
-        if (Input.GetKeyDown("space"))
+
+        if (Input.GetKeyDown("space") && !Player.GetComponent<PlayerMovement>().trueMove)
         {
+            if (Player.GetComponent<PlayerStats>().energy <= 0)
+            {
+                // no energy no shift
+                return;
+            }
+
             //ActiveTiles = GameObject.FindGameObjectsWithTag("MazeTile");
             //print(ActiveTiles);
             if (timeState == TimeState.Original)
@@ -174,12 +181,36 @@ public class GameState : MonoBehaviour
         ChangeUI(state);
 
         // Monsters
-        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+        //GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+        List<GameObject> monsters = MazeCtrlr.GetComponent<LabirintCreation>().Monsters;
 
         foreach (GameObject monster in monsters)
         {
             //monster.GetComponent<Shiftable>().Shift();
-            monster.GetComponent<MonsterController>().Shift();
+            //monster.GetComponent<MonsterController>().Shift();
+            //enable or disable monsters
+            if (monster.GetComponent<MonsterController>().timeState != state)
+            {
+                monster.SetActive(false);
+            }
+            else
+            {
+                monster.SetActive(true);
+            }
+        }
+
+        monsters = MazeCtrlr.GetComponent<LabirintCreation>().MonstersShifted;
+        foreach (GameObject monster in monsters)
+        {
+            //enable or disable monsters
+            if (monster.GetComponent<MonsterController>().timeState != state)
+            {
+                monster.SetActive(false);
+            }
+            else
+            {
+                monster.SetActive(true);
+            }
         }
 
         ActiveTiles = GameObject.FindGameObjectsWithTag("MazeTile");
@@ -190,7 +221,11 @@ public class GameState : MonoBehaviour
             Player.GetComponent<PlayerMovement>().Speed += 3;
             Player.GetComponent<PlayerMovement>().RotationSpeed += 30;
 
+            // Shift occupation
+            Player.GetComponent<PlayerMovement>().MazeController.GetComponent<LabirintCreation>().SetOccupation(Player.transform.position, true, state);
+            Player.GetComponent<PlayerMovement>().MazeController.GetComponent<LabirintCreation>().SetOccupation(Player.transform.position, false, state);
 
+            // Shift textures
             foreach (GameObject tile in ActiveTiles)
             {
                 foreach (GameObject TileWall in tile.GetComponent<MazeTile>().WallsObjects)
@@ -230,6 +265,11 @@ public class GameState : MonoBehaviour
             Player.GetComponent<PlayerMovement>().Speed -= 3;
             Player.GetComponent<PlayerMovement>().RotationSpeed -= 30;
 
+            // Shift occupation
+            Player.GetComponent<PlayerMovement>().MazeController.GetComponent<LabirintCreation>().SetOccupation(Player.transform.position, true, state);
+            Player.GetComponent<PlayerMovement>().MazeController.GetComponent<LabirintCreation>().SetOccupation(Player.transform.position, false, state);
+
+            // Shift textures
             foreach (GameObject tile in ActiveTiles)
             {
                 foreach (GameObject TileWall in tile.GetComponent<MazeTile>().WallsObjects)

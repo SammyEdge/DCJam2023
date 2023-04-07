@@ -27,13 +27,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector3 FixedLeftVector;
     //private float ForwardX;
     //private float ForwardZ;
-    [SerializeField] public float Speed = 12;
-    [SerializeField] public float RotationSpeed = 90; //??????? ? ???????
+    [SerializeField] public float Speed;
+    [SerializeField] public float RotationSpeed; //??????? ? ???????
 
     private int squareSize = 10;
 
     // Visible light distance
-    public int lightDistance = 3;
+    public int lightDistance;
     //private float TimePassedFixed = 0;
     //private float TimePassed = 0;
     //private float Test = 0;
@@ -56,7 +56,8 @@ public class PlayerMovement : MonoBehaviour
 
     private int CameraShakeUp = 0;
 
-    bool trueMove;
+    // movement indicator
+    public bool trueMove;
 
 
     void Start()
@@ -139,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
                 // unoccupy PositionBeforeMovementStarts
                 if (trueMove)
                 {
-                    MazeController.GetComponent<LabirintCreation>().SetOccupation(PositionBeforeMovementStarts, false);
+                    MazeController.GetComponent<LabirintCreation>().SetOccupation(PositionBeforeMovementStarts, false, Camera.transform.parent.GetComponent<PlayerStats>().timeState);
                     trueMove = false;
                 }
 
@@ -152,22 +153,22 @@ public class PlayerMovement : MonoBehaviour
                 //DynamicLIght(moving.Current);
             }
 
-            if (Input.GetKey(keyBinds.moveForward))
+            if (Input.GetKey(keyBinds.moveForward) && !StopMovementIfNoEnergy())
             {
                 //KeyForwardPressed = false;
                 RaycastHit Hit;
                 if (!Physics.Raycast(transform.position, transform.forward, out Hit, 8f, 3))
                 {
-                    
+
                     TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.forward, 1);
 
                     // check occupation
-                    if (MazeController.GetComponent<LabirintCreation>().GetOccupation(TargetPosition))
+                    if (MazeController.GetComponent<LabirintCreation>().GetOccupation(TargetPosition, Camera.transform.parent.GetComponent<PlayerStats>().timeState))
                     {
                         TargetPosition = transform.position;
                         return;
                     }
-                    
+
                     trueMove = true;
                     PositionBeforeMovementStarts = transform.position;
                     moving.Current = true;
@@ -179,7 +180,7 @@ public class PlayerMovement : MonoBehaviour
                     }
 
                     // Occupy TargetPosition
-                    MazeController.GetComponent<LabirintCreation>().SetOccupation(TargetPosition, true);
+                    MazeController.GetComponent<LabirintCreation>().SetOccupation(TargetPosition, true, Camera.transform.parent.GetComponent<PlayerStats>().timeState);
 
                     movingDirection.Current = movingDirection.Forward;
                     if (SceneManager.GetActiveScene().name == "SampleScene 1")
@@ -192,7 +193,7 @@ public class PlayerMovement : MonoBehaviour
                 //print(TargetPosition);
             }
             // Backward move pressed
-            if (Input.GetKey(keyBinds.moveBackward))
+            if (Input.GetKey(keyBinds.moveBackward) && !StopMovementIfNoEnergy())
             {
                 //KeyBackwardPressed = false;
                 RaycastHit Hit;
@@ -202,7 +203,7 @@ public class PlayerMovement : MonoBehaviour
                     TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.forward, -1);
 
                     // check occupation
-                    if (MazeController.GetComponent<LabirintCreation>().GetOccupation(TargetPosition))
+                    if (MazeController.GetComponent<LabirintCreation>().GetOccupation(TargetPosition, Camera.transform.parent.GetComponent<PlayerStats>().timeState))
                     {
                         TargetPosition = transform.position;
                         return;
@@ -220,7 +221,7 @@ public class PlayerMovement : MonoBehaviour
                     }
 
                     // Occupy TargetPosition
-                    MazeController.GetComponent<LabirintCreation>().SetOccupation(TargetPosition, true);
+                    MazeController.GetComponent<LabirintCreation>().SetOccupation(TargetPosition, true, Camera.transform.parent.GetComponent<PlayerStats>().timeState);
 
                     movingDirection.Current = movingDirection.Backward;
                     if (SceneManager.GetActiveScene().name == "SampleScene 1")
@@ -231,7 +232,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
             // Strafe left pressed
-            if (Input.GetKey(keyBinds.strafeLeft))
+            if (Input.GetKey(keyBinds.strafeLeft) && !StopMovementIfNoEnergy())
             {
                 //KeyStrafeLeftPressed = false;
                 RaycastHit hit;
@@ -240,7 +241,7 @@ public class PlayerMovement : MonoBehaviour
                     TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.right, -1);
 
                     // check occupation
-                    if (MazeController.GetComponent<LabirintCreation>().GetOccupation(TargetPosition))
+                    if (MazeController.GetComponent<LabirintCreation>().GetOccupation(TargetPosition, Camera.transform.parent.GetComponent<PlayerStats>().timeState))
                     {
                         TargetPosition = transform.position;
                         return;
@@ -258,7 +259,7 @@ public class PlayerMovement : MonoBehaviour
                     }
 
                     // Occupy TargetPosition
-                    MazeController.GetComponent<LabirintCreation>().SetOccupation(TargetPosition, true);
+                    MazeController.GetComponent<LabirintCreation>().SetOccupation(TargetPosition, true, Camera.transform.parent.GetComponent<PlayerStats>().timeState);
 
                     movingDirection.Current = movingDirection.StrafeLeft;
                     if (SceneManager.GetActiveScene().name == "SampleScene 1")
@@ -269,16 +270,16 @@ public class PlayerMovement : MonoBehaviour
             }
 
             // Strafe right pressed
-            if (Input.GetKey(keyBinds.strafeRigth))
+            if (Input.GetKey(keyBinds.strafeRigth) && !StopMovementIfNoEnergy())
             {
                 //KeyStrafeRightPressed = false;
                 RaycastHit hit;
                 if (!Physics.Raycast(transform.position, transform.right, out hit, 8, 3))
                 {
                     TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.right, 1);
-                    
+
                     // check occupation
-                    if (MazeController.GetComponent<LabirintCreation>().GetOccupation(TargetPosition))
+                    if (MazeController.GetComponent<LabirintCreation>().GetOccupation(TargetPosition, Camera.transform.parent.GetComponent<PlayerStats>().timeState))
                     {
                         TargetPosition = transform.position;
                         return;
@@ -296,7 +297,7 @@ public class PlayerMovement : MonoBehaviour
                     }
 
                     // Occupy TargetPosition
-                    MazeController.GetComponent<LabirintCreation>().SetOccupation(TargetPosition, true);
+                    MazeController.GetComponent<LabirintCreation>().SetOccupation(TargetPosition, true, Camera.transform.parent.GetComponent<PlayerStats>().timeState);
 
                     movingDirection.Current = movingDirection.StrafeRight;
                     if (SceneManager.GetActiveScene().name == "SampleScene 1")
@@ -309,7 +310,7 @@ public class PlayerMovement : MonoBehaviour
         if (transform.eulerAngles.y == TargetRotation.eulerAngles.y)
         {
             //moving.Rotation = false;
-            if (Input.GetKey(keyBinds.turnRight))
+            if (Input.GetKey(keyBinds.turnRight) && !StopMovementIfNoEnergy())
             {
                 //KeyTurnRightPressed = false;
                 //print(transform.right);
@@ -324,7 +325,7 @@ public class PlayerMovement : MonoBehaviour
                 CurrentRotation = Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, 0));
                 TargetRotation = Quaternion.Euler(new Vector3(0, transform.eulerAngles.y + 90, 0));
             }
-            if (Input.GetKey(keyBinds.turnLeft))
+            if (Input.GetKey(keyBinds.turnLeft) && !StopMovementIfNoEnergy())
             {
                 //KeyTurnLeftPressed = false;
                 //print(transform.right * -1);
@@ -703,6 +704,18 @@ public class PlayerMovement : MonoBehaviour
                 //}
             }
         }
+    }
+
+    private bool StopMovementIfNoEnergy()
+    {
+        // Stop moving if no energy
+        if (gameObject.GetComponentInParent<PlayerStats>().timeState == TimeState.Shifted && gameObject.GetComponentInParent<PlayerStats>().energy <= 0)
+        {
+            print("state is " + gameObject.GetComponentInParent<PlayerStats>().timeState.ToString());
+            print("energy is " + gameObject.GetComponentInParent<PlayerStats>().energy.ToString());
+            return true;
+        }
+        return false;
     }
 
     /*private List<GameObject> FindMonstersNearby(Transform playerPosition, int range)
