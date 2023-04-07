@@ -236,6 +236,19 @@ public class GameState : MonoBehaviour
 
         if (state == TimeState.Shifted)
         {
+            GameObject Exit = GameObject.FindWithTag("Exit");
+            Exit.GetComponent<MeshFilter>().mesh = Exit.GetComponent<ExitContoller>().Past;
+            Exit.GetComponent<ExitContoller>().KeyFutureButton.SetActive(true);
+            Exit.GetComponent<ExitContoller>().KeyPastButton.SetActive(true);
+            if (Exit.GetComponent<ExitContoller>().KeyPastInserted)
+            {
+                Exit.GetComponent<ExitContoller>().KeyPast.SetActive(true);
+            }
+            if (Exit.GetComponent<ExitContoller>().KeyFutureInserted)
+            {
+                Exit.GetComponent<ExitContoller>().KeyFuture.SetActive(true);
+            }
+
             // Boost player speed
             Player.GetComponent<PlayerMovement>().Speed += 3;
             Player.GetComponent<PlayerMovement>().RotationSpeed += 30;
@@ -279,9 +292,18 @@ public class GameState : MonoBehaviour
                 tile.GetComponent<MazeTile>().Floor.GetComponent<Renderer>().material = tile.GetComponent<MazeTile>().FloorPast;
                 tile.GetComponent<MazeTile>().Shift();
             }
+
+            // Shift portal
+
         }
         else
         {
+            GameObject Exit = GameObject.FindWithTag("Exit");
+            Exit.GetComponent<MeshFilter>().mesh = Exit.GetComponent<ExitContoller>().Future;
+            Exit.GetComponent<ExitContoller>().KeyFutureButton.SetActive(false);
+            Exit.GetComponent<ExitContoller>().KeyPastButton.SetActive(false);
+            Exit.GetComponent<ExitContoller>().KeyPast.SetActive(false);
+            Exit.GetComponent<ExitContoller>().KeyFuture.SetActive(false);
             // Boost player speed
             Player.GetComponent<PlayerMovement>().Speed -= 3;
             Player.GetComponent<PlayerMovement>().RotationSpeed -= 30;

@@ -15,6 +15,7 @@ TagManager:
   - MazeController
   - Wall
   - GameOverScreen
+  - Exit
   layers:
   - Default
   - TransparentFX
