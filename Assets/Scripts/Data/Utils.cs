@@ -16,7 +16,7 @@ public class Utils : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.SetCursor(CursorDefault, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(CursorDefault, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     // Update is called once per frame
@@ -60,20 +60,20 @@ public class Utils : MonoBehaviour
     {
         if (Action == CursorAction.Default)
         {
-            Cursor.SetCursor(CursorDefault, Vector2.zero, CursorMode.Auto);
+            Cursor.SetCursor(CursorDefault, Vector2.zero, CursorMode.ForceSoftware);
         }
         if (FacingGameObject(Target))
         {
             switch (Action)
             {
                 case CursorAction.Attack:
-                    Cursor.SetCursor(CursorAttack, Vector2.zero, CursorMode.Auto);
+                    Cursor.SetCursor(CursorAttack, Vector2.zero, CursorMode.ForceSoftware);
                     break;
                 case CursorAction.Break:
-                    Cursor.SetCursor(CursorBreak, Vector2.zero, CursorMode.Auto);
+                    Cursor.SetCursor(CursorBreak, Vector2.zero, CursorMode.ForceSoftware);
                     break;
                 case CursorAction.Use:
-                    Cursor.SetCursor(CursorUse, Vector2.zero, CursorMode.Auto);
+                    Cursor.SetCursor(CursorUse, Vector2.zero, CursorMode.ForceSoftware);
                     break;
             }
         }

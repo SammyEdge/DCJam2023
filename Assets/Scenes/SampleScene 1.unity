@@ -1444,7 +1444,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5e489438faa2ef14199ce7fc1ea3584c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 07992c17ef4f54d4fa6e9dfa09b73a87, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -19614,7 +19614,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ad0945b397f593546a585fd295672121, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fd554df7c05ccff48a8b84f066aeb09e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -31353,7 +31353,7 @@ MonoBehaviour:
   CursorDefault: {fileID: 2800000, guid: 30d3f672c5adc4d40ab5211119a8f9f4, type: 3}
   CursorAttack: {fileID: 2800000, guid: 397934a3a51080743a76b64627bf5bea, type: 3}
   CursorBreak: {fileID: 2800000, guid: 7ac0c68fad82af241b42fd01a43f9263, type: 3}
-  CursorUse: {fileID: 0}
+  CursorUse: {fileID: 2800000, guid: 722ca58e82f8ead4ea0c1d19844aa86f, type: 3}
   Player: {fileID: 252681206}
   PlayerMoving: 0
 --- !u!1 &1223362049
@@ -62255,7 +62255,7 @@ PrefabInstance:
     - target: {fileID: 3575219960740194531, guid: 86511b21ad1071346b34d6ba7abe7af3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 4.37
       objectReference: {fileID: 0}
     - target: {fileID: 3575219960740194531, guid: 86511b21ad1071346b34d6ba7abe7af3,
         type: 3}
@@ -62300,7 +62300,7 @@ PrefabInstance:
     - target: {fileID: 4239693953982427737, guid: 86511b21ad1071346b34d6ba7abe7af3,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86511b21ad1071346b34d6ba7abe7af3, type: 3}
