@@ -1980,6 +1980,7 @@ MonoBehaviour:
   energy: 0
   timeState: 0
   attacked: 0
+  shiftCooldown: 0
   redKey: 0
   blueKey: 0
   killCounter: 0
@@ -8363,7 +8364,7 @@ MonoBehaviour:
   energyText: {fileID: 1629760610}
   redKey: {fileID: 877371516}
   blueKey: {fileID: 176040034}
-  originalFont: {fileID: 11400000, guid: 1578dec944bd48c49b8cc2b83b996166, type: 2}
+  originalFont: {fileID: 11400000, guid: d85c2cadad9be4441b4f80393f95e7e7, type: 2}
   shiftedFont: {fileID: 11400000, guid: 065007dbf7ad4f648a659d4f60111150, type: 2}
   timeState: 0
   ActiveTiles: []
@@ -19943,6 +19944,7 @@ MonoBehaviour:
   energy: 0
   timeState: 0
   attacked: 0
+  shiftCooldown: 0
   redKey: 0
   blueKey: 0
   killCounter: 0
@@ -31333,8 +31335,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CursorDefault: {fileID: 2800000, guid: 30d3f672c5adc4d40ab5211119a8f9f4, type: 3}
   CursorAttack: {fileID: 2800000, guid: 397934a3a51080743a76b64627bf5bea, type: 3}
+<<<<<<< HEAD
   CursorBreak: {fileID: 2800000, guid: edc5268d1cdab52408da54f2abb15c9d, type: 3}
   CursorUse: {fileID: 2800000, guid: 722ca58e82f8ead4ea0c1d19844aa86f, type: 3}
+=======
+  CursorBreak: {fileID: 2800000, guid: 7ac0c68fad82af241b42fd01a43f9263, type: 3}
+  CursorUse: {fileID: 0}
+>>>>>>> 0d845a451b0b289f19758cddb6790f1d0ae96f60
   Player: {fileID: 252681206}
   PlayerMoving: 0
 --- !u!1 &1223362049
@@ -44310,7 +44317,10 @@ MonoBehaviour:
   RawTile: {fileID: 8990748104377590011, guid: 914c7715f09873147a5456dab570c6c9, type: 3}
   Chest: {fileID: 4830064602568890564, guid: f6b371e4446911c4f901a270a9aa6e36, type: 3}
   Exit: {fileID: 4239693953982427737, guid: 86511b21ad1071346b34d6ba7abe7af3, type: 3}
-  Monster: {fileID: 8216659793477988896, guid: b6147d8a2140c4042a0e975aa3bea891, type: 3}
+  MonsterOriginal: {fileID: 8216659793477988896, guid: b6147d8a2140c4042a0e975aa3bea891,
+    type: 3}
+  MonsterShifted: {fileID: 8216659793477988896, guid: 2a65f51df9d8fe44a88455a6a12306be,
+    type: 3}
   ActiveTiles: []
   Tiles: []
   TilesCoordinates: []
@@ -50917,7 +50927,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2067562340}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -62229,7 +62239,7 @@ PrefabInstance:
     - target: {fileID: 3575219960740194531, guid: 86511b21ad1071346b34d6ba7abe7af3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.64
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3575219960740194531, guid: 86511b21ad1071346b34d6ba7abe7af3,
         type: 3}
