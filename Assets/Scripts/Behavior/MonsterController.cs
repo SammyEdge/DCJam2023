@@ -52,7 +52,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
         GameState = GameObject.FindGameObjectWithTag("GameState");
         MazeController = GameObject.FindGameObjectWithTag("MazeController");
 
-        timeState = TimeState.Original;
+        //timeState = TimeState.Original;
 
         playerPosition = Player.GetComponent<PlayerMovement>().TargetPosition;
 
@@ -93,9 +93,10 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                 isChecking = false;
 
                 // unoccupy square
-                MazeController.GetComponent<LabirintCreation>().SetOccupation(startPosition, false);
+                MazeController.GetComponent<LabirintCreation>().SetOccupation(startPosition, false, timeState);
 
                 startPosition = gameObject.transform.position;
+                gameObject.transform.LookAt(playerPosition);
                 sound.Stop();
             }
         }
@@ -107,16 +108,16 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
             if (isChecking)
             {
                 // check occupation
-                if (MazeController.GetComponent<LabirintCreation>().GetOccupation(knownPlayersLocation))
+                if (MazeController.GetComponent<LabirintCreation>().GetOccupation(knownPlayersLocation, timeState))
                 {
                     return;
                 }
-                
+
 
                 destination = knownPlayersLocation;
                 isMoving = true;
-                
-                MazeController.GetComponent<LabirintCreation>().SetOccupation(destination, true);
+
+                MazeController.GetComponent<LabirintCreation>().SetOccupation(destination, true, timeState);
                 startPosition = gameObject.transform.position;
 
                 AudioClip ac = gameObject.GetComponent<MonsterSoundController>().walk;
@@ -208,7 +209,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                 RaycastHit monsterLookHit;
                 if (Physics.Raycast(gameObject.transform.position, playerPosition - gameObject.transform.position, out monsterLookHit, visionDistance * squareSize, ignoreLayer))
                 {
-                    
+
                     Transform checkedTransform = monsterLookHit.transform;
                     if (checkedTransform.parent != null)
                     {
@@ -371,19 +372,19 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                             }
                         }
                     }
-                    
+
                     // Check occupation
-                    if (MazeController.GetComponent<LabirintCreation>().GetOccupation(target))
+                    if (MazeController.GetComponent<LabirintCreation>().GetOccupation(target, timeState))
                     {
                         return;
                     }
-                    
+
 
                     startPosition = gameObject.transform.position;
                     destination = target;
 
                     // set occupation
-                    MazeController.GetComponent<LabirintCreation>().SetOccupation(destination, true);
+                    MazeController.GetComponent<LabirintCreation>().SetOccupation(destination, true, timeState);
                     // unset occupation
                     //MazeController.GetComponent<LabirintCreation>().SetOccupation(gameObject.transform.position, false);
 
@@ -592,18 +593,47 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
             Player.GetComponent<PlayerStats>().attacked = true;
             gameObject.GetComponent<MonsterInfo>().hp -= 1;
             PlayHitAnimation();
-            Player.GetComponent<PlayerStats>().ChangeStamina(1);
-            Player.GetComponent<PlayerStats>().ChangeEnergy(1);
+            //Player.GetComponent<PlayerStats>().ChangeStamina(1);
+
+            if (Player.GetComponent<PlayerStats>().timeState == TimeState.Original)
+            {
+                Player.GetComponent<PlayerStats>().ChangeEnergy(1);
+            }
+            else
+            {
+                Player.GetComponent<PlayerStats>().TakeDamage(-1);
+            }
+            //Player.GetComponent<PlayerStats>().ChangeEnergy(1);
             if (gameObject.GetComponent<MonsterInfo>().hp <= 0)
             {
                 // death, need to play death animation
-                Player.GetComponent<PlayerStats>().killCounter++;
-                if (!Player.GetComponent<PlayerStats>().redKey)
+                if (gameObject.GetComponent<MonsterController>().timeState == TimeState.Original)
                 {
-                    RedKeyRandomDrop(Player.GetComponent<PlayerStats>().killCounter);
+                    Player.GetComponent<PlayerStats>().killCounterOriginal++;
+                    if (!Player.GetComponent<PlayerStats>().redKey)
+                    {
+                        RedKeyRandomDrop(Player.GetComponent<PlayerStats>().killCounterOriginal);
+                    }
                 }
+                else
+                {
+                    Player.GetComponent<PlayerStats>().killCounterShifted++;
+                    if (!Player.GetComponent<PlayerStats>().blueKey)
+                    {
+                        RedKeyRandomDrop(Player.GetComponent<PlayerStats>().killCounterShifted);
+                    }
+                }
+
                 DropLoot();
-                MazeController.GetComponent<LabirintCreation>().SetOccupation(gameObject.transform.position, false);
+                if (isMoving)
+                {
+                    MazeController.GetComponent<LabirintCreation>().SetOccupation(destination, false, timeState);
+                    MazeController.GetComponent<LabirintCreation>().SetOccupation(startPosition, false, timeState);
+                }
+                else
+                {
+                    MazeController.GetComponent<LabirintCreation>().SetOccupation(gameObject.transform.position, false, timeState);
+                }
             }
         }
     }
@@ -629,6 +659,27 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
         }
     }
 
+    private void BlueKeyRandomDrop(int killCounter)
+    {
+        if (killCounter <= 5)
+        {
+            return;
+        }
+        else
+        {
+            int chance = (killCounter - 5) * 5;
+            int random = new System.Random().Next(0, 100);
+
+            if (random < chance)
+            {
+                print("You've found the Blue Key");
+                Player.GetComponent<PlayerStats>().blueKey = true;
+                GameState.GetComponent<GameState>().blueKey.enabled = true;
+                return;
+            }
+        }
+    }
+
     public void DropTimer()
     {
         timer = 0;
@@ -646,7 +697,18 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
 
     public void MonsterDie()
     {
+        // Remove monster from collection
+        if (timeState == TimeState.Original)
+        {
+            MazeController.GetComponent<LabirintCreation>().Monsters.Remove(gameObject);
+        }
+        else
+        {
+            MazeController.GetComponent<LabirintCreation>().MonstersShifted.Remove(gameObject);
+        }
+
         Destroy(gameObject);
+
         Utils.GetComponent<Utils>().UpdateCursor(gameObject, CursorAction.Default);
     }
 

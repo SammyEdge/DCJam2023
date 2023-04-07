@@ -34,7 +34,7 @@ public class MazeTile : MonoBehaviour//, Shiftable
 
     public string objName;
 
-    public bool occupied;
+    public bool occupied, occupiedShifted;
 
     //public TimeState timeState { get => this.timeState; set => this.timeState = value; }
     public TimeState timeState;

@@ -13,7 +13,8 @@ public class LabirintCreation : MonoBehaviour
     public GameObject RawTile;
     public GameObject Chest;
     public GameObject Exit;
-    public GameObject Monster;
+    public GameObject MonsterOriginal;
+    public GameObject MonsterShifted;
     public GameObject[] ActiveTiles;
     public List<GameObject> Tiles;
     public List<Vector3> TilesCoordinates;
@@ -30,6 +31,9 @@ public class LabirintCreation : MonoBehaviour
     public Material BreakableMaterial;
     private WallSides wallSides = new WallSides();
     public List<GameObject> EndTiles;
+
+    public List<GameObject> Monsters, MonstersShifted;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +51,10 @@ public class LabirintCreation : MonoBehaviour
         Tiles.Add(StartTile);
         Tiles.Add(BlockBehindEnter);
         Tiles.Add(EnterBlock);
+
+        // Itializing monter collections
+        Monsters = new List<GameObject>();
+        MonstersShifted = new List<GameObject>();
 
         // initial placing of player
         EnterBlock.GetComponent<MazeTile>().occupied = true;
@@ -126,7 +134,8 @@ public class LabirintCreation : MonoBehaviour
         PlaceBreakableWall();
         //PlaceChests();
         PlaceExit();
-        PlaceMonsters(Monster, 25); // Only 5 monsters now, you can increase, decrease or randomize this qty
+        PlaceMonsters(MonsterOriginal, 25, TimeState.Original); // Only 5 monsters now, you can increase, decrease or randomize this qty
+        PlaceMonsters(MonsterShifted, 25, TimeState.Shifted);
         //print("torchescounter "+TorchesCounter.ToString());
     }
     /*void MoldTile(int EnterPoint, GameObject NewlyInstatniated)
@@ -1047,7 +1056,7 @@ public class LabirintCreation : MonoBehaviour
 
     void PlaceTorch(GameObject NewlyInstatniated)
     {
-       
+
         if (TorchChecker == 0)
         {
             var i = 0;
@@ -1215,7 +1224,7 @@ public class LabirintCreation : MonoBehaviour
             //ExitDoor.transform.position = ExitDoor.transform.position + (ExitDoor.transform.position - new Vector3(RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.West].transform.position.x, ExitDoor.transform.position.y, RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.West].transform.position.z));
             ExitDoor.transform.position = ExitDoor.transform.position + new Vector3(3, 5, 0);
             //ExitDoor.transform.localScale = new Vector3(1, 1, 1);
-            RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.West].GetComponent<WallStuff>().breakable =false;
+            RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.West].GetComponent<WallStuff>().breakable = false;
             RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.West].GetComponent<WallStuff>().WallObject.SetActive(false);
         }
         if (RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.East].GetComponent<WallStuff>().breakable)
@@ -1224,11 +1233,11 @@ public class LabirintCreation : MonoBehaviour
             //ExitDoor.transform.position = ExitDoor.transform.position + (ExitDoor.transform.position - new Vector3(RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.East].transform.position.x, ExitDoor.transform.position.y, RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.East].transform.position.z));
             ExitDoor.transform.position = ExitDoor.transform.position + new Vector3(-3, 5, 0);
             //ExitDoor.transform.localScale = new Vector3(1, 1, 1);
-            RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.East].GetComponent<WallStuff>().breakable =false;
+            RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.East].GetComponent<WallStuff>().breakable = false;
             RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.East].GetComponent<WallStuff>().WallObject.SetActive(false);
         }
         //GameObject ExitDoor = Instantiate(Exit, EndTiles[UnityEngine.Random.Range(0, EndTiles.Count)].transform.position, Quaternion.identity);
-        
+
         //print(EndTiles[UnityEngine.Random.Range(0, EndTiles.Count)]);
         //foreach (var tile in EndTiles)
         //{
@@ -1239,7 +1248,7 @@ public class LabirintCreation : MonoBehaviour
 
 
     //void PlaceMonster(MonsterType monsterType, int quantity)
-    void PlaceMonsters(GameObject monster, int quantity)
+    void PlaceMonsters(GameObject monster, int quantity, TimeState state)
     {
         ActiveTiles = GameObject.FindGameObjectsWithTag("MazeTile");
         //foreach (GameObject tile in ActiveTiles)
@@ -1262,10 +1271,23 @@ public class LabirintCreation : MonoBehaviour
 
             // put a monster on a tile
             GameObject tile = ActiveTiles[newIndex];
-            if (tile.transform.position != new Vector3(0,0,0)) {
-                GameObject NewMonster = Instantiate(Monster, tile.transform.position, Quaternion.Euler(0, 0, 0));
-                NewMonster.name = Monster.name + i.ToString();
-                tile.GetComponent<MazeTile>().occupied = true;
+            if (tile.transform.position != new Vector3(0, 0, 0))
+            {
+                GameObject NewMonster = Instantiate(monster, tile.transform.position, Quaternion.Euler(0, 0, 0));
+                NewMonster.name = monster.name + i.ToString();
+                NewMonster.GetComponent<MonsterController>().timeState = state;
+                
+                if (state == TimeState.Original)
+                {
+                    tile.GetComponent<MazeTile>().occupied = true;
+                    Monsters.Add(NewMonster);
+                }
+                else
+                {
+                    tile.GetComponent<MazeTile>().occupiedShifted = true;
+                    MonstersShifted.Add(NewMonster);
+                    NewMonster.SetActive(false);
+                }
             }
             else
             {
@@ -1274,13 +1296,21 @@ public class LabirintCreation : MonoBehaviour
         }
     }
 
-    public bool GetOccupation(Vector3 position)
+    public bool GetOccupation(Vector3 position, TimeState state)
     {
         int index = TilesCoordinates.IndexOf(position);
         if (index >= 0)
         {
             GameObject tile = Tiles[index];
-            return tile.GetComponent<MazeTile>().occupied;
+
+            if (state == TimeState.Original)
+            {
+                return tile.GetComponent<MazeTile>().occupied;
+            }
+            else
+            {
+                return tile.GetComponent<MazeTile>().occupiedShifted;
+            }
         }
         else
         {
@@ -1288,13 +1318,20 @@ public class LabirintCreation : MonoBehaviour
         }
     }
 
-    public void SetOccupation(Vector3 position, bool value)
+    public void SetOccupation(Vector3 position, bool value, TimeState state)
     {
         int index = TilesCoordinates.IndexOf(position);
         if (index >= 0)
         {
             GameObject tile = Tiles[index];
-            tile.GetComponent<MazeTile>().occupied = value;
+            if (state == TimeState.Original)
+            {
+                tile.GetComponent<MazeTile>().occupied = value;
+            }
+            else
+            {
+                tile.GetComponent<MazeTile>().occupiedShifted = value;
+            }
         }
         else
         {

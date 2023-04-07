@@ -41,13 +41,16 @@ public class WallController : MonoBehaviour, Hittable//, Shiftable
         {
             if (wallStuff.Wall && wallStuff.breakable && Utils.GetComponent<Utils>().FacingGameObject(gameObject))
             {
-                if (timeState == TimeState.Original) {
-                
+                //Player.GetComponent<PlayerStats>().ChangeStamina(1);
+                if (Player.GetComponent<PlayerStats>().timeState == TimeState.Original)
+                {
+                    //Player.GetComponent<PlayerStats>().ChangeEnergy(1);
                 }
                 else
                 {
                     wallStuff.hp -= 1;
-                    Player.GetComponent<PlayerStats>().ChangeStamina(1);
+                    Player.GetComponent<PlayerStats>().TakeDamage(-1);
+
                     if (wallStuff.hp <= 0)
                     {
                         wallStuff.Wall = false;
@@ -57,6 +60,7 @@ public class WallController : MonoBehaviour, Hittable//, Shiftable
                         Utils.GetComponent<Utils>().UpdateCursor(gameObject);
                     }
                 }
+
                 return true;
             }
             return true;
@@ -66,6 +70,7 @@ public class WallController : MonoBehaviour, Hittable//, Shiftable
             return false;
         }
     }
+
     public void OnMouseEnter()
     {
         if (gameObject.transform.parent.TryGetComponent<WallStuff>(out WallStuff wallStuff))

@@ -10,16 +10,52 @@ public class PlayerStats : MonoBehaviour
 
     public TimeState timeState;
 
-    private float energyTimer = 1, attackTimer = 3;
+    public float attackSpeed;
+    public float shiftSpeed;
+    public int damage;
+    public int maxHealth;
+    public int maxEnergy;
+    public int energyLoseRate;
+
+    private float energyTimer = 1, attackTimer = 3, shiftTimer = 5;
     public bool attacked = false;
-    
+    public bool shiftCooldown = false;
     //keys
     public bool redKey = false, blueKey = false;
 
-    public int killCounter = 0;
+    public int killCounterOriginal = 0;
+    public int killCounterShifted = 0;
+
+    void Start()
+    {
+        // attack speed, the lower the better
+        //attackSpeed = 3;
+        // shift cooldown the lower the better
+        //shiftSpeed = 5;
+        // damage, the higher the better
+        //damage = 1;
+        // health cap, the higher the better
+        //maxHealth = 50;
+        // max energy cap, the higher the better
+        //maxEnergy = 50;
+        // energy lose rate, the higher the better
+        //energyLoseRate = 1;
+    }
+
 
     void Update()
     {
+        if (shiftTimer < shiftSpeed)
+        {
+            shiftTimer += Time.deltaTime;
+        }
+        else if (shiftTimer > shiftSpeed)
+        {
+            shiftTimer = shiftSpeed;
+            shiftCooldown = false;
+
+        }
+
         // Losing energy in shifted reality
         if (timeState == TimeState.Shifted)
         {
@@ -27,7 +63,7 @@ public class PlayerStats : MonoBehaviour
             if (energyTimer <= 0)
             {
                 ChangeEnergy(-1);
-                energyTimer = 1;
+                energyTimer = energyLoseRate;
             }
         }
 
@@ -39,15 +75,35 @@ public class PlayerStats : MonoBehaviour
                 if (attackTimer <= 0)
                 {
                     attacked = false;
-                    attackTimer = 3;
+                    attackTimer = attackSpeed;
                 }
             }
+        }
+
+        //Return to original if energy == 0
+        if (timeState == TimeState.Shifted && energy <= 0 && !gameObject.GetComponentInParent<PlayerMovement>().trueMove)
+        {
+            // Make shift
+            GameObject.FindGameObjectWithTag("GameState").GetComponent<GameState>().ShiftTimeState(TimeState.Original);
+            ShiftCooldown();
+            
         }
     }
 
     public void TakeDamage(int damage)
     {
         health -= damage;
+
+        if (health < 0)
+        {
+            health = 0;
+        }
+
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
+
         Debug.Log("Health = " + health.ToString());
     }
 
@@ -60,6 +116,17 @@ public class PlayerStats : MonoBehaviour
     public void ChangeEnergy(int energy)
     {
         this.energy += energy;
+
+        if (energy < 0)
+        {
+            energy = 0;
+        }
+
+        if (energy > maxEnergy)
+        {
+            energy = maxEnergy;
+        }
+
         Debug.Log("Energy = " + this.energy.ToString());
     }
 
@@ -73,5 +140,11 @@ public class PlayerStats : MonoBehaviour
     {
         blueKey = key;
         return;
+    }
+
+    public void ShiftCooldown()
+    {
+        shiftTimer = 0;
+        shiftCooldown = true;
     }
 }
