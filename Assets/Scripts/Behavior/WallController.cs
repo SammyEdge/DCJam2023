@@ -41,6 +41,7 @@ public class WallController : MonoBehaviour, Hittable//, Shiftable
         {
             if (wallStuff.Wall && wallStuff.breakable && Utils.GetComponent<Utils>().FacingGameObject(gameObject))
             {
+                Utils.GetComponent<Utils>().UpdateCursor(gameObject, CursorAction.Break);
                 //Player.GetComponent<PlayerStats>().ChangeStamina(1);
                 if (Player.GetComponent<PlayerStats>().timeState == TimeState.Original)
                 {
