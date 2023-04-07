@@ -8,6 +8,7 @@ public class ExitContoller : MonoBehaviour
     public GameObject KeyFuture;
     public GameObject KeyPastButton;
     public GameObject KeyFutureButton;
+    public GameObject PortalPlane;
     public Mesh Future;
     public Mesh Past;
     public bool KeyPastInserted = false;
