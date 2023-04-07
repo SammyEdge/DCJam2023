@@ -17,6 +17,8 @@ public class PlayerStats : MonoBehaviour
     public int maxEnergy;
     public int energyLoseRate;
 
+    public int restoreEnergyCounter;
+
     private float energyTimer = 1, attackTimer = 3, shiftTimer = 5;
     public bool attacked = false;
     public bool shiftCooldown = false;
@@ -40,6 +42,8 @@ public class PlayerStats : MonoBehaviour
         //maxEnergy = 50;
         // energy lose rate, the higher the better
         //energyLoseRate = 1;
+        // energy restore counter, the lower the better
+        // restoreEnergyCounter = 10
     }
 
 
