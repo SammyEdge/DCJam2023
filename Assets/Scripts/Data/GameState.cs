@@ -223,7 +223,9 @@ public class GameState : MonoBehaviour
 
             // Shift occupation
             Player.GetComponent<PlayerMovement>().MazeController.GetComponent<LabirintCreation>().SetOccupation(Player.transform.position, true, state);
-            Player.GetComponent<PlayerMovement>().MazeController.GetComponent<LabirintCreation>().SetOccupation(Player.transform.position, false, state);
+            //print("set occupation on " + Player.transform.position.x + ", " + Player.transform.position.z + " in " + state);
+            Player.GetComponent<PlayerMovement>().MazeController.GetComponent<LabirintCreation>().SetOccupation(Player.transform.position, false, TimeState.Original);
+            //print("remove occupation on " + Player.transform.position.x + ", " + Player.transform.position.z + " in " + TimeState.Original);
 
             // Shift textures
             foreach (GameObject tile in ActiveTiles)
@@ -267,7 +269,9 @@ public class GameState : MonoBehaviour
 
             // Shift occupation
             Player.GetComponent<PlayerMovement>().MazeController.GetComponent<LabirintCreation>().SetOccupation(Player.transform.position, true, state);
-            Player.GetComponent<PlayerMovement>().MazeController.GetComponent<LabirintCreation>().SetOccupation(Player.transform.position, false, state);
+            //print("set occupation on " + Player.transform.position.x + ", " + Player.transform.position.z + " in " + state);
+            Player.GetComponent<PlayerMovement>().MazeController.GetComponent<LabirintCreation>().SetOccupation(Player.transform.position, false, TimeState.Shifted);
+            //print("remove occupation on " + Player.transform.position.x + ", " + Player.transform.position.z + " in " + TimeState.Shifted);
 
             // Shift textures
             foreach (GameObject tile in ActiveTiles)

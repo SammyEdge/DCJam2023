@@ -196,3 +196,9 @@ public interface Hittable
 
     public void Shift();
 }*/
+
+abstract class LootItem
+{
+    public abstract void GetBoon();
+}
+

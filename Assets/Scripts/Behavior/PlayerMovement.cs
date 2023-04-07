@@ -119,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
         // gaining energy for movement
         if (Camera.transform.parent.GetComponent<PlayerStats>().timeState == TimeState.Original)
         {
-            if (movingCounter >= 10)
+            if (movingCounter >= Camera.transform.parent.GetComponent<PlayerStats>().restoreEnergyCounter)
             {
                 Camera.transform.parent.GetComponent<PlayerStats>().ChangeEnergy(1);
                 movingCounter = 0;
@@ -140,7 +140,8 @@ public class PlayerMovement : MonoBehaviour
                 // unoccupy PositionBeforeMovementStarts
                 if (trueMove)
                 {
-                    MazeController.GetComponent<LabirintCreation>().SetOccupation(PositionBeforeMovementStarts, false, Camera.transform.parent.GetComponent<PlayerStats>().timeState);
+                    MazeController.GetComponent<LabirintCreation>().SetOccupation(PositionBeforeMovementStarts, false, gameObject.GetComponentInParent<PlayerStats>().timeState);
+                    //print("removed occupation on " + PositionBeforeMovementStarts.x + ", " + PositionBeforeMovementStarts.z + " in " + gameObject.GetComponentInParent<PlayerStats>().timeState);
                     trueMove = false;
                 }
 
@@ -163,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
                     TargetPosition = transform.position + Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.forward, 1);
 
                     // check occupation
-                    if (MazeController.GetComponent<LabirintCreation>().GetOccupation(TargetPosition, Camera.transform.parent.GetComponent<PlayerStats>().timeState))
+                    if (MazeController.GetComponent<LabirintCreation>().GetOccupation(TargetPosition, gameObject.GetComponentInParent<PlayerStats>().timeState))
                     {
                         TargetPosition = transform.position;
                         return;
@@ -180,7 +181,8 @@ public class PlayerMovement : MonoBehaviour
                     }
 
                     // Occupy TargetPosition
-                    MazeController.GetComponent<LabirintCreation>().SetOccupation(TargetPosition, true, Camera.transform.parent.GetComponent<PlayerStats>().timeState);
+                    MazeController.GetComponent<LabirintCreation>().SetOccupation(TargetPosition, true, gameObject.GetComponentInParent<PlayerStats>().timeState);
+                    //print("set occupation on " + TargetPosition.x + ", " + TargetPosition.z + " in " + gameObject.GetComponentInParent<PlayerStats>().timeState);
 
                     movingDirection.Current = movingDirection.Forward;
                     if (SceneManager.GetActiveScene().name == "SampleScene 1")
@@ -221,7 +223,8 @@ public class PlayerMovement : MonoBehaviour
                     }
 
                     // Occupy TargetPosition
-                    MazeController.GetComponent<LabirintCreation>().SetOccupation(TargetPosition, true, Camera.transform.parent.GetComponent<PlayerStats>().timeState);
+                    MazeController.GetComponent<LabirintCreation>().SetOccupation(TargetPosition, true, gameObject.GetComponentInParent<PlayerStats>().timeState);
+                    //print("set occupation on " + TargetPosition.x + ", " + TargetPosition.z + " in " + gameObject.GetComponentInParent<PlayerStats>().timeState);
 
                     movingDirection.Current = movingDirection.Backward;
                     if (SceneManager.GetActiveScene().name == "SampleScene 1")
@@ -259,7 +262,8 @@ public class PlayerMovement : MonoBehaviour
                     }
 
                     // Occupy TargetPosition
-                    MazeController.GetComponent<LabirintCreation>().SetOccupation(TargetPosition, true, Camera.transform.parent.GetComponent<PlayerStats>().timeState);
+                    MazeController.GetComponent<LabirintCreation>().SetOccupation(TargetPosition, true, gameObject.GetComponentInParent<PlayerStats>().timeState);
+                    //print("set occupation on " + TargetPosition.x + ", " + TargetPosition.z + " in " + gameObject.GetComponentInParent<PlayerStats>().timeState);
 
                     movingDirection.Current = movingDirection.StrafeLeft;
                     if (SceneManager.GetActiveScene().name == "SampleScene 1")
@@ -297,7 +301,8 @@ public class PlayerMovement : MonoBehaviour
                     }
 
                     // Occupy TargetPosition
-                    MazeController.GetComponent<LabirintCreation>().SetOccupation(TargetPosition, true, Camera.transform.parent.GetComponent<PlayerStats>().timeState);
+                    MazeController.GetComponent<LabirintCreation>().SetOccupation(TargetPosition, true, gameObject.GetComponentInParent<PlayerStats>().timeState);
+                    //print("set occupation on " + TargetPosition.x + ", " + TargetPosition.z + " in " + gameObject.GetComponentInParent<PlayerStats>().timeState);
 
                     movingDirection.Current = movingDirection.StrafeRight;
                     if (SceneManager.GetActiveScene().name == "SampleScene 1")
@@ -711,8 +716,9 @@ public class PlayerMovement : MonoBehaviour
         // Stop moving if no energy
         if (gameObject.GetComponentInParent<PlayerStats>().timeState == TimeState.Shifted && gameObject.GetComponentInParent<PlayerStats>().energy <= 0)
         {
-            print("state is " + gameObject.GetComponentInParent<PlayerStats>().timeState.ToString());
-            print("energy is " + gameObject.GetComponentInParent<PlayerStats>().energy.ToString());
+
+            //print("state is " + gameObject.GetComponentInParent<PlayerStats>().timeState.ToString());
+            //print("energy is " + gameObject.GetComponentInParent<PlayerStats>().energy.ToString());
             return true;
         }
         return false;
