@@ -65,7 +65,9 @@
     <Compile Include="Assets\Scripts\Data\MonsterInfo.cs" />
     <Compile Include="Assets\Imported\Mini First Person Controller\Scripts\FirstPersonLook.cs" />
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
+    <Compile Include="Assets\ExitKeysAction.cs" />
     <Compile Include="Assets\Scripts\Data\Utils.cs" />
+    <Compile Include="Assets\ExitContoller.cs" />
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\Scripts\InitialSetup\LabirintCreation.cs" />
@@ -127,8 +129,6 @@
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\Scripts\Behavior\ClickHandler.cs" />
     <Compile Include="Assets\Imported\Mini First Person Controller\Scripts\Components\GroundCheck.cs" />
-    <Compile Include="Assets\ExitContoller.cs" />
-    <Compile Include="Assets\ExitKeysAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Imported\TextMesh Pro\Shaders\TMPro.cginc" />
