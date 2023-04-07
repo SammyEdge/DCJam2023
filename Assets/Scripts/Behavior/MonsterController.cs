@@ -98,6 +98,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                 startPosition = gameObject.transform.position;
                 gameObject.transform.LookAt(playerPosition);
                 sound.Stop();
+                PlayIdleAnimation();
             }
         }
 
@@ -123,7 +124,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                 AudioClip ac = gameObject.GetComponent<MonsterSoundController>().walk;
                 sound.clip = ac;
                 sound.Play();
-
+                PlayWalkAnimation();
                 isChasing = false;
                 isAttacking = false;
                 isChecking = false;
@@ -392,6 +393,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                     AudioClip ac = gameObject.GetComponent<MonsterSoundController>().walk;
                     sound.clip = ac;
                     sound.Play();
+                    PlayWalkAnimation();
                     isChasing = false;
                     timer = 0;
                     return;
@@ -692,6 +694,15 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
     public void PlayAttackAnimation()
     {
         gameObject.GetComponent<Animator>().SetTrigger("Attack");
+    }
+
+    public void PlayWalkAnimation()
+    {
+        gameObject.GetComponent<Animator>().SetTrigger("Walk");
+    }
+    public void PlayIdleAnimation()
+    {
+        gameObject.GetComponent<Animator>().SetTrigger("Idle");
     }
 
 
