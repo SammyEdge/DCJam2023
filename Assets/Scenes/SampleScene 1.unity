@@ -44312,7 +44312,10 @@ MonoBehaviour:
   RawTile: {fileID: 8990748104377590011, guid: 914c7715f09873147a5456dab570c6c9, type: 3}
   Chest: {fileID: 4830064602568890564, guid: f6b371e4446911c4f901a270a9aa6e36, type: 3}
   Exit: {fileID: 4239693953982427737, guid: 86511b21ad1071346b34d6ba7abe7af3, type: 3}
-  Monster: {fileID: 8216659793477988896, guid: b6147d8a2140c4042a0e975aa3bea891, type: 3}
+  MonsterOriginal: {fileID: 8216659793477988896, guid: b6147d8a2140c4042a0e975aa3bea891,
+    type: 3}
+  MonsterShifted: {fileID: 8216659793477988896, guid: 2a65f51df9d8fe44a88455a6a12306be,
+    type: 3}
   ActiveTiles: []
   Tiles: []
   TilesCoordinates: []

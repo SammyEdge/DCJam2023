@@ -13,7 +13,8 @@ public class LabirintCreation : MonoBehaviour
     public GameObject RawTile;
     public GameObject Chest;
     public GameObject Exit;
-    public GameObject Monster;
+    public GameObject MonsterOriginal;
+    public GameObject MonsterShifted;
     public GameObject[] ActiveTiles;
     public List<GameObject> Tiles;
     public List<Vector3> TilesCoordinates;
@@ -126,7 +127,7 @@ public class LabirintCreation : MonoBehaviour
         PlaceBreakableWall();
         //PlaceChests();
         PlaceExit();
-        PlaceMonsters(Monster, 25); // Only 5 monsters now, you can increase, decrease or randomize this qty
+        PlaceMonsters(MonsterOriginal, 25); // Only 5 monsters now, you can increase, decrease or randomize this qty
         //print("torchescounter "+TorchesCounter.ToString());
     }
     /*void MoldTile(int EnterPoint, GameObject NewlyInstatniated)
@@ -1263,8 +1264,8 @@ public class LabirintCreation : MonoBehaviour
             // put a monster on a tile
             GameObject tile = ActiveTiles[newIndex];
             if (tile.transform.position != new Vector3(0,0,0)) {
-                GameObject NewMonster = Instantiate(Monster, tile.transform.position, Quaternion.Euler(0, 0, 0));
-                NewMonster.name = Monster.name + i.ToString();
+                GameObject NewMonster = Instantiate(MonsterOriginal, tile.transform.position, Quaternion.Euler(0, 0, 0));
+                NewMonster.name = MonsterOriginal.name + i.ToString();
                 tile.GetComponent<MazeTile>().occupied = true;
             }
             else
