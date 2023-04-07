@@ -13,6 +13,8 @@ TagManager:
   - Floor
   - Ceiling
   - MazeController
+  - Wall
+  - GameOverScreen
   layers:
   - Default
   - TransparentFX

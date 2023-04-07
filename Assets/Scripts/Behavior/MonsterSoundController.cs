@@ -8,5 +8,6 @@ public class MonsterSoundController : MonoBehaviour
     public AudioClip attack;
     public AudioClip hit;
     public AudioClip die;
+    public AudioClip watch;
 
 }

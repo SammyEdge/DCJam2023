@@ -38,12 +38,8 @@
   <ItemGroup>
      <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
      <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
-     <Compile Include="Assets\Imported\Mini First Person Controller\Scripts\FirstPersonMovement.cs" />
-     <Compile Include="Assets\Imported\Mini First Person Controller\Scripts\Components\Zoom.cs" />
-     <Compile Include="Assets\Imported\Mini First Person Controller\Scripts\Components\FirstPersonAudio.cs" />
      <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
      <Compile Include="Assets\Scripts\Data\MonsterInfo.cs" />
-     <Compile Include="Assets\Imported\Mini First Person Controller\Scripts\FirstPersonLook.cs" />
      <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
      <Compile Include="Assets\ExitKeysAction.cs" />
      <Compile Include="Assets\Scripts\Data\Utils.cs" />
@@ -75,12 +71,10 @@
      <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
      <Compile Include="Assets\Scripts\UI\FPScounter.cs" />
      <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
-     <Compile Include="Assets\Imported\Mini First Person Controller\Scripts\Components\Jump.cs" />
      <Compile Include="Assets\Scripts\UI\MainMenuScript.cs" />
      <Compile Include="Assets\Scripts\Behavior\MonsterController.cs" />
      <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
      <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
-     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
      <Compile Include="Assets\Scripts\Behavior\Damage.cs" />
      <Compile Include="Assets\Scripts\Data\MazeTile.cs" />
      <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
@@ -93,7 +87,6 @@
      <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
      <Compile Include="Assets\Scripts\Behavior\CameraScript.cs" />
      <Compile Include="Assets\Scripts\Behavior\MonsterSoundController.cs" />
-     <Compile Include="Assets\Imported\Mini First Person Controller\Scripts\Components\Crouch.cs" />
      <Compile Include="Assets\Scripts\Behavior\InitialHitHandler.cs" />
      <Compile Include="Assets\Scripts\UI\ClickTest.cs" />
      <Compile Include="Assets\Scripts\UI\MinimapScript.cs" />
@@ -108,11 +101,15 @@
      <Compile Include="Assets\Scripts\Data\GameState.cs" />
      <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\Scripts\Behavior\ClickHandler.cs" />
-     <Compile Include="Assets\Imported\Mini First Person Controller\Scripts\Components\GroundCheck.cs" />
+     <Compile Include="Assets\Scripts\UI\GameOverScript.cs" />
+     <Compile Include="Assets\Scripts\UI\PlayerLogController.cs" />
+     <Compile Include="Assets\Scripts\Behavior\PlayerSoundController.cs" />
+     <Compile Include="Assets\Scripts\Behavior\WallSoundController.cs" />
      <None Include="Assets\Imported\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\Imported\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\Imported\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
      <None Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
+     <None Include="Assets\Imported\Audio\Sound_credit.txt" />
      <None Include="Assets\Imported\Fonts\Metro_FREE FONT LICENSE.txt" />
      <None Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
      <None Include="Assets\Imported\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />

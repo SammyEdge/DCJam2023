@@ -1,0 +1,24 @@
+215160__deleted_user_3656686__melee-weapon-swings (8-bit Swings)
+336023__adamgryu__rocks (8-bit Rocks)
+404747__owlstorm__retro-video-game-sfx-ouch (8-bit Ouch)
+483602__raclure__game-bump (8-bit Bump)
+---
+31125__calethos__bump-7 (Origin Bump)
+163441__under7dude__man-getting-hit (Origin Ouch)
+522701__julianmateo__weapon-sword-metal-sword-swing-fast-impact (Origin Swing)
+---
+156183__jl_barrett__keys_7-single (Key)
+197778__samulis__footstep-on-stone (Player_step)
+202091__spookymodem__falling-bones (Skeleton_dead)
+218220__reitanna__knuckles-crack8 (Skeleton_spot)
+381859__cribbler__skeleton-bones-game (Skeleton_hurt)
+422686__niamhd00145229__footsteps-on-stone-pavement (Skeleton_walk)
+547172__navadaux__whipy-woosh-transition (Skeleton_Attack)
+---
+156183__jl_barrett__keys_7-single (Key)
+197778__samulis__footstep-on-stone (Player_step)
+361211__jofae__8-bit-sizzle (Shift_out)
+171255__qubodup__sliding-trailer-woosh (Shift_in)
+
+---
+All sounds are public domain and were taken from freesound.org
