@@ -13,6 +13,8 @@ TagManager:
   - Floor
   - Ceiling
   - MazeController
+  - Wall
+  - Exit
   layers:
   - Default
   - TransparentFX
