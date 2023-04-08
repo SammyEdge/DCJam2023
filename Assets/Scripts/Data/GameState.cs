@@ -32,7 +32,8 @@ public class GameState : MonoBehaviour
 
     // Sound engine
     public AudioSource sound;
-    AudioClip audioClip;
+    public AudioClip originalMusic;
+    public AudioClip shiftedMusic;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +49,9 @@ public class GameState : MonoBehaviour
         ChangeUI(timeState);
 
         sound = gameObject.transform.GetComponent<AudioSource>();
+        sound.clip = originalMusic;
+        sound.Play();
+        
     }
 
     // Update is called once per frame
@@ -237,6 +241,9 @@ public class GameState : MonoBehaviour
 
         if (state == TimeState.Shifted)
         {
+            sound.clip = shiftedMusic;
+            sound.Play();
+
             GameObject Exit = GameObject.FindWithTag("Exit");
             Exit.GetComponent<MeshFilter>().mesh = Exit.GetComponent<ExitContoller>().Past;
             Exit.GetComponent<ExitContoller>().KeyFutureButton.SetActive(true);
@@ -306,6 +313,9 @@ public class GameState : MonoBehaviour
         }
         else
         {
+            sound.clip = originalMusic;
+            sound.Play();
+            
             GameObject Exit = GameObject.FindWithTag("Exit");
             Exit.GetComponent<MeshFilter>().mesh = Exit.GetComponent<ExitContoller>().Future;
             Exit.GetComponent<ExitContoller>().KeyFutureButton.SetActive(false);
