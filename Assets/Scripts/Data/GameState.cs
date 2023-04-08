@@ -36,7 +36,8 @@ public class GameState : MonoBehaviour
 
     // Sound engine
     public AudioSource sound;
-    AudioClip audioClip;
+    public AudioClip originalMusic;
+    public AudioClip shiftedMusic;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +54,9 @@ public class GameState : MonoBehaviour
         ChangeUI(timeState);
 
         sound = gameObject.transform.GetComponent<AudioSource>();
+        sound.clip = originalMusic;
+        sound.Play();
+        
     }
 
     // Update is called once per frame
@@ -259,6 +263,9 @@ public class GameState : MonoBehaviour
 
         if (state == TimeState.Shifted)
         {
+            sound.clip = shiftedMusic;
+            sound.Play();
+
             Phase.transform.localScale = new Vector3(12, 8, 1);
             PhasingX = 12f;
             PhasingY = 8f;
@@ -331,6 +338,9 @@ public class GameState : MonoBehaviour
         }
         else
         {
+            sound.clip = originalMusic;
+            sound.Play();
+            
             Phase.transform.localScale = new Vector3(12, 8, 1);
             PhasingX = 12f;
             PhasingY = 8f;

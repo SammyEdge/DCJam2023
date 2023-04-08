@@ -44,6 +44,10 @@
     <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f67d8b46e9531f600ad2cfcb836fd816af3e8637
   <PropertyGroup>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Package</UnityProjectGenerator>
@@ -58,20 +62,35 @@
   <ItemGroup>
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
+<<<<<<< HEAD
+    <Compile Include="Assets\Imported\Mini First Person Controller\Scripts\FirstPersonMovement.cs" />
+    <Compile Include="Assets\Imported\Mini First Person Controller\Scripts\Components\Zoom.cs" />
+    <Compile Include="Assets\Imported\Mini First Person Controller\Scripts\Components\FirstPersonAudio.cs" />
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\Scripts\Data\MonsterInfo.cs" />
+    <Compile Include="Assets\Imported\Mini First Person Controller\Scripts\FirstPersonLook.cs" />
+=======
+    <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
+    <Compile Include="Assets\Scripts\Data\MonsterInfo.cs" />
+>>>>>>> f67d8b46e9531f600ad2cfcb836fd816af3e8637
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\ExitKeysAction.cs" />
     <Compile Include="Assets\Scripts\Data\Utils.cs" />
     <Compile Include="Assets\ExitContoller.cs" />
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
+<<<<<<< HEAD
+=======
     <Compile Include="Assets\Scripts\UI\PlayerLogController.cs" />
+>>>>>>> f67d8b46e9531f600ad2cfcb836fd816af3e8637
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\Scripts\InitialSetup\LabirintCreation.cs" />
     <Compile Include="Assets\Scripts\Behavior\PlayerMovement.cs" />
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
+<<<<<<< HEAD
+=======
     <Compile Include="Assets\Scripts\Behavior\PlayerSoundController.cs" />
+>>>>>>> f67d8b46e9531f600ad2cfcb836fd816af3e8637
     <Compile Include="Assets\Scripts\UI\PlayerBars.cs" />
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\Scripts\Behavior\MazeControllerScript.cs" />
@@ -93,11 +112,19 @@
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\Scripts\UI\FPScounter.cs" />
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
+<<<<<<< HEAD
+    <Compile Include="Assets\Imported\Mini First Person Controller\Scripts\Components\Jump.cs" />
+=======
+>>>>>>> f67d8b46e9531f600ad2cfcb836fd816af3e8637
     <Compile Include="Assets\Scripts\UI\MainMenuScript.cs" />
     <Compile Include="Assets\Scripts\Behavior\MonsterController.cs" />
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
+<<<<<<< HEAD
+    <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+=======
     <Compile Include="Assets\Scripts\UI\GameOverScript.cs" />
+>>>>>>> f67d8b46e9531f600ad2cfcb836fd816af3e8637
     <Compile Include="Assets\Scripts\Behavior\Damage.cs" />
     <Compile Include="Assets\Scripts\Data\MazeTile.cs" />
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
@@ -110,9 +137,15 @@
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Scripts\Behavior\CameraScript.cs" />
     <Compile Include="Assets\Scripts\Behavior\MonsterSoundController.cs" />
+<<<<<<< HEAD
+    <Compile Include="Assets\Imported\Mini First Person Controller\Scripts\Components\Crouch.cs" />
+    <Compile Include="Assets\Scripts\Behavior\InitialHitHandler.cs" />
+    <Compile Include="Assets\Scripts\UI\ClickTest.cs" />
+=======
     <Compile Include="Assets\Scripts\Behavior\InitialHitHandler.cs" />
     <Compile Include="Assets\Scripts\UI\ClickTest.cs" />
     <Compile Include="Assets\Scripts\Behavior\WallSoundController.cs" />
+>>>>>>> f67d8b46e9531f600ad2cfcb836fd816af3e8637
     <Compile Include="Assets\Scripts\UI\MinimapScript.cs" />
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
@@ -125,6 +158,14 @@
     <Compile Include="Assets\Scripts\Data\GameState.cs" />
     <Compile Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\Scripts\Behavior\ClickHandler.cs" />
+<<<<<<< HEAD
+    <Compile Include="Assets\Imported\Mini First Person Controller\Scripts\Components\GroundCheck.cs" />
+    <Compile Include="Assets\Scripts\Behavior\WallSoundController.cs" />
+    <Compile Include="Assets\Scripts\Behavior\PlayerSoundController.cs" />
+    <Compile Include="Assets\Scripts\UI\GameOverScript.cs" />
+    <Compile Include="Assets\Scripts\UI\PlayerLogController.cs" />
+=======
+>>>>>>> f67d8b46e9531f600ad2cfcb836fd816af3e8637
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Imported\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -155,6 +196,11 @@
     <None Include="Assets\Imported\TextMesh Pro\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\Imported\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
   </ItemGroup>
+<<<<<<< HEAD
+=======
+>>>>>>> 7eb6fd8c5f26a191c5084028194bd68398e26e76
+=======
+>>>>>>> f67d8b46e9531f600ad2cfcb836fd816af3e8637
   <ItemGroup>
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.18f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
