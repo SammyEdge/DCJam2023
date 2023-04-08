@@ -2256,9 +2256,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c7726af770b0744931af4a4f620176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
+  health: 0
   stamina: 100
-  energy: 5
+  energy: 1
   timeState: 0
   attackSpeed: 3
   shiftSpeed: 5
@@ -45526,7 +45526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6224d340d6fc84ebe7a7d44926e8b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 252681207}
+  player: {fileID: 252681206}
 --- !u!1 &1753854817
 GameObject:
   m_ObjectHideFlags: 0

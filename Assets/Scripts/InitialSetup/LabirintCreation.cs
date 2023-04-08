@@ -1204,7 +1204,7 @@ public class LabirintCreation : MonoBehaviour
         {
 
         }
-        GameObject RandomSelected = EndTiles[UnityEngine.Random.Range(0, EndTiles.Count)];
+        GameObject RandomSelected = EndTiles[UnityEngine.Random.Range(0, EndTiles.Count-1)];
         if (RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.North].GetComponent<WallStuff>().breakable)
         {
             GameObject ExitDoor = Instantiate(Exit, RandomSelected.transform.position, Quaternion.Euler(0, 180, 0));
