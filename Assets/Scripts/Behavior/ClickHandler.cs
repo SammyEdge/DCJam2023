@@ -56,14 +56,13 @@ public class ClickHandler : MonoBehaviour
                 }*/
                 if (hit.transform.gameObject.GetComponent<InitialHitHandler>().ObjectType == ObjectTypes.LootSack)
                 {
+                }
+                if (hit.transform.gameObject.GetComponent<InitialHitHandler>().ObjectType == ObjectTypes.Portal)
+                {
                     if (hit.transform.GetComponent<ExitContoller>().KeyPastInserted && hit.transform.GetComponent<ExitContoller>().KeyFutureInserted)
                     {
                         print("�� �����������");
                     }
-                }
-                if (hit.transform.gameObject.GetComponent<InitialHitHandler>().ObjectType == ObjectTypes.Portal)
-                {
-                    //print(ObjectTypes.LootSack);
                 }
                 if (hit.transform.gameObject.GetComponent<InitialHitHandler>().ObjectType == ObjectTypes.ButtonOld)
                 {

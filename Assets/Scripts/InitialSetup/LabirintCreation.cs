@@ -1188,6 +1188,7 @@ public class LabirintCreation : MonoBehaviour
 
     void PlaceExit()
     {
+
         //bool Placed = false;
         int Random = UnityEngine.Random.Range(0, 5);
         // ���� �������� �������� �� ������� ������, ����� �� ���� ���������� ������ �� ������� ���������
@@ -1198,6 +1199,10 @@ public class LabirintCreation : MonoBehaviour
             {
                 EndTiles.Add(tile);
             }
+        }
+        if (EndTiles.Count < 1)
+        {
+
         }
         GameObject RandomSelected = EndTiles[UnityEngine.Random.Range(0, EndTiles.Count)];
         if (RandomSelected.GetComponent<MazeTile>().WallsObjects[wallSides.North].GetComponent<WallStuff>().breakable)
