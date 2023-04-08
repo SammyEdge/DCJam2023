@@ -15,6 +15,7 @@ public class GameState : MonoBehaviour
     [SerializeField] private GameObject Player;
     [SerializeField] private GameObject Utils;
     [SerializeField] private GameObject MazeCtrlr;
+    [SerializeField] private GameObject ShiftWrapper;
 
     public TextMeshProUGUI timeStateText;
     public TextMeshProUGUI healthText;
@@ -24,13 +25,16 @@ public class GameState : MonoBehaviour
 
     public TMP_FontAsset originalFont, shiftedFont;
 
-
+    public GameObject Phase;
     public TimeState timeState;
+    private float PhasingX = 0;
+    private float PhasingY = 0;
 
     public GameObject[] ActiveTiles;
     // Start is called before the first frame update
     void Start()
     {
+        Phase.transform.localScale = new Vector3(0, 8, 1);
         redKey.enabled = false;
         blueKey.enabled = false;
         DontDestroyOnLoad(this);
@@ -45,12 +49,29 @@ public class GameState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PhasingY > 0)
+        {
+            PhasingY -= 0.1f;
+            PhasingX -= 0.2f;
+/*            Quaternion newRotation = Quaternion.AngleAxis(90, Vector3.forward);
+            Phase.transform.rotation = Quaternion.Slerp(Phase.transform.rotation, newRotation, .05f);*/
+        }
+        if (PhasingY < 0)
+        {
+            PhasingY = 0;
+        }
+        if (PhasingY != 0)
+        {
+            Phase.transform.localScale = new Vector3(12, PhasingY, 1);
+        }
         if (Player.GetComponent<PlayerStats>().shiftCooldown)
         {
+            ShiftWrapper.SetActive(false);
             energyText.faceColor = Color.red;
         }
         else
         {
+            ShiftWrapper.SetActive(true);
             if (!energyText.faceColor.Equals(Color.white))
             {
                 energyText.faceColor = Color.white;
@@ -217,6 +238,9 @@ public class GameState : MonoBehaviour
 
         if (state == TimeState.Shifted)
         {
+            Phase.transform.localScale = new Vector3(12, 8, 1);
+            PhasingX = 12f;
+            PhasingY = 8f;
             GameObject Exit = GameObject.FindWithTag("Exit");
             Exit.GetComponent<MeshFilter>().mesh = Exit.GetComponent<ExitContoller>().Past;
             Exit.GetComponent<ExitContoller>().KeyFutureButton.SetActive(true);
@@ -279,6 +303,9 @@ public class GameState : MonoBehaviour
         }
         else
         {
+            Phase.transform.localScale = new Vector3(12, 8, 1);
+            PhasingX = 12f;
+            PhasingY = 8f;
             GameObject Exit = GameObject.FindWithTag("Exit");
             Exit.GetComponent<MeshFilter>().mesh = Exit.GetComponent<ExitContoller>().Future;
             Exit.GetComponent<ExitContoller>().KeyFutureButton.SetActive(false);
