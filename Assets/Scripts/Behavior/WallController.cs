@@ -47,14 +47,18 @@ public class WallController : MonoBehaviour, Hittable//, Shiftable
                 {
                     //Player.GetComponent<PlayerStats>().ChangeEnergy(1);
                     Player.GetComponent<PlayerLogController>().Message("This wall melted into unbreakable mass for the long time");
+                    //Player.GetComponent<PlayerSoundController>().HitWallSound();
+                    gameObject.GetComponentInParent<WallSoundController>().PlayBump();
                 }
                 else
                 {
+                    Player.GetComponent<PlayerSoundController>().HitWallSound();
                     wallStuff.hp -= 1;
                     Player.GetComponent<PlayerStats>().TakeDamage(-1);
 
                     if (wallStuff.hp <= 0)
                     {
+                        gameObject.GetComponentInParent<WallSoundController>().PlayDestroyed();
                         wallStuff.Wall = false;
                         wallStuff.WallObject.SetActive(false);
                         wallStuff.TorchObject.SetActive(false);

@@ -14,7 +14,7 @@ public class PlayerLogController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        logText.text = "Hello, strager!";
+        logText.text = "Hello, stranger!";
     }
 
     // Update is called once per frame

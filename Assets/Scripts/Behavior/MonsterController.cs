@@ -130,7 +130,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                 isChasing = false;
                 isAttacking = false;
                 isChecking = false;
-                print(gameObject.name + ": trying to find him");
+                //print(gameObject.name + ": trying to find him");
                 return;
             }
 
@@ -170,7 +170,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                             Player.GetComponent<PlayerStats>().ChangeEnergy(-1);
                             Player.GetComponent<PlayerLogController>().Message("You were hit and lost some energy!");
                         }
-                        print(gameObject.name + ": attacking player");
+                        //print(gameObject.name + ": attacking player");
                         knownPlayersLocation = playerPosition;
                         Debug.DrawRay(gameObject.transform.position, playerPosition - gameObject.transform.position, Color.green, 2);
                         timer = 2;
@@ -182,7 +182,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                         Debug.DrawRay(gameObject.transform.position, knownPlayersLocation - gameObject.transform.position, Color.yellow, 2);
                         isChecking = true;
                         timer = 1;
-                        print(gameObject.name + ": he is gone!");
+                        //print(gameObject.name + ": he is gone!");
 
                         /*
                         audioClip = gameObject.GetComponent<MonsterSoundController>().watch;
@@ -203,7 +203,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                     audioClip = gameObject.GetComponent<MonsterSoundController>().watch;
                     sound.clip = audioClip;
                     sound.Play();*/
-                    print(gameObject.name + ": he is missed!");
+                    //print(gameObject.name + ": he is missed!");
                     return;
                 }
             }
@@ -227,7 +227,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
             // Check vision to player and turn to him
             if (FindPlayer(gameObject.transform.position, Player.GetComponent<PlayerMovement>().TargetPosition, perceptionRadius))
             {
-                print(gameObject.name + ": I hear a player");
+                //print(gameObject.name + ": I hear a player");
                 gameObject.transform.LookAt(playerPosition);
 
                 RaycastHit monsterLookHit;
@@ -242,7 +242,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
 
                     if (checkedTransform != Player.transform)
                     {
-                        print(gameObject.name + ": I see towards a player, but see " + monsterLookHit.transform.name);
+                        //print(gameObject.name + ": I see towards a player, but see " + monsterLookHit.transform.name);
                         isWaiting = true;
                         isAttacking = false;
                         isChasing = false;
@@ -256,7 +256,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                     }
                     else
                     {
-                        print(gameObject.name + ": I see you, creepy player!");
+                        //print(gameObject.name + ": I see you, creepy player!");
                         isChasing = true;
                         isWaiting = false;
                         isAttacking = false;
@@ -345,10 +345,10 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                     }
 
                     Vector3 xNearestSquare = new Vector3(deltaX, 0, xMovingVector.z);
-                    print(gameObject.name + ": my nearest x square: " + xNearestSquare.x + " " + xNearestSquare.z);
+                    //print(gameObject.name + ": my nearest x square: " + xNearestSquare.x + " " + xNearestSquare.z);
 
                     Vector3 zNearestSquare = new Vector3(zMovingVector.x, 0, deltaZ);
-                    print(gameObject.name + ": my nearest z square: " + zNearestSquare.x + " " + zNearestSquare.z);
+                    //print(gameObject.name + ": my nearest z square: " + zNearestSquare.x + " " + zNearestSquare.z);
 
                     bool xOk = false, zOk = false;
 
@@ -366,13 +366,13 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                     {
                         // x square available and z square unavailable
                         target = xNearestSquare;
-                        print(gameObject.name + ": moving x: " + target.x + " " + target.z);
+                        //print(gameObject.name + ": moving x: " + target.x + " " + target.z);
                     }
                     else if (!xOk && zOk)
                     {
                         // x square unavailable and z square available 
                         target = zNearestSquare;
-                        print(gameObject.name + ": moving z" + target.x + " " + target.z);
+                        //print(gameObject.name + ": moving z" + target.x + " " + target.z);
                     }
                     else if (!xOk && !zOk)
                     {
@@ -380,7 +380,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                         isWaiting = true;
                         isChasing = false;
                         timer = 2;
-                        print(gameObject.name + ": no nearest squares to move");
+                        //print(gameObject.name + ": no nearest squares to move");
                         return;
                     }
                     else
@@ -393,12 +393,12 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                         if (xMovingVectorLength > zMovingVectorLength)
                         {
                             target = xNearestSquare;
-                            print(gameObject.name + ": moving X" + target.x + " " + target.z);
+                            //print(gameObject.name + ": moving X" + target.x + " " + target.z);
                         }
                         else if (xMovingVectorLength < zMovingVectorLength)
                         {
                             target = zNearestSquare;
-                            print(gameObject.name + ": moving Z" + target.x + " " + target.z);
+                            //print(gameObject.name + ": moving Z" + target.x + " " + target.z);
                         }
                         else
                         {
@@ -406,12 +406,12 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                             if (rand == 0)
                             {
                                 target = xNearestSquare;
-                                print(gameObject.name + ": decide to move x" + target.x + " " + target.z);
+                                //print(gameObject.name + ": decide to move x" + target.x + " " + target.z);
                             }
                             else
                             {
                                 target = zNearestSquare;
-                                print(gameObject.name + ": decide to move z" + target.x + " " + target.z);
+                                //print(gameObject.name + ": decide to move z" + target.x + " " + target.z);
                             }
                         }
                     }
@@ -798,11 +798,14 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
 
     public void DropLoot()
     {
-        audioClip = gameObject.GetComponent<MonsterSoundController>().die;
+        /*audioClip = gameObject.GetComponent<MonsterSoundController>().die;
         sound.clip = audioClip;
-        sound.Play();
+        sound.Play();*/
+        Player.GetComponent<PlayerSoundController>().KillBonerSound();
         Vector3 LootPosition = Player.transform.position + Player.transform.forward * 3 + Player.transform.forward * 10;
-        Instantiate(LootSack, new Vector3(LootPosition.x, 0, LootPosition.z), Quaternion.identity);
+        //Instantiate(LootSack, new Vector3(LootPosition.x, 0, LootPosition.z), Quaternion.identity);
+
+        Utils.GetComponent<Utils>().GetLoot(Player.GetComponent<PlayerStats>().timeState);
     }
 
     public bool Hit()
