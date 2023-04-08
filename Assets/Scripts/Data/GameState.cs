@@ -44,9 +44,9 @@ public class GameState : MonoBehaviour
         Phase.transform.localScale = new Vector3(0, 8, 1);
         redKey.enabled = false;
         blueKey.enabled = false;
-        DontDestroyOnLoad(this);
-        DontDestroyOnLoad(Player);
-        DontDestroyOnLoad(Utils);
+        //DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(Player);
+        //DontDestroyOnLoad(Utils);
         timeState = TimeState.Original;
         Player.GetComponent<PlayerStats>().timeState = TimeState.Original;
         timeStateText.text = Enum.GetName(typeof(TimeState), TimeState.Original);
