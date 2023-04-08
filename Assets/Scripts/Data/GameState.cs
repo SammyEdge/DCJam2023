@@ -20,6 +20,7 @@ public class GameState : MonoBehaviour
     public TextMeshProUGUI timeStateText;
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI energyText;
+    public TextMeshProUGUI logText;
 
     public Image redKey, blueKey;
 
@@ -31,6 +32,11 @@ public class GameState : MonoBehaviour
     private float PhasingY = 0;
 
     public GameObject[] ActiveTiles;
+
+    // Sound engine
+    public AudioSource sound;
+    AudioClip audioClip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +50,8 @@ public class GameState : MonoBehaviour
         Player.GetComponent<PlayerStats>().timeState = TimeState.Original;
         timeStateText.text = Enum.GetName(typeof(TimeState), TimeState.Original);
         ChangeUI(timeState);
+
+        sound = gameObject.transform.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -83,21 +91,27 @@ public class GameState : MonoBehaviour
         {
             if (Player.GetComponent<PlayerStats>().energy <= 0)
             {
+                Player.GetComponent<PlayerSoundController>().BumpSound();
                 // no energy no shift
                 return;
             }
 
+            
             //ActiveTiles = GameObject.FindGameObjectsWithTag("MazeTile");
             //print(ActiveTiles);
             if (timeState == TimeState.Original)
             {
                 if (Player.GetComponent<PlayerStats>().shiftCooldown)
                 {
+                    Player.GetComponent<PlayerLogController>().Message("Need some time to cool your Shifter");
                     // сыграть звук пшшшш
+                    Player.GetComponent<PlayerSoundController>().CooldownSound();
                     return;
                 }
 
                 //timeState = TimeState.Shifted;
+                Player.GetComponent<PlayerLogController>().Message("BACK IN TIME!");
+                Player.GetComponent<PlayerSoundController>().ShiftSound();
                 ShiftTimeState(TimeState.Shifted);
                 // foreach (GameObject tile in ActiveTiles)
                 // {
@@ -135,6 +149,8 @@ public class GameState : MonoBehaviour
             else
             {
                 //timeState = TimeState.Original;
+                Player.GetComponent<PlayerLogController>().Message("Shited Back!");
+                Player.GetComponent<PlayerSoundController>().UnShiftSound();
                 ShiftTimeState(TimeState.Original);
                 Player.GetComponent<PlayerStats>().ShiftCooldown();
                 // foreach (GameObject tile in ActiveTiles)
@@ -182,6 +198,8 @@ public class GameState : MonoBehaviour
             healthText.fontSize = 13;
             energyText.font = originalFont;
             energyText.fontSize = 13;
+            logText.font = originalFont;
+            logText.fontSize = 13;
         }
         else
         {
@@ -191,6 +209,8 @@ public class GameState : MonoBehaviour
             healthText.fontSize = 20;
             energyText.font = shiftedFont;
             energyText.fontSize = 20;
+            logText.font = shiftedFont;
+            logText.fontSize = 20;
         }
     }
 

@@ -560,11 +560,13 @@ MonoBehaviour:
   playerPosition: {x: 0, y: 0, z: 0}
   knownPlayersLocation: {x: 0, y: 0, z: 0}
   destination: {x: 0, y: 0, z: 0}
+  startPosition: {x: 0, y: 0, z: 0}
   isWaiting: 1
   isChasing: 0
   isAttacking: 0
   isMoving: 0
   isChecking: 0
+  timeState: 0
 --- !u!114 &-5339359014685850048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,10 +579,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54a99a9acaab692458d8c92e088cf25d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walk: {fileID: 8300000, guid: f8c14f2814b4b124a894a65c32c44987, type: 3}
-  attack: {fileID: 0}
-  hit: {fileID: 0}
-  die: {fileID: 0}
+  walk: {fileID: 8300000, guid: 60ba4450a147bd64cb5a21f8e27c0bb5, type: 3}
+  attack: {fileID: 8300000, guid: ed473e8f9180bb14293be84f988af29c, type: 3}
+  hit: {fileID: 8300000, guid: 3223843e7aa0a6a4287095a32e635d12, type: 3}
+  die: {fileID: 8300000, guid: ecd545081c2b71d4e8234a19cc8d6942, type: 3}
+  watch: {fileID: 8300000, guid: e72f5d1cd8e06414691f2a56e2d3a584, type: 3}
 --- !u!82 &-4590320231913644398
 AudioSource:
   m_ObjectHideFlags: 0

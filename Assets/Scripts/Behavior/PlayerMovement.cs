@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject Utils;
     public GameObject[] ActiveTiles;
     public GameObject MazeController;
+    public GameObject Torch;
     public List<Vector3> Coordinates;
     public Vector3 CurrentPosition;
     private Vector3 FuturePosition;
@@ -45,6 +46,9 @@ public class PlayerMovement : MonoBehaviour
     private MovingDirection movingDirection = new MovingDirection();
     int movingCounter;
 
+    public AudioSource sound;
+    public AudioClip clip;
+
     //private bool KeyForwardPressed = false;
     //private bool KeyBackwardPressed = false;
     //private bool KeyTurnRightPressed = false;
@@ -69,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
         moving.Current = false;
         movingCounter = 0;
         trueMove = false;
+        sound = gameObject.transform.GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -143,6 +148,7 @@ public class PlayerMovement : MonoBehaviour
                     MazeController.GetComponent<LabirintCreation>().SetOccupation(PositionBeforeMovementStarts, false, gameObject.GetComponentInParent<PlayerStats>().timeState);
                     //print("removed occupation on " + PositionBeforeMovementStarts.x + ", " + PositionBeforeMovementStarts.z + " in " + gameObject.GetComponentInParent<PlayerStats>().timeState);
                     trueMove = false;
+                    sound.Stop();
                 }
 
                 PositionBeforeMovementStarts = transform.position;
@@ -171,6 +177,11 @@ public class PlayerMovement : MonoBehaviour
                     }
 
                     trueMove = true;
+
+                    clip = gameObject.GetComponent<PlayerSoundController>().walk;
+                    sound.clip = clip;
+                    sound.Play();
+
                     PositionBeforeMovementStarts = transform.position;
                     moving.Current = true;
                     // gaining energy for movement
@@ -212,6 +223,11 @@ public class PlayerMovement : MonoBehaviour
                     }
 
                     trueMove = true;
+
+                    clip = gameObject.GetComponent<PlayerSoundController>().walk;
+                    sound.clip = clip;
+                    sound.Play();
+
                     PositionBeforeMovementStarts = transform.position;
                     moving.Current = true;
 
@@ -251,6 +267,11 @@ public class PlayerMovement : MonoBehaviour
                     }
 
                     trueMove = true;
+
+                    clip = gameObject.GetComponent<PlayerSoundController>().walk;
+                    sound.clip = clip;
+                    sound.Play();
+
                     PositionBeforeMovementStarts = transform.position;
                     moving.Current = true;
 
@@ -290,6 +311,11 @@ public class PlayerMovement : MonoBehaviour
                     }
 
                     trueMove = true;
+
+                    clip = gameObject.GetComponent<PlayerSoundController>().walk;
+                    sound.clip = clip;
+                    sound.Play();
+
                     PositionBeforeMovementStarts = transform.position;
                     moving.Current = true;
 
@@ -320,6 +346,11 @@ public class PlayerMovement : MonoBehaviour
                 //KeyTurnRightPressed = false;
                 //print(transform.right);
                 //print(Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.right, 1));
+
+                clip = gameObject.GetComponent<PlayerSoundController>().turn;
+                sound.clip = clip;
+                sound.Play();
+
                 moving.Current = true;
                 moving.Rotation = true;
                 movingDirection.Current = movingDirection.TurnRight;
@@ -335,6 +366,11 @@ public class PlayerMovement : MonoBehaviour
                 //KeyTurnLeftPressed = false;
                 //print(transform.right * -1);
                 //print(Utils.GetComponent<Utils>().GetFixedDirectionVector(transform.right, -1));
+                
+                clip = gameObject.GetComponent<PlayerSoundController>().turn;
+                sound.clip = clip;
+                sound.Play();
+
                 moving.Current = true;
                 moving.Rotation = true;
                 movingDirection.Current = movingDirection.TurnLeft;

@@ -34,7 +34,8 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
     public Vector3 playerPosition;
     public Vector3 knownPlayersLocation, destination;
     public Vector3 startPosition;
-
+    //public GameObject soundController;
+    AudioClip audioClip;
     //states
     public bool isWaiting = true, isChasing = false, isAttacking = false, isMoving = false, isChecking = false;
 
@@ -51,6 +52,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
         Player = GameObject.FindGameObjectWithTag("Player");
         GameState = GameObject.FindGameObjectWithTag("GameState");
         MazeController = GameObject.FindGameObjectWithTag("MazeController");
+        //soundController = gameObject.GetComponentInParent<MonsterSoundController>();
 
         //timeState = TimeState.Original;
 
@@ -121,8 +123,8 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                 MazeController.GetComponent<LabirintCreation>().SetOccupation(destination, true, timeState);
                 startPosition = gameObject.transform.position;
 
-                AudioClip ac = gameObject.GetComponent<MonsterSoundController>().walk;
-                sound.clip = ac;
+                audioClip = gameObject.GetComponent<MonsterSoundController>().walk;
+                sound.clip = audioClip;
                 sound.Play();
                 PlayWalkAnimation();
                 isChasing = false;
@@ -150,13 +152,23 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                     {
                         // strike
                         PlayAttackAnimation();
+                        // Boner sound attack
+                        audioClip = gameObject.GetComponent<MonsterSoundController>().attack;
+                        sound.clip = audioClip;
+                        sound.Play();
+                        
+                        // Player sound attack
+                        Player.GetComponent<PlayerSoundController>().DamageSound();
+
                         if (Player.GetComponent<PlayerStats>().timeState == TimeState.Original)
                         {
                             Player.GetComponent<PlayerStats>().TakeDamage(1);
+                            Player.GetComponent<PlayerLogController>().Message("You were hit by a boner!");
                         }
                         else
                         {
                             Player.GetComponent<PlayerStats>().ChangeEnergy(-1);
+                            Player.GetComponent<PlayerLogController>().Message("You were hit and lost some energy!");
                         }
                         print(gameObject.name + ": attacking player");
                         knownPlayersLocation = playerPosition;
@@ -169,8 +181,14 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                         isAttacking = false;
                         Debug.DrawRay(gameObject.transform.position, knownPlayersLocation - gameObject.transform.position, Color.yellow, 2);
                         isChecking = true;
-                        timer = 2;
+                        timer = 1;
                         print(gameObject.name + ": he is gone!");
+
+                        /*
+                        audioClip = gameObject.GetComponent<MonsterSoundController>().watch;
+                        sound.clip = audioClip;
+                        sound.Play();*/
+
                         return;
                     }
                 }
@@ -179,7 +197,12 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                     isAttacking = false;
                     Debug.DrawRay(gameObject.transform.position, knownPlayersLocation - gameObject.transform.position, Color.blue, 2);
                     isChecking = true;
-                    timer = 2;
+                    timer = 1;
+                    
+                    /*
+                    audioClip = gameObject.GetComponent<MonsterSoundController>().watch;
+                    sound.clip = audioClip;
+                    sound.Play();*/
                     print(gameObject.name + ": he is missed!");
                     return;
                 }
@@ -224,6 +247,12 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                         isAttacking = false;
                         isChasing = false;
                         isMoving = false;
+
+                        /*
+                        audioClip = gameObject.GetComponent<MonsterSoundController>().watch;
+                        sound.clip = audioClip;
+                        sound.Play();
+                        */
                     }
                     else
                     {
@@ -232,6 +261,13 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                         isWaiting = false;
                         isAttacking = false;
                         isMoving = false;
+
+
+                        /*
+                        audioClip = gameObject.GetComponent<MonsterSoundController>().watch;
+                        sound.clip = audioClip;
+                        sound.Play();
+                        */
                     }
 
                     Debug.DrawRay(gameObject.transform.position, playerPosition - gameObject.transform.position, Color.red, 2);
@@ -261,6 +297,12 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                         isChasing = false;
                         isMoving = false;
                         timer = 0;
+
+                        /*
+                        audioClip = gameObject.GetComponent<MonsterSoundController>().attack;
+                        sound.clip = audioClip;
+                        sound.Play();
+                        */
                         return;
                     }
                 }
@@ -453,7 +495,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                 }
             }
 
-            timer = 2;
+            timer = 1;
         }
     }
 
@@ -594,16 +636,25 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
         {
             Player.GetComponent<PlayerStats>().attacked = true;
             gameObject.GetComponent<MonsterInfo>().hp -= 1;
+            
+            Player.GetComponent<PlayerSoundController>().AttackSound();
+
+            audioClip = gameObject.GetComponent<MonsterSoundController>().hit;
+            sound.clip = audioClip;
+            sound.Play();
+
             PlayHitAnimation();
             //Player.GetComponent<PlayerStats>().ChangeStamina(1);
 
             if (Player.GetComponent<PlayerStats>().timeState == TimeState.Original)
             {
+                Player.GetComponent<PlayerLogController>().Message("You hit a monster and gained some energy!");
                 Player.GetComponent<PlayerStats>().ChangeEnergy(1);
             }
             else
             {
                 Player.GetComponent<PlayerStats>().TakeDamage(-1);
+                Player.GetComponent<PlayerLogController>().Message("You hit a monster and restored some health!");
             }
             //Player.GetComponent<PlayerStats>().ChangeEnergy(1);
             if (gameObject.GetComponent<MonsterInfo>().hp <= 0)
@@ -625,8 +676,10 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                         RedKeyRandomDrop(Player.GetComponent<PlayerStats>().killCounterShifted);
                     }
                 }
-
+                //sound.Stop();
                 DropLoot();
+
+
                 if (isMoving)
                 {
                     MazeController.GetComponent<LabirintCreation>().SetOccupation(destination, false, timeState);
@@ -637,6 +690,11 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
                     MazeController.GetComponent<LabirintCreation>().SetOccupation(gameObject.transform.position, false, timeState);
                 }
             }
+        }
+        else
+        {
+            Player.GetComponent<PlayerLogController>().Message("You can't strike so fast");
+            Player.GetComponent<PlayerSoundController>().BumpSound();
         }
     }
 
@@ -653,9 +711,16 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
 
             if (random < chance)
             {
-                print("You've found the Red Key");
+                //print("You've found the Red Key");
+                Player.GetComponent<PlayerLogController>().Message("You found the Red Key!");
                 Player.GetComponent<PlayerStats>().redKey = true;
                 GameState.GetComponent<GameState>().redKey.enabled = true;
+                Player.GetComponent<PlayerSoundController>().DropKeySound();
+
+                if (Player.GetComponent<PlayerStats>().redKey && Player.GetComponent<PlayerStats>().blueKey)
+                {
+                    Player.GetComponent<PlayerLogController>().Message("You found both keys. Find a portal to exit!");
+                }
                 return;
             }
         }
@@ -674,9 +739,16 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
 
             if (random < chance)
             {
-                print("You've found the Blue Key");
+                //print("You've found the Blue Key");
+                Player.GetComponent<PlayerLogController>().Message("You found the Blue Key!");
                 Player.GetComponent<PlayerStats>().blueKey = true;
                 GameState.GetComponent<GameState>().blueKey.enabled = true;
+                Player.GetComponent<PlayerSoundController>().DropKeySound();
+
+                if (Player.GetComponent<PlayerStats>().redKey && Player.GetComponent<PlayerStats>().blueKey)
+                {
+                    Player.GetComponent<PlayerLogController>().Message("You found both keys. Find a portal to exit!");
+                }
                 return;
             }
         }
@@ -708,6 +780,7 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
 
     public void MonsterDie()
     {
+
         // Remove monster from collection
         if (timeState == TimeState.Original)
         {
@@ -725,6 +798,9 @@ public class MonsterController : MonoBehaviour, Hittable//, Shiftable
 
     public void DropLoot()
     {
+        audioClip = gameObject.GetComponent<MonsterSoundController>().die;
+        sound.clip = audioClip;
+        sound.Play();
         Vector3 LootPosition = Player.transform.position + Player.transform.forward * 3 + Player.transform.forward * 10;
         Instantiate(LootSack, new Vector3(LootPosition.x, 0, LootPosition.z), Quaternion.identity);
     }

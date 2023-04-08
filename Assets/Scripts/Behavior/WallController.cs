@@ -46,6 +46,7 @@ public class WallController : MonoBehaviour, Hittable//, Shiftable
                 if (Player.GetComponent<PlayerStats>().timeState == TimeState.Original)
                 {
                     //Player.GetComponent<PlayerStats>().ChangeEnergy(1);
+                    Player.GetComponent<PlayerLogController>().Message("This wall melted into unbreakable mass for the long time");
                 }
                 else
                 {
@@ -59,6 +60,7 @@ public class WallController : MonoBehaviour, Hittable//, Shiftable
                         wallStuff.TorchObject.SetActive(false);
                         wallStuff.Torch = false;
                         Utils.GetComponent<Utils>().UpdateCursor(gameObject);
+                        Player.GetComponent<PlayerLogController>().Message("You crushed a wall and restored some health");
                     }
                 }
 
