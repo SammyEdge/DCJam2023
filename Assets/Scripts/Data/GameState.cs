@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using Unity.VisualScripting;
+using System.Linq;
 
 public class GameState : MonoBehaviour
 {
@@ -259,6 +260,13 @@ public class GameState : MonoBehaviour
             Player.GetComponent<PlayerMovement>().MazeController.GetComponent<LabirintCreation>().SetOccupation(Player.transform.position, false, TimeState.Original);
             //print("remove occupation on " + Player.transform.position.x + ", " + Player.transform.position.z + " in " + TimeState.Original);
 
+            GameObject boner = Player.GetComponent<PlayerMovement>().MazeController.GetComponent<LabirintCreation>().MonstersShifted.FirstOrDefault(monster => monster.transform.position == Player.transform.position);
+            if (boner != null)
+            {
+                boner.GetComponent<MonsterController>().DropLoot();
+                boner.GetComponent<MonsterController>().MonsterDie();
+            }
+
             // Shift textures
             foreach (GameObject tile in ActiveTiles)
             {
@@ -313,6 +321,14 @@ public class GameState : MonoBehaviour
             //print("set occupation on " + Player.transform.position.x + ", " + Player.transform.position.z + " in " + state);
             Player.GetComponent<PlayerMovement>().MazeController.GetComponent<LabirintCreation>().SetOccupation(Player.transform.position, false, TimeState.Shifted);
             //print("remove occupation on " + Player.transform.position.x + ", " + Player.transform.position.z + " in " + TimeState.Shifted);
+
+            // Destroy Boner in that place
+            GameObject boner = Player.GetComponent<PlayerMovement>().MazeController.GetComponent<LabirintCreation>().Monsters.FirstOrDefault(monster => monster.transform.position == Player.transform.position);
+            if (boner != null)
+            {
+                boner.GetComponent<MonsterController>().DropLoot();
+                boner.GetComponent<MonsterController>().MonsterDie();
+            }
 
             // Shift textures
             foreach (GameObject tile in ActiveTiles)

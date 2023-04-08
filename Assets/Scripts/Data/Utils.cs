@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class Utils : MonoBehaviour
 {
@@ -16,15 +17,132 @@ public class Utils : MonoBehaviour
     public Texture2D CursorUsePressed;
     public GameObject Player;
     public bool PlayerMoving;
+
+    public List<LootItem> lootBox;
     // Start is called before the first frame update
     void Start()
     {
+        lootBox = new List<LootItem>();
         Cursor.SetCursor(CursorDefault, Vector2.zero, CursorMode.ForceSoftware);
+
+        // Filling the LootBox
+        // health pot 
+        for (int i = 0; i < 9; ++i)
+        {
+            LootItem item = new HealthPotion(Player);
+            lootBox.Add(item);
+        }
+
+        // energu booster
+        for (int i = 0; i < 9; ++i)
+        {
+            LootItem item = new EnergyBoost(Player);
+            lootBox.Add(item);
+        }
+
+        // speed potion
+        for (int i = 0; i < 4; ++i)
+        {
+            LootItem item = new SpeedPotion(Player);
+            lootBox.Add(item);
+        }
+
+        // agility pot
+        for (int i = 0; i < 4; ++i)
+        {
+            LootItem item = new AgilityPotion(Player);
+            lootBox.Add(item);
+        }
+
+        // torch orig
+        for (int i = 0; i < 4; ++i)
+        {
+            LootItem item = new Torch(Player, TimeState.Original);
+            lootBox.Add(item);
+        }
+
+        // torch shifted
+        for (int i = 0; i < 2; ++i)
+        {
+            LootItem item = new Torch(Player, TimeState.Shifted);
+            lootBox.Add(item);
+        }
+
+        // dexterity pot
+        for (int i = 0; i < 2; ++i)
+        {
+            LootItem item = new DexterityPotion(Player);
+            lootBox.Add(item);
+        }
+
+        // shifter cooler
+        for (int i = 0; i < 4; ++i)
+        {
+            LootItem item = new ShifterCooler(Player);
+            lootBox.Add(item);
+        }
+
+        // vitality pot
+        for (int i = 0; i < 2; ++i)
+        {
+            LootItem item = new VitalityPotion(Player);
+            lootBox.Add(item);
+        }
+
+        // energy band
+        for (int i = 0; i < 2; ++i)
+        {
+            LootItem item = new EnergyBank(Player);
+            lootBox.Add(item);
+        }
+
+        // shifter core
+        for (int i = 0; i < 3; ++i)
+        {
+            LootItem item = new ShifterCore(Player);
+            lootBox.Add(item);
+        }
+
+        // shifter charger
+        for (int i = 0; i < 3; ++i)
+        {
+            LootItem item = new ShifterCharger(Player);
+            lootBox.Add(item);
+        }
+
+        // strength pot
+        for (int i = 0; i < 2; ++i)
+        {
+            LootItem item = new StrengthPotion(Player);
+            lootBox.Add(item);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+
+    }
+
+    public void GetLoot(TimeState state)
+    {
+        IEnumerable<LootItem> items = lootBox.Where(item => item.existenceState == state);
+        int max = items.Count();
+
+        int lootIndex = new System.Random().Next(0, max - 1);
+        int index = 0;
+
+        foreach (LootItem item in items)
+        {
+            if (index == lootIndex)
+            {
+                item.GetBoon();
+                lootBox.Remove(item);
+                //Player.GetComponent<PlayerLogController>().Message(lootBox.Count() + " left");
+                return;
+            }
+            ++index;
+        }
 
     }
 
@@ -108,6 +226,206 @@ public class Utils : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+
+    public abstract class LootItem
+    {
+        public GameObject player;
+        public TimeState existenceState;
+
+        //public LootItem(GameObject player, List<TimeState> states)
+        public LootItem(GameObject player)
+        {
+            this.player = player;
+            /*foreach (TimeState state in states)
+            {
+                existenceStates.Add(state);
+            }*/
+        }
+        public abstract void GetBoon();
+    }
+
+    public class HealthPotion : LootItem
+    {
+        public HealthPotion(GameObject player) : base(player)
+        {
+            existenceState = TimeState.Shifted;
+        }
+
+        public override void GetBoon()
+        {
+            player.GetComponent<PlayerStats>().TakeDamage(-3);
+            player.GetComponent<PlayerLogController>().Message("You've found a healing potion! Your health increased.");
+            print("You've found a healing potion! Your health increased.");
+        }
+    }
+
+    public class EnergyBoost : LootItem
+    {
+        public EnergyBoost(GameObject player) : base(player)
+        {
+            existenceState = TimeState.Original;
+        }
+
+        public override void GetBoon()
+        {
+            player.GetComponent<PlayerStats>().ChangeEnergy(3);
+            player.GetComponent<PlayerLogController>().Message("You've found an energy boost! Your energy increased.");
+            print("You've found an energy boost! Your energy increased.");
+        }
+    }
+
+    public class SpeedPotion : LootItem
+    {
+        public SpeedPotion(GameObject player) : base(player)
+        {
+            existenceState = TimeState.Shifted;
+        }
+
+        public override void GetBoon()
+        {
+            player.GetComponent<PlayerMovement>().Speed += 2;
+            player.GetComponent<PlayerLogController>().Message("You've found a speed potion! You became faster.");
+            print("You've found a speed potion! You became faster.");
+        }
+    }
+
+    public class AgilityPotion : LootItem
+    {
+        public AgilityPotion(GameObject player) : base(player)
+        {
+            existenceState = TimeState.Shifted;
+        }
+
+        public override void GetBoon()
+        {
+            player.GetComponent<PlayerMovement>().RotationSpeed += 20;
+            player.GetComponent<PlayerLogController>().Message("You've found an agility potion! Your turns became faster.");
+            print("You've found an agility potion! Your turns became faster.");
+        }
+    }
+
+    public class Torch : LootItem
+    {
+        public Torch(GameObject player, TimeState state) : base(player)
+        {
+            existenceState = state;
+        }
+
+        public override void GetBoon()
+        {
+            player.GetComponent<PlayerMovement>().Torch.GetComponent<Light>().intensity += 5;
+            player.GetComponent<PlayerMovement>().Torch.GetComponent<Light>().range += 5;
+            player.GetComponent<PlayerLogController>().Message("You've found a torch! It radiates some more light.");
+            print("You've found a torch! It radiates some more light.");
+        }
+    }
+
+    public class DexterityPotion : LootItem
+    {
+        public DexterityPotion(GameObject player) : base(player)
+        {
+            existenceState = TimeState.Shifted;
+        }
+
+        public override void GetBoon()
+        {
+            player.GetComponent<PlayerStats>().attackSpeed -= 1;
+            player.GetComponent<PlayerLogController>().Message("You've found a dexterity potion! Your attacks became faster.");
+            print("You've found a dexterity potion! Your attacks became faster.");
+        }
+    }
+
+    public class ShifterCooler : LootItem
+    {
+        public ShifterCooler(GameObject player) : base(player)
+        {
+            existenceState = TimeState.Original;
+        }
+
+        public override void GetBoon()
+        {
+            player.GetComponent<PlayerStats>().shiftSpeed -= 1;
+            player.GetComponent<PlayerLogController>().Message("You've found a shifter cooler! Now it cools faster.");
+            print("You've found a shifter cooler! Now it cools faster.");
+        }
+    }
+
+    public class VitalityPotion : LootItem
+    {
+        public VitalityPotion(GameObject player) : base(player)
+        {
+            existenceState = TimeState.Shifted;
+        }
+
+        public override void GetBoon()
+        {
+            player.GetComponent<PlayerStats>().maxHealth += 25;
+            player.GetComponent<PlayerStats>().health += 25;
+            player.GetComponent<PlayerLogController>().Message("You've found a vitality potion! Your maximum health increased.");
+            print("You've found a vitality potion! Your maximum health increased.");
+        }
+    }
+
+    public class EnergyBank : LootItem
+    {
+        public EnergyBank(GameObject player) : base(player)
+        {
+            existenceState = TimeState.Original;
+        }
+
+        public override void GetBoon()
+        {
+            player.GetComponent<PlayerStats>().maxEnergy += 25;
+            player.GetComponent<PlayerStats>().energy += 25;
+            player.GetComponent<PlayerLogController>().Message("You've found an energy bank! Your maximum energy increased.");
+            print("You've found an energy bank! Your maximum energy increased.");
+        }
+    }
+
+    public class ShifterCore : LootItem
+    {
+        public ShifterCore(GameObject player) : base(player)
+        {
+            existenceState = TimeState.Original;
+        }
+
+        public override void GetBoon()
+        {
+            player.GetComponent<PlayerStats>().energyLoseRate += 1;
+            player.GetComponent<PlayerLogController>().Message("You've found a shifter core! You lose your energy slower.");
+            print("You've found a shifter core! You lose your energy slower.");
+        }
+    }
+
+    public class ShifterCharger : LootItem
+    {
+        public ShifterCharger(GameObject player) : base(player)
+        {
+            existenceState = TimeState.Original;
+        }
+
+        public override void GetBoon()
+        {
+            player.GetComponent<PlayerStats>().restoreEnergyCounter -= 2;
+            player.GetComponent<PlayerLogController>().Message("You've found a shifter charger! Your energy restores more quickly.");
+            print("You've found a shifter charger! Your energy restores more quickly.");
+        }
+    }
+
+    public class StrengthPotion : LootItem
+    {
+        public StrengthPotion(GameObject player) : base(player)
+        {
+            existenceState = TimeState.Shifted;
+        }
+
+        public override void GetBoon()
+        {
+            player.GetComponent<PlayerStats>().damage += 1;
+            player.GetComponent<PlayerLogController>().Message("You've found a strength potion! Your strikes become more deadly.");
+            print("You've found a strength potion! Your strikes become more deadly.");
         }
     }
 }
@@ -212,9 +530,3 @@ public interface Hittable
 
     public void Shift();
 }*/
-
-abstract class LootItem
-{
-    public abstract void GetBoon();
-}
-

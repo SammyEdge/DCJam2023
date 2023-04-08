@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public float Speed;
     [SerializeField] public float RotationSpeed; //??????? ? ???????
 
-    private int squareSize = 10;
+    //private int squareSize = 10;
 
     // Visible light distance
     public int lightDistance;

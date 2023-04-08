@@ -32,8 +32,8 @@ public class ClickHandler : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 8))
             {
-                print(ObjectTypes.ButtonOld);
-                print(hit.transform.name);
+                //print(ObjectTypes.ButtonOld);
+                //print(hit.transform.name);
                 // no dobavit suda proverku, smotrim li mi licom v obekt
                 // .TryGetComponent rewrite
                 if (hit.transform.gameObject.TryGetComponent<Hittable>(out Hittable hittable))
@@ -58,7 +58,7 @@ public class ClickHandler : MonoBehaviour
                 {
                     if (hit.transform.GetComponent<ExitContoller>().KeyPastInserted && hit.transform.GetComponent<ExitContoller>().KeyFutureInserted)
                     {
-                        print("Вы великолепны");
+                        print("пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
                     }
                 }
                 if (hit.transform.gameObject.GetComponent<InitialHitHandler>().ObjectType == ObjectTypes.Portal)

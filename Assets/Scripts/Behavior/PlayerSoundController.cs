@@ -16,6 +16,7 @@ public class PlayerSoundController : MonoBehaviour
     public AudioClip shift2;
     public AudioClip cooldown;
     public AudioClip grab;
+    public AudioClip killBoner;
 
     public AudioSource sound;
 
@@ -50,7 +51,7 @@ public class PlayerSoundController : MonoBehaviour
         sound.clip = attack3;
         sound.Play();
     }
-    
+
     public void DamageSound()
     {
         sound.clip = hit;
@@ -90,6 +91,12 @@ public class PlayerSoundController : MonoBehaviour
     public void GrabSound()
     {
         sound.clip = grab;
+        sound.Play();
+    }
+
+    public void KillBonerSound()
+    {
+        sound.clip = killBoner;
         sound.Play();
     }
 }

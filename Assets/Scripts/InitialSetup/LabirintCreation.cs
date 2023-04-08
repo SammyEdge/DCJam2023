@@ -1271,7 +1271,7 @@ public class LabirintCreation : MonoBehaviour
 
             // put a monster on a tile
             GameObject tile = ActiveTiles[newIndex];
-            if (tile.transform.position != new Vector3(0, 0, 0))
+            if (tile.transform.position != new Vector3(0, 0, 0) && tile.transform.position != new Vector3(0, 0, 10) && tile.transform.position != new Vector3(0, 0, -10))
             {
                 GameObject NewMonster = Instantiate(monster, tile.transform.position, Quaternion.Euler(0, 0, 0));
                 NewMonster.name = monster.name + i.ToString();
